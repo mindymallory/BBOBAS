@@ -151,6 +151,9 @@ write.csv(SummaryTableCum, "SummaryJan2010.csv")
 write.csv(CUMULDATA, 'CUMULDATA.csv')
 write.csv(CUMULTRANS, 'CUMULTRANS.csv')
 
+#Here is another edit
+#trying for rsh authentication
+
 # #Define as xts object (time series package)
 # times <- timeDate(paste0(CUMULDATA$TradeDate,CUMULDATA$TradeTime), format = "%Y%m%d%H%M%S")
 # CUMULDATA <- as.xts(subset(CUMULDATA, select = -c(TradeDate, TradeTime)), order.by = times)
