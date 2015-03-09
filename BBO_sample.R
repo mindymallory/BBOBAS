@@ -152,7 +152,7 @@ write.csv(CUMULDATA, 'CUMULDATA.csv')
 write.csv(CUMULTRANS, 'CUMULTRANS.csv')
 
 #Here is another edit
-#trying for rsh authentication
+#trying for rsh authentication - again
 
 # #Define as xts object (time series package)
 # times <- timeDate(paste0(CUMULDATA$TradeDate,CUMULDATA$TradeTime), format = "%Y%m%d%H%M%S")
