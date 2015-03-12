@@ -38,17 +38,17 @@ ConvertCornFuturesQuotes <- function(x){
 PERIOD = "seconds"
 # dates <- c("110110", "100126") #Dropbox
 # dates <- "110110"
-# dates <- "100126"
+ dates <- "100126"
 # dates <- "100112"
-#January 2010
-dates1 <-c(c(100104:100108), c(100111:100115), c(100119:100122),c(100125:100129)) 
-# #February 2010
- dates2 <-c(c(100201:100205), c(100208:100212), c(100216:100219),c(100222:100226))
-# #March 2010
- dates3 <- c(c(100301:100305), c(100308:100312), c(100315:100319),c(100322:100326),c(100329:100331))
-# #January 2011
- dates4 <-c(c(110103:110107), c(110110:110114), c(110118:110121),c(110124:110128), c(110131))
-dates <- c(dates1,dates2,dates3,dates4)
+# #January 2010
+# dates1 <-c(c(100104:100108), c(100111:100115), c(100119:100122),c(100125:100129)) 
+# # #February 2010
+#  dates2 <-c(c(100201:100205), c(100208:100212), c(100216:100219),c(100222:100226))
+# # #March 2010
+#  dates3 <- c(c(100301:100305), c(100308:100312), c(100315:100319),c(100322:100326),c(100329:100331))
+# # #January 2011
+#  dates4 <-c(c(110103:110107), c(110110:110114), c(110118:110121),c(110124:110128), c(110131))
+# dates <- c(dates1,dates2,dates3,dates4)
 i=1
 for(i in 1:length(dates)){
 
@@ -151,8 +151,10 @@ write.csv(SummaryTableCum, "SummaryJan2010.csv")
 write.csv(CUMULDATA, 'CUMULDATA.csv')
 write.csv(CUMULTRANS, 'CUMULTRANS.csv')
 
-#Here is another edit
-#trying for rsh authentication - again
+
+#Separate out the contracts here
+DeliveryDates <- unique(CUMULDATA$DeliveryDate)
+
 
 # #Define as xts object (time series package)
 # times <- timeDate(paste0(CUMULDATA$TradeDate,CUMULDATA$TradeTime), format = "%Y%m%d%H%M%S")
