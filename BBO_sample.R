@@ -154,6 +154,7 @@ write.csv(CUMULTRANS, 'CUMULTRANS.csv')
 
 #Separate out the contracts here
 DeliveryDates <- unique(CUMULDATA$DeliveryDate)
+DeliveryDates <- DeliveryDates[order(DeliveryDates)]
 
 
 # #Define as xts object (time series package)
