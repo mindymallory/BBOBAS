@@ -1,6 +1,8 @@
 #This code preprocesses the CMEGroup BBO data. It transforms the raw data so that
 #every timestamp has a bid, bid size, offer, offersize, and spread. Raw data puts 
-#ask and bid at same moment on different lines.
+#ask and bid at same moment on different lines. Then xts objects are created for 
+#trades and quotes and written to file for futher analysis later
+
 #BBO  contains electronic trades only and no spreads.
 
 library(LaF)
@@ -37,21 +39,21 @@ ConvertCornFuturesQuotes <- function(x){
   price <- price + e
   return(price)
 }
-PERIOD = "seconds"
+
 # dates <- c("110110", "100126") #Dropbox
 # dates <- "110110"
- dates <- "100126"
+# dates <- "100126"
 # dates <- "100112"
-# #January 2010
-# dates1 <-c(c(100104:100108), c(100111:100115), c(100119:100122),c(100125:100129)) 
-# # #February 2010
-#  dates2 <-c(c(100201:100205), c(100208:100212), c(100216:100219),c(100222:100226))
-# # #March 2010
-#  dates3 <- c(c(100301:100305), c(100308:100312), c(100315:100319),c(100322:100326),c(100329:100331))
-# # #January 2011
-#  dates4 <-c(c(110103:110107), c(110110:110114), c(110118:110121),c(110124:110128), c(110131))
-# dates <- c(dates1,dates2,dates3,dates4)
-i=1
+#January 2010
+dates1 <-c(c(100104:100108), c(100111:100115), c(100119:100122),c(100125:100129)) 
+# #February 2010
+ dates2 <-c(c(100201:100205), c(100208:100212), c(100216:100219),c(100222:100226))
+# #March 2010
+ dates3 <- c(c(100301:100305), c(100308:100312), c(100315:100319),c(100322:100326),c(100329:100331))
+# #January 2011
+ dates4 <-c(c(110103:110107), c(110110:110114), c(110118:110121),c(110124:110128), c(110131))
+dates <- c(dates1,dates2,dates3)
+#i=1
 for(i in 1:length(dates)){
 
 
@@ -157,8 +159,8 @@ DeliveryDates <- DeliveryDates[order(DeliveryDates)]
 
   #Creates an XTS object for every contract's quotes and trades
   #Naming convention is 't_date_contract'. for example t_20100126_1003 is the trades on 01-26-2010 for the March10 contract
+ptm <- proc.time()
   for(i in 1:length(DeliveryDates)){
-  
     #The Quotes 
     qtemp <- subset(CUMULDATA, SYMBOL == DeliveryDates[i])
     times <- timeDate(paste0(qtemp$TradeDate,qtemp$TradeTime), format = "%Y%m%d%H%M%S")
@@ -168,11 +170,15 @@ DeliveryDates <- DeliveryDates[order(DeliveryDates)]
     ttemp <- subset(CUMULTRANS, SYMBOL == DeliveryDates[i])
     times <- timeDate(paste0(ttemp$TradeDate,ttemp$TradeTime), format = "%Y%m%d%H%M%S")
     assign(paste0('t', '_', as.character(ttemp[1,1]), "_",as.character(DeliveryDates[i])) ,as.xts(subset(ttemp, select = -c(TradeDate, TradeTime)), order.by = times))
-    
-  
   }
+proc.time() - ptm
+  
+  rm(CUMULDATA)
+  rm(CUMULTRANS)
+  rm(CUMULBADPRICES)
   rm(qtemp)
   rm(ttemp)
+
 
 
 
@@ -201,6 +207,14 @@ DeliveryDates <- DeliveryDates[order(DeliveryDates)]
   pi <- tqLiquidity(mtq,t_20100126_1003,q_20100126_1003, type = "price_impact")
 
   
+#Testing basic xts functionality
+  plot(t_20100126_1003$PRICE)
+  plot(t_20100126_1003$PRICE["20100126 09:29:30/20100126 13:15:30"])
+
+#Save xts object and load it back into the workspace
+  save(mtq, file = "mtq.rda")
+  rm(mtq)
+  load('mtq.rda')
 
 
 
