@@ -165,11 +165,13 @@ ptm <- proc.time()
     qtemp <- subset(CUMULDATA, SYMBOL == DeliveryDates[i])
     times <- timeDate(paste0(qtemp$TradeDate,qtemp$TradeTime), format = "%Y%m%d%H%M%S")
     assign(paste0('q', '_', as.character(qtemp[1,1]), "_",as.character(DeliveryDates[i])) ,as.xts(subset(qtemp, select = -c(TradeDate, TradeTime)), order.by = times))
-  
+    save(paste0('q', '_', as.character(qtemp[1,1]), "_",as.character(DeliveryDates[i])), file = paste0('q', '_', as.character(qtemp[1,1]), "_",as.character(DeliveryDates[i]),".rda"))
+    
     #The Trades
     ttemp <- subset(CUMULTRANS, SYMBOL == DeliveryDates[i])
     times <- timeDate(paste0(ttemp$TradeDate,ttemp$TradeTime), format = "%Y%m%d%H%M%S")
     assign(paste0('t', '_', as.character(ttemp[1,1]), "_",as.character(DeliveryDates[i])) ,as.xts(subset(ttemp, select = -c(TradeDate, TradeTime)), order.by = times))
+  save(paste0('t', '_', as.character(ttemp[1,1]), "_",as.character(DeliveryDates[i])), file = paste0('t', '_', as.character(ttemp[1,1]), "_",as.character(DeliveryDates[i]),".rda"))
   }
 proc.time() - ptm
   
