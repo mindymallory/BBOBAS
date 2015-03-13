@@ -1,9 +1,9 @@
-#This code preprocesses the CMEGroup BBO data. It transforms the raw data so that
-#every timestamp has a bid, bid size, offer, offersize, and spread. Raw data puts 
-#ask and bid at same moment on different lines. Then xts objects are created for 
-#trades and quotes and written to file for futher analysis later
-
-#BBO  contains electronic trades only and no spreads.
+# This code preprocesses the CMEGroup BBO data. It transforms the raw data so that
+# every timestamp has a bid, bid size, offer, offersize, and spread. Raw data puts 
+# ask and bid at same moment on different lines. Then xts objects are created for 
+# trades and quotes and written to file for futher analysis later
+# BBO  contains electronic trades only and no spreads.
+# Copyright [2015] [Mindy L. Mallory]
 
 library(LaF)
 library(timeDate)
@@ -17,11 +17,9 @@ library(highfrequency)
 #setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
 setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') #Office PC
 ptm <- proc.time()
-#Set period to aggregate to, comment out to allow origianal (and often multiple)
-#quotes per second. Accepts "seconds", "minutes", etc
 
 ConvertCornFuturesQuotes <- function(x){
-  #x is a vector or variable that can be coerced to char type
+  # x is a vector or variable that can be coerced to char type
   # it should have 4 characters: hundreds, tens, ones, and 8th of a cent
   # since futures quotes are in cents per bushel and the ticks are 8ths of a cent
   # this function will only work for corn prices < $10/bushel since I did not define
@@ -44,18 +42,20 @@ ConvertCornFuturesQuotes <- function(x){
 # dates <- "110110"
 # dates <- "100126"
 # dates <- "100112"
-#January 2010
-dates1 <-c(c(100104:100108), c(100111:100115), c(100119:100122),c(100125:100129)) 
-# #February 2010
- dates2 <-c(c(100201:100205), c(100208:100212), c(100216:100219),c(100222:100226))
-# #March 2010
- dates3 <- c(c(100301:100305), c(100308:100312), c(100315:100319),c(100322:100326),c(100329:100331))
-# #January 2011
- dates4 <-c(c(110103:110107), c(110110:110114), c(110118:110121),c(110124:110128), c(110131))
-dates <- c(dates1,dates2,dates3)
+# #January 2010
+# dates1 <-c(c(100104:100108), c(100111:100115), c(100119:100122),c(100125:100129)) 
+# # #February 2010
+#  dates2 <-c(c(100201:100205), c(100208:100212), c(100216:100219),c(100222:100226))
+# # #March 2010
+#  dates3 <- c(c(100301:100305), c(100308:100312), c(100315:100319),c(100322:100326),c(100329:100331))
+# # #January 2011
+#  dates4 <-c(c(110103:110107), c(110110:110114), c(110118:110121),c(110124:110128), c(110131))
+# dates <- c(dates1,dates2,dates3)
+#First week January 2010
+dates <- c(100104:100108)
+
 #i=1
 for(i in 1:length(dates)){
-
 
   data <- laf_open_fwf(filename = paste0("XCBT_C_FUT_",dates[i],".txt"),                              
                        column_widths = c(8,6,8,1,3,1,4,5,7,
@@ -73,25 +73,23 @@ for(i in 1:length(dates)){
                                         "integer", "integer", "integer", "integer", "string",
                                         "categorical", "categorical", "categorical",
                                         "categorical", "categorical", "categorical", "categorical",
-                                        "categorical", "categorical", "categorical", "integer"), 
-  )
+                                        "categorical", "categorical", "categorical", "integer"), )
+  
   
   begin(data)
- # goto(data, 200014)
-  
-  NROWS = 50000 #manage memory by setting manageable block sizes
+  NROWS = 50000  # Manage memory by setting manageable block sizes
   DATA <- next_block(data, nrows = NROWS, columns= c(1,2,3,7,8,11,13))
-    CUMULDATA <- as.data.frame(t(as.numeric(matrix(0,1,8))))
+  CUMULDATA <- as.data.frame(t(as.numeric(matrix(0,1,8))))
   CUMULTRANS <- as.data.frame(t(as.numeric(matrix(0,6))))
   CUMULBADPRICES <- as.data.frame(t(as.numeric(matrix(0,7))))
   
-  while(dim(DATA)[1]>0){
-    DATA <- rename(DATA, EX=TradeSeq., SYMBOL=DeliveryDate)
-    BadPrices <- subset(DATA, DATA$TrPrice <= 1000)
-    DATA <- subset(DATA, DATA$TrPrice > 1000)
-    DATA$TrPrice <- ConvertCornFuturesQuotes(DATA$TrPrice)
+while(dim(DATA)[1]>0){
+  DATA <- rename(DATA, EX=TradeSeq., SYMBOL=DeliveryDate)
+  BadPrices <- subset(DATA, DATA$TrPrice <= 1000)
+  DATA <- subset(DATA, DATA$TrPrice > 1000)
+  DATA$TrPrice <- ConvertCornFuturesQuotes(DATA$TrPrice)
     
-    #Build the independent Ask and Bid objects
+  #Build the independent Ask and Bid objects
     ask <- subset(DATA, ASKBID == "A", select=-c(ASKBID))
     ask <- rename(ask, OFRSIZ=TrQuantity, OFR=TrPrice) #dplyr #Seems like sometimes rename 
     #ask <- rename(ask, c(TrQuantity="QOfferedAtAsk", TrPrice="AskPrice")) #reshape #
@@ -153,26 +151,32 @@ CUMULTRANS <- CUMULTRANS[2:dim(CUMULTRANS)[1],]
 CUMULBADPRICES <- CUMULBADPRICES[2:dim(CUMULBADPRICES)[1],]
 
 
-#Separate out the contracts here
+# Separate out the contracts here
 DeliveryDates <- unique(CUMULDATA$SYMBOL)
 DeliveryDates <- DeliveryDates[order(DeliveryDates)]
 
-  #Creates an XTS object for every contract's quotes and trades
-  #Naming convention is 't_date_contract'. for example t_20100126_1003 is the trades on 01-26-2010 for the March10 contract
+# Creates an XTS object for every contract's quotes and trades
+# Naming convention is 't_date_contract'. for example t_20100126_1003 is the trades on 01-26-2010 for the March10 contract
 ptm <- proc.time()
-  for(i in 1:length(DeliveryDates)){
+  
+for (j in 1:length(dates)) {  
+  
+  for (i in 1:length(DeliveryDates)) {
     #The Quotes 
     qtemp <- subset(CUMULDATA, SYMBOL == DeliveryDates[i])
     times <- timeDate(paste0(qtemp$TradeDate,qtemp$TradeTime), format = "%Y%m%d%H%M%S")
-    assign(paste0('q', '_', as.character(qtemp[1,1]), "_",as.character(DeliveryDates[i])) ,as.xts(subset(qtemp, select = -c(TradeDate, TradeTime)), order.by = times))
-    save(paste0('q', '_', as.character(qtemp[1,1]), "_",as.character(DeliveryDates[i])), file = paste0('q', '_', as.character(qtemp[1,1]), "_",as.character(DeliveryDates[i]),".rda"))
+    temp  <- as.xts(subset(qtemp, select = -c(TradeDate, TradeTime)), order.by = times)
+    save(temp, file = paste0('q', '_', as.character(dates[j]), "_", as.character(DeliveryDates[i]), ".rda"))
     
     #The Trades
     ttemp <- subset(CUMULTRANS, SYMBOL == DeliveryDates[i])
     times <- timeDate(paste0(ttemp$TradeDate,ttemp$TradeTime), format = "%Y%m%d%H%M%S")
-    assign(paste0('t', '_', as.character(ttemp[1,1]), "_",as.character(DeliveryDates[i])) ,as.xts(subset(ttemp, select = -c(TradeDate, TradeTime)), order.by = times))
-  save(paste0('t', '_', as.character(ttemp[1,1]), "_",as.character(DeliveryDates[i])), file = paste0('t', '_', as.character(ttemp[1,1]), "_",as.character(DeliveryDates[i]),".rda"))
+    temp  <- as.xts(subset(ttemp, select = -c(TradeDate, TradeTime)), order.by = times)
+    save(temp, file = paste0('t', '_', as.character(dates[j]), "_", as.character(DeliveryDates[i]), ".rda"))
   }
+    save(DeliveryDates, file = paste0('Contracts', as.character(dates[j]),"rda"))
+}
+
 proc.time() - ptm
   
   rm(CUMULDATA)
@@ -184,36 +188,36 @@ proc.time() - ptm
 
 
 
-#Testing for functionality with 'highfrequency' package functions
-  #Write the raw xts to file, but this testing ensures that the 
-  #highfrequency functions will work
+# Testing for functionality with 'highfrequency' package functions
+  # Write the raw xts to file, but this testing ensures that the 
+  # highfrequency functions will work
   
-  #First, have to use the 'merge' function because some of the highfreqency 
-  #functions crash if you try to pass an xts object with multiple
-  #rows with the same timestamp
+  # First, have to use the 'merge' function because some of the highfreqency 
+  # functions crash if you try to pass an xts object with multiple
+  # rows with the same timestamp
   q_20100126_1003 <- mergeQuotesSameTimestamp(q_20100126_1003)
   t_20100126_1003 <- mergeTradesSameTimestamp(t_20100126_1003)
 
-  #Aggregation over time
+  # Aggregation over time
   agg_q <- aggregateQuotes(q_20100126_1003, on='minutes', k=5)
   agg_t <- aggregateTrades(t_20100126_1003, on='minutes', k=5)
 
-  #Matching trades and quotes
+  # Matching trades and quotes
   mtq<-matchTradesQuotes(t_20100126_1003,q_20100126_1003)
 
-  #Get trade direction (useful for caculating PIN, e.g.,)
+  # Get trade direction (useful for caculating PIN, e.g.,)
   gtd <- getTradeDirection(mtq)
 
-  #Some liquidity measures
+  # Some liquidity measures
   qs <- tqLiquidity(mtq,t_20100126_1003,q_20100126_1003, type = "qs")
   pi <- tqLiquidity(mtq,t_20100126_1003,q_20100126_1003, type = "price_impact")
 
   
-#Testing basic xts functionality
+# Testing basic xts functionality
   plot(t_20100126_1003$PRICE)
   plot(t_20100126_1003$PRICE["20100126 09:29:30/20100126 13:15:30"])
 
-#Save xts object and load it back into the workspace
+# Save xts object and load it back into the workspace
   save(mtq, file = "mtq.rda")
   rm(mtq)
   load('mtq.rda')
