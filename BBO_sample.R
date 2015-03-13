@@ -18,44 +18,56 @@ library(highfrequency)
 setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') #Office PC
 ptm <- proc.time()
 
-ConvertCornFuturesQuotes <- function(x){
+ConvertCornFuturesQuotes <- function(x) {
   # x is a vector or variable that can be coerced to char type
   # it should have 4 characters: hundreds, tens, ones, and 8th of a cent
   # since futures quotes are in cents per bushel and the ticks are 8ths of a cent
   # this function will only work for corn prices < $10/bushel since I did not define
   # a thousandths place.
   
-  x <- strsplit(as.character(x), "")
-  h <- sapply(x, "[[", 1) #Selects the hudreds place
-  t <- sapply(x, "[[", 2) #Selects the tens place
-  o <- sapply(x, "[[", 3) #Selects the ones place
-  e <- sapply(x, "[[", 4) #Selects the 8th of a cent place
+  x     <- strsplit(as.character(x), "")
+  h     <- sapply(x, "[[", 1) #Selects the hudreds place
+  t     <- sapply(x, "[[", 2) #Selects the tens place
+  o     <- sapply(x, "[[", 3) #Selects the ones place
+  e     <- sapply(x, "[[", 4) #Selects the 8th of a cent place
   
   #Convert 8th of a cent to decimal
-  e <- as.numeric(e)/8
+  e     <- as.numeric(e)/8
   price <- as.numeric(paste0(h,t,o))
   price <- price + e
   return(price)
 }
 
-# dates <- c("110110", "100126") #Dropbox
-# dates <- "110110"
-# dates <- "100126"
-# dates <- "100112"
-# #January 2010
-# dates1 <-c(c(100104:100108), c(100111:100115), c(100119:100122),c(100125:100129)) 
-# # #February 2010
-#  dates2 <-c(c(100201:100205), c(100208:100212), c(100216:100219),c(100222:100226))
-# # #March 2010
-#  dates3 <- c(c(100301:100305), c(100308:100312), c(100315:100319),c(100322:100326),c(100329:100331))
-# # #January 2011
-#  dates4 <-c(c(110103:110107), c(110110:110114), c(110118:110121),c(110124:110128), c(110131))
-# dates <- c(dates1,dates2,dates3)
-#First week January 2010
-dates <- c(100104:100108)
+#********************************************************************************************************
+#********************************************************************************************************
+# Define the dates to loop over
+yearstart <- 2010
+yearend   <- 2011
+dates     <- timeSequence(from = paste(yearstart, "-01-01", sep = ""),
+                          to = paste(yearend, "-12-31", sep = ""))
 
-#i=1
-for(i in 1:length(dates)){
+# Code below requires dates to be integers, here we change the format
+dates     <- dates[isBizday(dates,holidayNYSE(yearstart:yearend))]
+dates     <- as.numeric(format(dates, format = "%y%m%d"))
+
+      # These dates were useful for testing
+      # dates <- c("110110", "100126") #Dropbox
+      # dates <- "110110"
+      # dates <- "100126"
+      # dates <- "100112"
+      # #January 2010
+      # dates1 <-c(c(100104:100108), c(100111:100115), c(100119:100122),c(100125:100129)) 
+      # # #February 2010
+      #  dates2 <-c(c(100201:100205), c(100208:100212), c(100216:100219),c(100222:100226))
+      # # #March 2010
+      #  dates3 <- c(c(100301:100305), c(100308:100312), c(100315:100319),c(100322:100326),c(100329:100331))
+      # # #January 2011
+      #  dates4 <-c(c(110103:110107), c(110110:110114), c(110118:110121),c(110124:110128), c(110131))
+      # dates <- c(dates1,dates2,dates3)
+#********************************************************************************************************
+#********************************************************************************************************
+
+for(i in 1:length(dates)) {
 
   data <- laf_open_fwf(filename = paste0("XCBT_C_FUT_",dates[i],".txt"),                              
                        column_widths = c(8,6,8,1,3,1,4,5,7,
@@ -77,26 +89,26 @@ for(i in 1:length(dates)){
   
   
   begin(data)
-  NROWS = 50000  # Manage memory by setting manageable block sizes
-  DATA <- next_block(data, nrows = NROWS, columns= c(1,2,3,7,8,11,13))
-  CUMULDATA <- as.data.frame(t(as.numeric(matrix(0,1,8))))
-  CUMULTRANS <- as.data.frame(t(as.numeric(matrix(0,6))))
+  NROWS          <- 50000  # Manage memory by setting manageable block sizes
+  DATA           <- next_block(data, nrows = NROWS, columns= c(1,2,3,7,8,11,13))
+  CUMULDATA      <- as.data.frame(t(as.numeric(matrix(0,1,8))))
+  CUMULTRANS     <- as.data.frame(t(as.numeric(matrix(0,6))))
   CUMULBADPRICES <- as.data.frame(t(as.numeric(matrix(0,7))))
   
-while(dim(DATA)[1]>0){
-  DATA <- rename(DATA, EX=TradeSeq., SYMBOL=DeliveryDate)
-  BadPrices <- subset(DATA, DATA$TrPrice <= 1000)
-  DATA <- subset(DATA, DATA$TrPrice > 1000)
-  DATA$TrPrice <- ConvertCornFuturesQuotes(DATA$TrPrice)
+while(dim(DATA)[1]>0) {
+  DATA           <- rename(DATA, EX=TradeSeq., SYMBOL=DeliveryDate)
+  BadPrices      <- subset(DATA, DATA$TrPrice <= 1000)
+  DATA           <- subset(DATA, DATA$TrPrice > 1000)
+  DATA$TrPrice   <- ConvertCornFuturesQuotes(DATA$TrPrice)
     
   #Build the independent Ask and Bid objects
-    ask <- subset(DATA, ASKBID == "A", select=-c(ASKBID))
-    ask <- rename(ask, OFRSIZ=TrQuantity, OFR=TrPrice) #dplyr #Seems like sometimes rename 
-    #ask <- rename(ask, c(TrQuantity="QOfferedAtAsk", TrPrice="AskPrice")) #reshape #
+    ask          <- subset(DATA, ASKBID == "A", select=-c(ASKBID))
+    ask          <- rename(ask, OFRSIZ=TrQuantity, OFR=TrPrice) #dplyr #Seems like sometimes rename 
+    #ask          <- rename(ask, c(TrQuantity="QOfferedAtAsk", TrPrice="AskPrice")) #reshape #
     
-    bid <- subset(DATA, ASKBID == "B", select=-c(ASKBID))
-    bid <- rename(bid, BIDSIZ=TrQuantity, BID=TrPrice) #dplyr
-    #bid <- rename(bid, c(TrQuantity="QOfferedAtBid", TrPrice="BidPrice")) #reshape #
+    bid          <- subset(DATA, ASKBID == "B", select=-c(ASKBID))
+    bid          <- rename(bid, BIDSIZ=TrQuantity, BID=TrPrice) #dplyr
+    #bid          <- rename(bid, c(TrQuantity="QOfferedAtBid", TrPrice="BidPrice")) #reshape #
     
     TRANSACTIONS <- subset(DATA, ASKBID != "A" & ASKBID != "B" , select=-c(ASKBID)) #
     TRANSACTIONS <- rename(TRANSACTIONS, SIZE= TrQuantity, PRICE=TrPrice) #dplyr no rename needed
@@ -104,89 +116,67 @@ while(dim(DATA)[1]>0){
     #TRANSACTIONS <- rename(TRANSACTIONS, c(TrQuantity="TrQuantity")) #reshape #
     
     #Join ask and bid to replace the original DATA dataframe and get rid of ask, bid dataframes
-    DATA <- merge(ask, bid, by = cbind(names(DATA[,1:4])), join = "outer") 
-    
-    ##this merge of askbids and transactions is not correct. See duplicated trseq#'s
-    #DATAM <- merge(DATA, transactions, by = cbind(names(DATA[,1:2]),"DeliveryDate"),  join = "outer") 
+    DATA         <- merge(ask, bid, by = cbind(names(DATA[,1:4])), join = "outer") 
     
     #Memory Management
     rm(ask) 
     rm(bid)
     
-    names(CUMULDATA) <- names(DATA)
-    CUMULDATA <- rbind(CUMULDATA,DATA)
+    names(CUMULDATA)      <- names(DATA)
+    CUMULDATA             <- rbind(CUMULDATA,DATA)
     
-    names(CUMULTRANS) <- names(TRANSACTIONS)
-    CUMULTRANS <- rbind(CUMULTRANS,TRANSACTIONS)
+    names(CUMULTRANS)     <- names(TRANSACTIONS)
+    CUMULTRANS            <- rbind(CUMULTRANS,TRANSACTIONS)
     
     names(CUMULBADPRICES) <- names(BadPrices)
-    CUMULBADPRICES <- rbind(CUMULBADPRICES,BadPrices)
+    CUMULBADPRICES        <- rbind(CUMULBADPRICES,BadPrices)
     
-    DATA <- next_block(data, nrows = NROWS, columns= c(1,2,3,7,8,11,13))
+    DATA                  <- next_block(data, nrows = NROWS, columns= c(1,2,3,7,8,11,13))
   }
-  
-  
-#   Contracts <- group_by(CUMULTRANS, DeliveryDate)
-#   BAS <- group_by(CUMULDATA, DeliveryDate)
-#   
-#   SummaryTable <- merge(summarize(Contracts, Volume = sum(TrQuantity)), 
-#                         summarize(BAS, BAS = mean(BASpread), MidPrice = mean(BidAskMid)), 
-#                         by = 'DeliveryDate', join = "outer")
-#   SummaryTable[1,2] <- dates[i] 
-#   if(i!=1) {
-#     SummaryTableCum <- rbind(SummaryTableCum,SummaryTable)
-#     } else 
-#       SummaryTableCum <- SummaryTable #merge(SummaryTableCum, SummaryTable, by = 'DeliveryDate', join = "outer")
 
-}
-proc.time() - ptm
-
-# write.csv(SummaryTableCum, "SummaryJan2010.csv")
-# write.csv(CUMULDATA, 'CUMULDATA.csv')
-# write.csv(CUMULTRANS, 'CUMULTRANS.csv')
 
 #Clean up the top row of the saved data
-CUMULDATA <- CUMULDATA[2:dim(CUMULDATA)[1],]
-CUMULTRANS <- CUMULTRANS[2:dim(CUMULTRANS)[1],]
+CUMULDATA      <- CUMULDATA[2:dim(CUMULDATA)[1],]
+CUMULTRANS     <- CUMULTRANS[2:dim(CUMULTRANS)[1],]
 CUMULBADPRICES <- CUMULBADPRICES[2:dim(CUMULBADPRICES)[1],]
 
 
 # Separate out the contracts here
-DeliveryDates <- unique(CUMULDATA$SYMBOL)
-DeliveryDates <- DeliveryDates[order(DeliveryDates)]
+DeliveryDates  <- unique(CUMULDATA$SYMBOL)
+DeliveryDates  <- DeliveryDates[order(DeliveryDates)]
 
 # Creates an XTS object for every contract's quotes and trades
 # Naming convention is 't_date_contract'. for example t_20100126_1003 is the trades on 01-26-2010 for the March10 contract
-ptm <- proc.time()
-  
-for (j in 1:length(dates)) {  
-  
-  for (i in 1:length(DeliveryDates)) {
-    #The Quotes 
-    qtemp <- subset(CUMULDATA, SYMBOL == DeliveryDates[i])
-    times <- timeDate(paste0(qtemp$TradeDate,qtemp$TradeTime), format = "%Y%m%d%H%M%S")
-    temp  <- as.xts(subset(qtemp, select = -c(TradeDate, TradeTime)), order.by = times)
-    save(temp, file = paste0('q', '_', as.character(dates[j]), "_", as.character(DeliveryDates[i]), ".rda"))
-    
-    #The Trades
-    ttemp <- subset(CUMULTRANS, SYMBOL == DeliveryDates[i])
-    times <- timeDate(paste0(ttemp$TradeDate,ttemp$TradeTime), format = "%Y%m%d%H%M%S")
-    temp  <- as.xts(subset(ttemp, select = -c(TradeDate, TradeTime)), order.by = times)
-    save(temp, file = paste0('t', '_', as.character(dates[j]), "_", as.character(DeliveryDates[i]), ".rda"))
-  }
-    save(DeliveryDates, file = paste0('Contracts', as.character(dates[j]),"rda"))
-}
 
+for (i in 1:length(DeliveryDates)) {
+  #The Quotes 
+  qtemp      <- subset(CUMULDATA, SYMBOL == DeliveryDates[i])
+  times      <- timeDate(paste0(qtemp$TradeDate,qtemp$TradeTime), format = "%Y%m%d%H%M%S")
+  temp       <- as.xts(subset(qtemp, select = -c(TradeDate, TradeTime)), order.by = times)
+  save(temp, file = paste0('q', '_', as.character(dates[j]), "_", as.character(DeliveryDates[i]), ".rda"))
+  
+  #The Trades
+  ttemp      <- subset(CUMULTRANS, SYMBOL == DeliveryDates[i])
+  times      <- timeDate(paste0(ttemp$TradeDate,ttemp$TradeTime), format = "%Y%m%d%H%M%S")
+  temp       <- as.xts(subset(ttemp, select = -c(TradeDate, TradeTime)), order.by = times)
+  save(temp, file = paste0('t', '_', as.character(dates[j]), "_", as.character(DeliveryDates[i]), ".rda"))
+  
+  # Makes a record of any bad prices identified
+  if(is.na(CUMULBADPRICES)[1] == FALSE) {save(CUMULBADPRICES, file = paste0('BADPRICES',as.character(dates[j])), ".rda")
+  }
+}
+save(DeliveryDates, file = paste0('Contracts', as.character(dates[j]),".rda"))
+
+}
 proc.time() - ptm
+
+
   
   rm(CUMULDATA)
   rm(CUMULTRANS)
   rm(CUMULBADPRICES)
   rm(qtemp)
   rm(ttemp)
-
-
-
 
 # Testing for functionality with 'highfrequency' package functions
   # Write the raw xts to file, but this testing ensures that the 
@@ -203,14 +193,14 @@ proc.time() - ptm
   agg_t <- aggregateTrades(t_20100126_1003, on='minutes', k=5)
 
   # Matching trades and quotes
-  mtq<-matchTradesQuotes(t_20100126_1003,q_20100126_1003)
+  mtq   <- matchTradesQuotes(t_20100126_1003,q_20100126_1003)
 
   # Get trade direction (useful for caculating PIN, e.g.,)
-  gtd <- getTradeDirection(mtq)
+  gtd   <- getTradeDirection(mtq)
 
   # Some liquidity measures
-  qs <- tqLiquidity(mtq,t_20100126_1003,q_20100126_1003, type = "qs")
-  pi <- tqLiquidity(mtq,t_20100126_1003,q_20100126_1003, type = "price_impact")
+  qs    <- tqLiquidity(mtq,t_20100126_1003,q_20100126_1003, type = "qs")
+  pi    <- tqLiquidity(mtq,t_20100126_1003,q_20100126_1003, type = "price_impact")
 
   
 # Testing basic xts functionality
