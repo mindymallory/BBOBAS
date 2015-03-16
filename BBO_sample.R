@@ -43,7 +43,7 @@ ConvertCornFuturesQuotes <- function(x) {
 # Define the dates to loop over
 yearstart <- 2010
 yearend   <- 2011
-dates     <- timeSequence(from = paste(yearstart, "-01-01", sep = ""),
+dates     <- timeSequence(from = paste(yearstart, "-02-09", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
                           to = paste(yearend, "-12-31", sep = ""))
 
 # Code below requires dates to be integers, here we change the format
@@ -148,24 +148,24 @@ DeliveryDates  <- DeliveryDates[order(DeliveryDates)]
 # Creates an XTS object for every contract's quotes and trades
 # Naming convention is 't_date_contract'. for example t_20100126_1003 is the trades on 01-26-2010 for the March10 contract
 
-for (i in 1:length(DeliveryDates)) {
+for (j in 1:length(DeliveryDates)) {
   #The Quotes 
-  qtemp      <- subset(CUMULDATA, SYMBOL == DeliveryDates[i])
+  qtemp      <- subset(CUMULDATA, SYMBOL == DeliveryDates[j])
   times      <- timeDate(paste0(qtemp$TradeDate,qtemp$TradeTime), format = "%Y%m%d%H%M%S")
   temp       <- as.xts(subset(qtemp, select = -c(TradeDate, TradeTime)), order.by = times)
-  save(temp, file = paste0('q', '_', as.character(dates[j]), "_", as.character(DeliveryDates[i]), ".rda"))
+  save(temp, file = paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j]), ".rda"))
   
   #The Trades
-  ttemp      <- subset(CUMULTRANS, SYMBOL == DeliveryDates[i])
+  ttemp      <- subset(CUMULTRANS, SYMBOL == DeliveryDates[j])
   times      <- timeDate(paste0(ttemp$TradeDate,ttemp$TradeTime), format = "%Y%m%d%H%M%S")
   temp       <- as.xts(subset(ttemp, select = -c(TradeDate, TradeTime)), order.by = times)
-  save(temp, file = paste0('t', '_', as.character(dates[j]), "_", as.character(DeliveryDates[i]), ".rda"))
+  save(temp, file = paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j]), ".rda"))
   
   # Makes a record of any bad prices identified
-  if(is.na(CUMULBADPRICES)[1] == FALSE) {save(CUMULBADPRICES, file = paste0('BADPRICES',as.character(dates[j])), ".rda")
+  if(is.na(CUMULBADPRICES)[1] == FALSE) {save(CUMULBADPRICES, file = paste0('BADPRICES',as.character(dates[i]), ".rda"))
   }
 }
-save(DeliveryDates, file = paste0('Contracts', as.character(dates[j]),".rda"))
+save(DeliveryDates, file = paste0('Contracts', as.character(dates[i]),".rda"))
 
 }
 proc.time() - ptm
