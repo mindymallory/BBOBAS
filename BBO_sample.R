@@ -43,8 +43,13 @@ ConvertCornFuturesQuotes <- function(x) {
 # Define the dates to loop over
 yearstart <- 2010
 yearend   <- 2011
-dates     <- timeSequence(from = paste(yearstart, "-02-09", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
+dates     <- timeSequence(from = paste(yearstart, "-04-06", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
                           to = paste(yearend, "-12-31", sep = ""))
+# Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
+# and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the 
+# file was 12 times larger than the typical size and it was taking too long to process. Would make an interesting case
+# study to go back and investigate. 
+
 
 # Code below requires dates to be integers, here we change the format
 dates     <- dates[isBizday(dates,holidayNYSE(yearstart:yearend))]
@@ -164,7 +169,7 @@ for (j in 1:length(DeliveryDates)) {
   # Makes a record of any bad prices identified
   if(is.na(CUMULBADPRICES)[1] == FALSE) {save(CUMULBADPRICES, file = paste0('BADPRICES',as.character(dates[i]), ".rda"))
   }
-}
+  }
 save(DeliveryDates, file = paste0('Contracts', as.character(dates[i]),".rda"))
 
 }
