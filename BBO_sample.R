@@ -10,11 +10,10 @@ library(reshape)
 library(dplyr)
 library(xtable)
 
-#setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
-setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') #Office PC
+setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
+#setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') #Office PC
 ptm <- proc.time()
-#Set period to aggregate to, comment out to allow origianal (and often multiple)
-#quotes per second. Accepts "seconds", "minutes", etc
+
 
 ConvertCornFuturesQuotes <- function(x){
   #x is a vector or variable that can be coerced to char type
@@ -35,21 +34,23 @@ ConvertCornFuturesQuotes <- function(x){
   price <- price + e
   return(price)
 }
+#Set period to aggregate to, comment out to allow origianal (and often multiple)
+#quotes per second. Accepts "seconds", "minutes", etc
 PERIOD = "seconds"
-# dates <- c("110110", "100126") #Dropbox
+#dates <- c("110110", "100126") #Dropbox
 # dates <- "110110"
-# dates <- "100126"
+ dates <- "100126"
 # dates <- "100112"
-#January 2010
-dates1 <-c(c(100104:100108), c(100111:100115), c(100119:100122),c(100125:100129)) 
-# #February 2010
- dates2 <-c(c(100201:100205), c(100208:100212), c(100216:100219),c(100222:100226))
-# #March 2010
- dates3 <- c(c(100301:100305), c(100308:100312), c(100315:100319),c(100322:100326),c(100329:100331))
-# #January 2011
- dates4 <-c(c(110103:110107), c(110110:110114), c(110118:110121),c(110124:110128), c(110131))
-dates <- c(dates1,dates2,dates3,dates4)
-i=1
+# #January 2010
+# dates1 <-c(c(100104:100108), c(100111:100115), c(100119:100122),c(100125:100129)) 
+# # #February 2010
+#  dates2 <-c(c(100201:100205), c(100208:100212), c(100216:100219),c(100222:100226))
+# # #March 2010
+#  dates3 <- c(c(100301:100305), c(100308:100312), c(100315:100319),c(100322:100326),c(100329:100331))
+# # #January 2011
+#  dates4 <-c(c(110103:110107), c(110110:110114), c(110118:110121),c(110124:110128), c(110131))
+# dates <- c(dates1,dates2,dates3,dates4)
+
 for(i in 1:length(dates)){
 
 
@@ -88,12 +89,12 @@ for(i in 1:length(dates)){
     
     #Build the independent Ask and Bid objects
     ask <- subset(DATA, ASKBID == "A", select=-c(ASKBID))
-    ask <- rename(ask, QOfferedAtAsk=TrQuantity, AskPrice=TrPrice) #dplyr #Seems like sometimes rename 
-    #ask <- rename(ask, c(TrQuantity="QOfferedAtAsk", TrPrice="AskPrice")) #reshape #
+    #ask <- rename(ask, QOfferedAtAsk=TrQuantity, AskPrice=TrPrice) #dplyr #Seems like sometimes rename 
+    ask <- rename(ask, c(TrQuantity="QOfferedAtAsk", TrPrice="AskPrice")) #reshape #
     
     bid <- subset(DATA, ASKBID == "B", select=-c(ASKBID))
-    bid <- rename(bid, QOfferedAtBid=TrQuantity, BidPrice=TrPrice) #dplyr
-    #bid <- rename(bid, c(TrQuantity="QOfferedAtBid", TrPrice="BidPrice")) #reshape #
+    #bid <- rename(bid, QOfferedAtBid=TrQuantity, BidPrice=TrPrice) #dplyr
+    bid <- rename(bid, c(TrQuantity="QOfferedAtBid", TrPrice="BidPrice")) #reshape #
     
     TRANSACTIONS <- subset(DATA, ASKBID != "A" & ASKBID != "B" , select=-c(ASKBID)) #
     #TRANSACTIONS <- rename(TRANSACTIONS, TrQuantity=TransQuantity) #dplyr no rename needed
@@ -151,8 +152,8 @@ write.csv(SummaryTableCum, "SummaryJan2010.csv")
 write.csv(CUMULDATA, 'CUMULDATA.csv')
 write.csv(CUMULTRANS, 'CUMULTRANS.csv')
 
-#Here is another edit
-#trying for rsh authentication - again
+
+
 
 # #Define as xts object (time series package)
 # times <- timeDate(paste0(CUMULDATA$TradeDate,CUMULDATA$TradeTime), format = "%Y%m%d%H%M%S")
