@@ -50,6 +50,9 @@ dates <- timeSequence(from = paste(yearstart, "-01-04", sep = ""),
 dates <- dates[isBizday(dates,holidayNYSE(yearstart:yearend))]
 dates <- as.numeric(format(dates, format = "%y%m%d"))
 
+CUMULCORREL1 <- as.data.frame(timeSequence(from = "2010-01-04 09:29:00", to = "2010-01-04 13:15:00", by = 'min'))
+CUMULCORREL2 <- as.data.frame(timeSequence(from = "2010-01-04 09:29:00", to = "2010-01-04 13:15:00", by = 'min'))
+CUMULCORREL3 <- as.data.frame(timeSequence(from = "2010-01-04 09:29:00", to = "2010-01-04 13:15:00", by = 'min'))
 for(i in 1:length(dates)){
     #This is already named 'DeliveryDates' upon loading. It must remember the name of the xts object it was saved from
     load(paste0('Contracts', as.character(dates[i]) ,".rda")) 
@@ -71,38 +74,71 @@ for(i in 1:length(dates)){
 
   #Now begin calculations
   # Identify nearby and two years of the forward maturities
-  q_nearby <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
-  q_plus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
-  q_plus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
-  q_plus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
-  q_plus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
-  q_plus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
-  q_plus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
-  q_plus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
-  q_plus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
-  q_plus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
+  qnearby <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
+  qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
+  qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
+  qplus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
+  qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
+  qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
+  qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
+  qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
+  qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
+  qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
 
-  #   t_nearby <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
-  #   t_plus1  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
-  #   t_plus2  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
-  #   t_plus3  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
-  #   t_plus4  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
-  #   t_plus5  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
-  #   t_plus6  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
-  #   t_plus7  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
-  #   t_plus8  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
-  #   t_plus9  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
+  #   tnearby <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
+  #   tplus1  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
+  #   tplus2  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
+  #   tplus3  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
+  #   tplus4  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
+  #   tplus5  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
+  #   tplus6  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
+  #   tplus7  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
+  #   tplus8  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
+  #   tplus9  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
   
   rm(list = ls()[grep("^q_", ls())]) # Removes all varaibles that start with "q_"
   rm(list = ls()[grep("^t_", ls())]) # Removes all varaibles that start with "q_"
   
-  nearby_BID <- to.period(q_nearby$BID, period = 'seconds', k = 1, OHLC = FALSE)
-  plus1_BID <- to.period(q_plus1$BID, period = 'seconds', k = 1, OHLC = FALSE)
-
-  # Probably need to merge then drop so that the data line up.
-  ccf(drop(nearby_BID), drop(plus1_BID), lag.max = NULL, type = "correlation",
-    plot = TRUE, na.action = na.pass)
+  # Nearby and plus1
+  nearby_BID <- to.period(qnearby$BID, period = 'seconds', k = 1, OHLC = FALSE)
+  plus1_BID <- to.period(qplus1$BID, period = 'seconds', k = 1, OHLC = FALSE)
   
+  near_plus1 <- merge(nearby_BID, plus1_BID, all = TRUE, fill = NA, join = "outer", 
+                retside = TRUE, retclass = "xts")
+
+  near_plus1.df <- as.data.frame(near_plus1)
+  cor(near_plus1.df, use = "pairwise.complete.obs")
+
+  ep <- endpoints(near_plus1.df, 'minutes')
+  correl1<- period.apply(near_plus1.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  CUMULCORREL1 <- cbind(CUMULCORREL1, as.data.frame(correl1$X2))
+
+  #Nearby and plus2
+  plus2_BID <- to.period(qplus1$BID, period = 'seconds', k = 1, OHLC = FALSE)
+  
+  near_plus2 <- merge(nearby_BID, plus2_BID, all = TRUE, fill = NA, join = "outer", 
+                      retside = TRUE, retclass = "xts")
+  
+  near_plus2.df <- as.data.frame(near_plus2)
+  cor(near_plus2.df, use = "pairwise.complete.obs")
+  
+  ep <- endpoints(near_plus2.df, 'minutes')
+  correl2<- period.apply(near_plus2.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  CUMULCORREL2 <- cbind(CUMULCORREL2, as.data.frame(correl2$X2))
+
+  #Nearby and plus3
+  plus3_BID <- to.period(qplus3$BID, period = 'seconds', k = 1, OHLC = FALSE)
+  
+  near_plus3 <- merge(nearby_BID, plus3_BID, all = TRUE, fill = NA, join = "outer", 
+                      retside = TRUE, retclass = "xts")
+  
+  near_plus3.df <- as.data.frame(near_plus3)
+  cor(near_plus3.df, use = "pairwise.complete.obs")
+  
+  ep <- endpoints(near_plus3.df, 'minutes')
+  correl3<- period.apply(near_plus3.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  CUMULCORREL3 <- cbind(CUMULCORREL3, as.data.frame(correl3$X2))
+
   
   # Delete every day's xts objects before moving on to next day to manage memory
   #rm(list = ls()[grep("^q_", ls())]) # Removes all varaibles that start with "q_"
@@ -110,8 +146,8 @@ for(i in 1:length(dates)){
 }
 
 
-
-
+#hist(as.numeric(CUMULCORREL1[50,2:4]))
+#See ggplot2 - 
 
 
 
