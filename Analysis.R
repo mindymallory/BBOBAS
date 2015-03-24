@@ -26,6 +26,7 @@ library(reshape)
 library(dplyr)
 library(xtable)
 library(highfrequency)
+library(ggplot2)
 
 setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
 
@@ -324,7 +325,13 @@ p2secs_to_update_OFR  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2
 hist(as.numeric(CUMULCORREL1_BID[10,2:4]))
 #See ggplot2 - 
 
+colnames(CUMULCORREL1_BID_rets) <- c("Time", "1", "2", "3")
+CUMULCORREL1_BID_rets$mean <- rowMeans(CUMULCORREL1_BID_rets[,2:dim(CUMULCORREL1_BID_rets)[2]], 
+                                       na.rm = FALSE, dims = 1)
+CUMULCORREL1_BID_rets$min <- rowMins(CUMULCORREL1_BID_rets[,2:dim(CUMULCORREL1_BID_rets)[2]],   na.rm = FALSE, dims = 1) 
 
+Bid_correlation1 <- ggplot(CUMULCORREL1_BID_rets, aes( , , ymin = 0, ymax = 1))
+Bid_correlation1 + geom_pointrange()
 
 
 
