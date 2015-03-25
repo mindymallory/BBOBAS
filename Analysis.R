@@ -325,13 +325,28 @@ p2secs_to_update_OFR  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2
 hist(as.numeric(CUMULCORREL1_BID[10,2:4]))
 #See ggplot2 - 
 
-colnames(CUMULCORREL1_BID_rets) <- c("Time", "1", "2", "3")
-CUMULCORREL1_BID_rets$mean <- rowMeans(CUMULCORREL1_BID_rets[,2:dim(CUMULCORREL1_BID_rets)[2]], 
-                                       na.rm = FALSE, dims = 1)
-CUMULCORREL1_BID_rets$min <- rowMins(CUMULCORREL1_BID_rets[,2:dim(CUMULCORREL1_BID_rets)[2]],   na.rm = FALSE, dims = 1) 
+colnames(CUMULCORREL1_BID_rets) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_BID_rets$TimeBins), 2, substr, 12, 19)
+colnames(temp) <- "TimeBins" # Name assignments seem redundent, but it wanted to override the name otherwise
+CUMULCORREL1_BID_rets$TimeBins <- factor(temp)
 
-Bid_correlation1 <- ggplot(CUMULCORREL1_BID_rets, aes( , , ymin = 0, ymax = 1))
-Bid_correlation1 + geom_pointrange()
+CUMULCORREL1_BID_rets$MEANS <- apply(CUMULCORREL1_BID_rets[,2:dim(CUMULCORREL1_BID_rets)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_BID_rets$sdS <- apply(CUMULCORREL1_BID_rets[,2:dim(CUMULCORREL1_BID_rets)[2]], 1, sd, na.rm = TRUE) 
+#CUMULCORREL1_BID_rets$MAXES <- apply(CUMULCORREL1_BID_rets[,2:dim(CUMULCORREL1_BID_rets)[2]], 1, max, na.rm = TRUE)
 
+
+
+Bid_correlation1 <- ggplot()
+Bid_correlation1 + geom_pointrange(CUMULCORREL1_BID_rets, aes(x=CUMULCORREL1_BID_rets$Time, y=mean , ymin = min, ymax = max))
+
+ggplot(data=CUMULCORREL1_BID_rets, mapping=aes(TimeBins, MEANS, ymin = MEANS - 2*sdS, 
+                                               ymax = MEANS + 2*sdS)) + 
+  geom_errorbar() +
+  geom_point() + 
+  ggtitle('Contemporanious Correleation Nearby and Plus 1 Contracts') +
+  opts(axis.text.x=theme_text(angle=45))
+
+
+ggplot(CUMULCORREL1_BID_rets, aes(TimeBins, MEANS)) + stat_smooth()
 
 
