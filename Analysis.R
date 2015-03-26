@@ -119,12 +119,15 @@ for(i in 1:length(dates)){
   nearby_BID        <- to.period(qnearby$BID, period = 'seconds', k = 1, OHLC = FALSE)
   nearby_BID_rets   <- diff.xts(nearby_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
   non_zeros         <- index(nearby_BID_rets)[which(nearby_BID_rets != 0)]
-  nsecs_to_update   <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
+  nsecs_to_update   <- difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
+  nearby_BID_rets   <- subset(nearby_BID_rets, BID != 0)
+
 
   plus1_BID         <- to.period(qplus1$BID, period = 'seconds', k = 1, OHLC = FALSE)
   plus1_BID_rets    <- diff.xts(plus1_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
   non_zeros         <- index(plus1_BID_rets)[which(plus1_BID_rets != 0)]
   p1secs_to_update_BID  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
+  plus1_BID_rets    <- subset(plus1_BID_rets, BID !=0)
 
   nearby_OFR        <- to.period(qnearby$OFR, period = 'seconds', k = 1, OHLC = FALSE)
   nearby_OFR_rets   <- diff.xts(nearby_OFR, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
@@ -194,7 +197,7 @@ plus2_BID         <- to.period(qplus2$BID, period = 'seconds', k = 1, OHLC = FAL
 plus2_BID_rets    <- diff.xts(plus2_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
 non_zeros         <- index(plus2_BID_rets)[which(plus2_BID_rets != 0)]
 p2secs_to_update_BID  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
-
+plus2_BID_rets    <- subset(plus2_BID_rets, BID !=0)
 
 plus2_OFR         <- to.period(qplus2$OFR, period = 'seconds', k = 1, OHLC = FALSE)
 plus2_OFR_rets    <- diff.xts(plus2_OFR, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
@@ -344,7 +347,18 @@ p2secs_to_update_OFR  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2
   CUMULCORREL2_BID_rets$sdS <- apply(CUMULCORREL2_BID_rets[,2:dim(CUMULCORREL2_BID_rets)[2]], 1, sd, na.rm = TRUE) 
   CUMULCORREL2_BID_rets$contract <- factor("plus2")
 
-  CUMULCORREL_BID_rets <- rbind(CUMULCORREL1_BID_rets, CUMULCORREL2_BID_rets)
+  # Bids Contemporaneous Plus2
+  colnames(CUMULCORREL3_BID_rets) <- "TimeBins"
+  temp <- apply(as.data.frame(CUMULCORREL3_BID_rets$TimeBins), 2, substr, 12, 19)
+  colnames(temp) <- "TimeBins" # Name assignments seem redundent, but it wanted to override the name otherwise
+  CUMULCORREL3_BID_rets$TimeBins <- factor(temp)
+  
+  CUMULCORREL3_BID_rets$MEANS <- apply(CUMULCORREL3_BID_rets[,2:dim(CUMULCORREL3_BID_rets)[2]], 1, mean, na.rm = TRUE)
+  CUMULCORREL3_BID_rets$sdS <- apply(CUMULCORREL3_BID_rets[,2:dim(CUMULCORREL3_BID_rets)[2]], 1, sd, na.rm = TRUE) 
+  CUMULCORREL3_BID_rets$contract <- factor("plus3")
+
+
+  CUMULCORREL_BID_rets <- rbind(CUMULCORREL1_BID_rets, CUMULCORREL2_BID_rets, CUMULCORREL3_BID_rets)
   
   pd <- position_dodge(0.4)
   MAXES <- min(CUMULCORREL_BID_rets$MEANS - CUMULCORREL_BID_rets$sdS,1)
