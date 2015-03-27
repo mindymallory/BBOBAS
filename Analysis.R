@@ -233,7 +233,7 @@ for(i in 1:length(dates)){
   correl1_rets<- period.apply(near_plus1_BID_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
   temp <- apply(as.data.frame(rownames(correl1_rets)), 2, substr, 12, 19)
   row.names(correl1_rets) <- temp 
-  CUMULCORREL1_BID_rets <- cbind(CUMULCORREL1_BID_rets, correl1$X2)
+  CUMULCORREL1_BID_rets <- cbind(CUMULCORREL1_BID_rets, correl1_rets$X2)
   
   # OFRS, Levels
   ep <- endpoints(near_plus1_OFR.df, 'minutes', k=10)
@@ -247,7 +247,7 @@ for(i in 1:length(dates)){
   correl1_rets<- period.apply(near_plus1_OFR_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
   temp <- apply(as.data.frame(rownames(correl1_rets)), 2, substr, 12, 19)
   row.names(correl1_rets) <- temp 
-  CUMULCORREL1_OFR_rets <- cbind(CUMULCORREL1_OFR_rets, correl1$X2)
+  CUMULCORREL1_OFR_rets <- cbind(CUMULCORREL1_OFR_rets, correl1_rets$X2)
 ######################################################################################## 
 
 #Nearby and plus2
@@ -381,7 +381,7 @@ ep <- endpoints(near_plus3_BID_rets.df, 'minutes', k=10)
 correl3_rets<- period.apply(near_plus3_BID_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
 temp <- apply(as.data.frame(rownames(correl3_rets)), 2, substr, 12, 19)
 row.names(correl3_rets) <- temp 
-CUMULCORREL3_BID_rets <- cbind(CUMULCORREL3_BID_rets, correl3$X2)
+CUMULCORREL3_BID_rets <- cbind(CUMULCORREL3_BID_rets, correl3_rets$X2)
 
 # OFRS, Levels
 ep <- endpoints(near_plus3_OFR.df, 'minutes', k=10)
@@ -395,7 +395,7 @@ ep <- endpoints(near_plus3_OFR_rets.df, 'minutes', k=10)
 correl3_rets<- period.apply(near_plus3_OFR_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
 temp <- apply(as.data.frame(rownames(correl3_rets)), 2, substr, 12, 19)
 row.names(correl3_rets) <- temp 
-CUMULCORREL3_OFR_rets <- cbind(CUMULCORREL3_OFR_rets, correl3$X2)
+CUMULCORREL3_OFR_rets <- cbind(CUMULCORREL3_OFR_rets, correl3_rets$X2)
 ######################################################################################## 
 
 
