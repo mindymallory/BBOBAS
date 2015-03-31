@@ -1,0 +1,75 @@
+Nearby and Deferred Quotes: What They Tell Us about HFT
+========================================================
+author: 
+date: 31 March, 2015
+transition: none
+
+
+
+Best Bid and Offer Data set from CME Group
+========================================================
+
+So far only processed data for corn
+
+- 2010-2011 is almost finished
+- Will begin 2008-2008 when that is finished
+- Hopefully that will be finished before NCCC 134, but it takes 2-3 weeks to do the initial
+processing for 2 years worth of data
+
+Best Bid and Offer Data set from CME Group
+========================================================
+
+So far only processed data for corn
+- 2008-2013 should be processed and ready to include in the paper which is due in June
+- As you recall from Xiaoyang, I still have to modify the pre-processing code to deal with the format change. 
+  + I cannot finish this before NCCC134 but it should be fine for the June paper deadline
+- These preliminary figures are for January 2010 just as an example. 
+
+
+A Few Notes About the Data
+========================================================
+- Many instances include multiple quote revisions on the same time stamp
+- Since they are not time stamped to the millisecond, we had to aggregate to the second
+- 'last' quote prevailing in the second taken as the top of the book for that second
+
+Objectives of This Study
+========================================================
+- Learn what we can from the BBO data about the activities of HFT in the
+corn futures market
+- Make explicit what we would like to learn about HFT but are restricted by content of the Data
+  + Encourage CME Group to develop research data sets like the NASDAQ HF Trader data set
+
+Some Summary Statistics
+========================================================
+%```{r}
+%summary(cars)
+%#```
+
+
+%```{r, echo=FALSE}
+%plot(cars)
+%```
+
+
+Contemporaneous Correlation of Quotes in the Nearby and Deferred Contracts
+========================================================
+- Since we had to aggregate to the second, we might expect the quotes to be 
+contemporaneously correlated
+- Calculated correlations for Nearby and:
+  + One contract deferred
+  + Two contracts deferred
+  + Three contracts deferred
+- Need to consider the effect of long periods of no revisions on the correlations
+  + Both presented 
+  
+Contemporaneous Correlation
+========================================================
+
+
+
+
+
+```
+Error in eval(expr, envir, enclos) : 
+  could not find function "grid.arrange"
+```

@@ -985,8 +985,8 @@ CUMULCORREL1_BID_rets$lag <- factor("Contemporaneous")
 CUMULCORREL_BID_rets_timelag <- rbind(CUMULCORREL1_BID_rets, CUMULCORREL1_BID_rets_1sec, CUMULCORREL1_BID_rets_10sec)
 
 pd <- position_dodge(0.4)
-MAXES <- min(CUMULCORREL_BID_rets$MEANS - CUMULCORREL_BID_rets$sdS,1)
-MINS <- max(CUMULCORREL_BID_rets$MEANS - CUMULCORREL_BID_rets$sdS,0)
+MAXES <- min(CUMULCORREL_BID_rets_timelag$MEANS - CUMULCORREL_BID_rets_timelag$sdS,1)
+MINS <- max(CUMULCORREL_BID_rets_timelag$MEANS - CUMULCORREL_BID_rets_timelag$sdS,0)
 Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=lag, group=lag) ) + 
   geom_errorbar(size=1, position=pd) +
@@ -1003,57 +1003,65 @@ Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ym
 
 ###############################
 # OFRs Contemporaneous Plus1
-colnames(CUMULCORREL1_OFR_rets) <- "TimeBins" # This wipes the column names which is required for an rbind below
-CUMULCORREL1_OFR_rets$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets))
+colnames(CUMULCORREL1_OFR_rets_1sec) <- "TimeBins" # This wipes the column names which is required for an rbind below
+CUMULCORREL1_OFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets_1sec))
 
-CUMULCORREL1_OFR_rets$MEANS <- apply(CUMULCORREL1_OFR_rets[,2:dim(CUMULCORREL1_OFR_rets)[2]], 1, mean, na.rm = TRUE)
-CUMULCORREL1_OFR_rets$sdS <- apply(CUMULCORREL1_OFR_rets[,2:dim(CUMULCORREL1_OFR_rets)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL1_OFR_rets$contract <- factor("plus1")  
+CUMULCORREL1_OFR_rets_1sec$MEANS <- apply(CUMULCORREL1_OFR_rets_1sec[,2:dim(CUMULCORREL1_OFR_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_OFR_rets_1sec$sdS <- apply(CUMULCORREL1_OFR_rets_1sec[,2:dim(CUMULCORREL1_OFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1_OFR_rets_1sec$contract <- factor("plus1")
+CUMULCORREL1_OFR_rets_1sec$lag <- factor("One Second")
 
-# OFRs Contemporaneous Plus2
-colnames(CUMULCORREL2_OFR_rets) <- "TimeBins" # This wipes the column names which is required for an rbind below 
-CUMULCORREL2_OFR_rets$TimeBins <- factor(row.names(CUMULCORREL2_OFR_rets))
+colnames(CUMULCORREL1_OFR_rets_10sec) <- "TimeBins" # This wipes the column names which is required for an rbind below
+CUMULCORREL1_OFR_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets_10sec))
 
-CUMULCORREL2_OFR_rets$MEANS <- apply(CUMULCORREL2_OFR_rets[,2:dim(CUMULCORREL2_OFR_rets)[2]], 1, mean, na.rm = TRUE)
-CUMULCORREL2_OFR_rets$sdS <- apply(CUMULCORREL2_OFR_rets[,2:dim(CUMULCORREL2_OFR_rets)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL2_OFR_rets$contract <- factor("plus2")
+CUMULCORREL1_OFR_rets_10sec$MEANS <- apply(CUMULCORREL1_OFR_rets_10sec[,2:dim(CUMULCORREL1_OFR_rets_10sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_OFR_rets_10sec$sdS <- apply(CUMULCORREL1_OFR_rets_10sec[,2:dim(CUMULCORREL1_OFR_rets_10sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1_OFR_rets_10sec$contract <- factor("plus1")  
+CUMULCORREL1_OFR_rets_10sec$lag <- factor("Ten Seconds")  
 
-# OFRs Contemporaneous Plus3
-colnames(CUMULCORREL3_OFR_rets) <- "TimeBins" # This wipes the column names which is required for an rbind below
-CUMULCORREL3_OFR_rets$TimeBins <- factor(row.names(CUMULCORREL3_OFR_rets))
+# OFRs  Plus2
+colnames(CUMULCORREL2_OFR_rets_1sec) <- "TimeBins" # This wipes the column names which is required for an rbind below 
+CUMULCORREL2_OFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL2_OFR_rets_1sec))
 
-CUMULCORREL3_OFR_rets$MEANS <- apply(CUMULCORREL3_OFR_rets[,2:dim(CUMULCORREL3_OFR_rets)[2]], 1, mean, na.rm = TRUE)
-CUMULCORREL3_OFR_rets$sdS <- apply(CUMULCORREL3_OFR_rets[,2:dim(CUMULCORREL3_OFR_rets)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL3_OFR_rets$contract <- factor("plus3")
+CUMULCORREL2_OFR_rets_1sec$MEANS <- apply(CUMULCORREL2_OFR_rets_1sec[,2:dim(CUMULCORREL2_OFR_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL2_OFR_rets_1sec$sdS <- apply(CUMULCORREL2_OFR_rets_1sec[,2:dim(CUMULCORREL2_OFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL2_OFR_rets_1sec$contract <- factor("plus2")
 
+# OFRs  Plus3
+colnames(CUMULCORREL3_OFR_rets_1sec) <- "TimeBins" # This wipes the column names which is required for an rbind below
+CUMULCORREL3_OFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL3_OFR_rets_1sec))
 
-CUMULCORREL_OFR_rets <- rbind(CUMULCORREL1_OFR_rets, CUMULCORREL2_OFR_rets, CUMULCORREL3_OFR_rets)
+CUMULCORREL3_OFR_rets_1sec$MEANS <- apply(CUMULCORREL3_OFR_rets_1sec[,2:dim(CUMULCORREL3_OFR_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL3_OFR_rets_1sec$sdS <- apply(CUMULCORREL3_OFR_rets_1sec[,2:dim(CUMULCORREL3_OFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL3_OFR_rets_1sec$contract <- factor("plus3")
+
+CUMULCORREL1_OFR_rets$lag <- factor("Contemporaneous")
+CUMULCORREL_OFR_rets_timelag <- rbind(CUMULCORREL1_OFR_rets, CUMULCORREL1_OFR_rets_1sec, CUMULCORREL1_OFR_rets_10sec)
 
 pd <- position_dodge(0.4)
-MAXES <- min(CUMULCORREL_OFR_rets$MEANS - CUMULCORREL_OFR_rets$sdS,1)
-MINS <- max(CUMULCORREL_OFR_rets$MEANS - CUMULCORREL_OFR_rets$sdS,0)
-OFR_plot <- ggplot(CUMULCORREL_OFR_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
-                                             ymax = MEANS+sdS, colour=contract, group=contract) ) + 
+MAXES <- min(CUMULCORREL_OFR_rets_timelag$MEANS - CUMULCORREL_OFR_rets_timelag$sdS,1)
+MINS <- max(CUMULCORREL_OFR_rets_timelag$MEANS - CUMULCORREL_OFR_rets_timelag$sdS,0)
+OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+                                                             ymax = MEANS+sdS, colour=lag, group=lag) ) + 
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in OFRs - keep zeros') +
+  ggtitle('Correleation between Nearby and plus 1 in OFR for Various Time Lags - keep zeros') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
-
 ###########################################
-Bid_plot
-OFR_plot
-Bid_plot_no0s
-OFR_plot_no0s
-
-grid.arrange(Bid_plot, OFR_plot, ncol=1)
-
-grid.arrange(Bid_plot_no0s, OFR_plot_no0s, ncol=1)
-
+# Bid_plot
+# OFR_plot
+# Bid_plot_no0s 
+# OFR_plot_no0s
+#
+# grid.arrange(Bid_plot, OFR_plot, ncol=1)
+# 
+# grid.arrange(Bid_plot_no0s, OFR_plot_no0s, ncol=1)
+x <- 5-8
 
 
