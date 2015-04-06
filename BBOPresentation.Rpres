@@ -3,8 +3,17 @@ Nearby and Deferred Quotes: What They Tell Us about HFT
 author: 
 date: `r format(Sys.time(), '%d %B, %Y')`
 transition: none
+autosize: true
 
-```{r, echo=FALSE, cache=TRUE}
+```{r, echo=FALSE, cache=FALSE}
+library(timeDate)
+library(xts)
+library(reshape)
+library(dplyr)
+library(xtable)
+library(highfrequency)
+library(ggplot2)
+library(gridExtra)
 source('C:/Users/mallorym/Documents/BBOBAS/Analysis.R')
 ```
 
@@ -14,18 +23,21 @@ Best Bid and Offer Data set from CME Group
 So far only processed data for corn
 
 - 2010-2011 is almost finished
-- Will begin 2008-2008 when that is finished
+- Will begin 2008-2009 when that is finished
 - Hopefully that will be finished before NCCC 134, but it takes 2-3 weeks to do the initial
 processing for 2 years worth of data
 
 Best Bid and Offer Data set from CME Group
 ========================================================
-
-So far only processed data for corn
 - 2008-2013 should be processed and ready to include in the paper which is due in June
 - As you recall from Xiaoyang, I still have to modify the pre-processing code to deal with the format change. 
   + I cannot finish this before NCCC134 but it should be fine for the June paper deadline
-- These preliminary figures are for January 2010 just as an example. 
+- These preliminary results are from January 2010 just as an example. Dates:
+```{r, echo=FALSE}
+dates[1]
+#to
+dates[length(dates)]
+```
 
 
 A Few Notes About the Data
@@ -41,23 +53,45 @@ corn futures market
 - Make explicit what we would like to learn about HFT but are restricted by content of the Data
   + Encourage CME Group to develop research data sets like the NASDAQ HF Trader data set
 
-Some Summary Statistics
+Number of Seconds to a Revision in Bid/Ask
 ========================================================
-%```{r}
-%summary(cars)
-%#```
+```{r, echo=FALSE}
+par(mfrow=c(1,2))
+nbid <- hist(as.numeric(nsecs_to_update_BID_rets), 200, main = "Nearby BID", xlab="Number of Seconds")
+nofr <- hist(as.numeric(nsecs_to_update_OFR_rets), 200, main = "Nearby Offer", xlab="Number of Seconds")
+#grid.arrange(nbid, nofr, ncol=1) # Must be supplied object from ggplot
+```
 
+Number of Seconds to a Revision in Bid/Ask
+========================================================
+```{r, echo=FALSE}
+par(mfrow=c(1,2))
+p1bid <- hist(as.numeric(p1secs_to_update_BID_rets), 200, main = "Plus 1 Bid", xlab="Number of Seconds")
+p1ofr <- hist(as.numeric(p1secs_to_update_OFR_rets), 200, main = "Plus 1 Offer", xlab="Number of Seconds")
 
-%```{r, echo=FALSE}
-%plot(cars)
-%```
+```
+Number of Seconds to a Revision in Bid/Ask
+========================================================
+```{r, echo=FALSE}
+par(mfrow=c(1,2))
+p2bid <- hist(as.numeric(p2secs_to_update_BID_rets), 200, main = "Plus 2 Bid", xlab="Number of Seconds")
+p2ofr <- hist(as.numeric(p2secs_to_update_OFR_rets), 200, main = "Plus 2 Offer", xlab="Number of Seconds")
 
+```
+
+Number of Seconds to a Revision in Bid/Ask
+========================================================
+```{r, echo=FALSE}
+par(mfrow=c(1,2))
+p3bid <- hist(as.numeric(p3secs_to_update_BID_rets), 200, main = "Plus 3 Bid", xlab="Number of Seconds")
+p3ofr <- hist(as.numeric(p3secs_to_update_OFR_rets), 200, main = "Plus 3 Offer", xlab="Number of Seconds")
+```
 
 Contemporaneous Correlation of Quotes in the Nearby and Deferred Contracts
 ========================================================
 - Since we had to aggregate to the second, we might expect the quotes to be 
 contemporaneously correlated
-- Calculated correlations for Nearby and:
+- Calculated correlations for log changes of Nearby and:
   + One contract deferred
   + Two contracts deferred
   + Three contracts deferred
@@ -67,16 +101,88 @@ contemporaneously correlated
 Contemporaneous Correlation
 ========================================================
 ```{r, echo=FALSE}
+library(ggplot2)
+library(gridExtra)
 grid.arrange(Bid_plot, OFR_plot, ncol=1)
 ```  
 
 Contemporaneous Correlation II
 ========================================================
 ```{r, echo=FALSE}
+library(ggplot2)
+library(gridExtra)
 grid.arrange(Bid_plot_no0s, OFR_plot_no0s, ncol=1)
 ```  
 
+Time Lag
+========================================================
+```{r, echo=FALSE}
+library(ggplot2)
+grid.arrange(Bid_plot_timelag, OFR_plot_timelag)
+```
 
+Proposed Paper Outline
+========================================================
+
+Objectives
+========================================================
+What we would like to study: Whether predatory hft exists in corn futures markets
+- Obstacles with the BBO data: 
+  + No ms timestamp 
+  + Traders not identified: Hasbrouck's 'Strategic Runs' not possible
+
+Objectives
+========================================================
+- Instead we look for what evidence we can find of hft
+  + Keep data as dissaggregated as possible
+  + Means any kind of regression analysis is impossible
+
+Motivation
+========================================================
+- Criticism of hft papers on equities markets is that papers often use data from only one exchange
+- Given that U.S. equity markets are highly fragmented, examining trade on only one exchange is bound to give a biased or, at least, incomplete picture. 
+- Commodity futures markets are centralized, so we can examine quoting patterns and relationships along the forward curve to get a sense of the prevalence of hft.
+
+Methods
+=========================================================
+Data Preparation
+- Create 'Top of the Book" for the nearby contract and the one, two, and three contracts deferred
+- Aggregate to the second
+  + Since data not time stamped to the ms the only other option is to simulate the ms time stamp and Hasbrouck and Wang did.  
+  + But, since we are examining relationships across markets, one would hope your simulated time stamps would preserve the order in which quotes arrived accross different markets. Impossible
+   
+Methods
+=========================================================
+Analysis
+- Compute simple correlations between the nearby contract and the one, two, and three month deferred contracts in ten minute time bins
+ + Since data are aggregated to the second, one would expect the presence of hft to imply significant contemporaneous correlation between the nearby and the deferred contracts
+ + Additionally, since the time intervals of importance to hft are so short, one would expect the correlation between the nearby and deferred contracts lagged even one second to be small
+ 
+Methods
+===========================================================
+Analysis
+- Consider various special cases such as USDA announcement days
+- Monthy?
+- Day of week?
+ 
+ 
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+  
+  
 
 
 

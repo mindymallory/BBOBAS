@@ -41,8 +41,8 @@ setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sampl
 # Define the dates to loop over
 yearstart <- 2010
 yearend <- 2010
-dates <- timeSequence(from = paste(yearstart, "-01-04", sep = ""), 
-                      to = paste(yearend, "-01-06", sep = ""))
+dates <- timeSequence(from = paste(yearstart, "-01-15", sep = ""), 
+                      to = paste(yearend, "-01-29", sep = ""))
 
 # Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
 # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the
@@ -366,10 +366,10 @@ for(i in 1:length(dates)){
   near_plus1_BID_rets   <- merge(nearby_BID_rets, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
                              retside = TRUE, retclass = "xts")                
   near_plus1_BID_rets.df<- as.data.frame(near_plus1_BID_rets)
-  near_plus1_BID_rets_lag1s   <- merge(nearby_BID_rets, plus1_BID_rets_lag1s, all = TRUE, fill = NA, join = "outer", 
+  near_plus1_BID_rets_lag1s   <- merge(nearby_BID_rets_lag1s, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
                                retside = TRUE, retclass = "xts")                
   near_plus1_BID_rets_lag1s.df<- as.data.frame(near_plus1_BID_rets_lag1s)
-  near_plus1_BID_rets_lag10s   <- merge(nearby_BID_rets, plus1_BID_rets_lag10s, all = TRUE, fill = NA, join = "outer", 
+  near_plus1_BID_rets_lag10s   <- merge(nearby_BID_rets_lag10s, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
                                      retside = TRUE, retclass = "xts")                
   near_plus1_BID_rets_lag10s.df<- as.data.frame(near_plus1_BID_rets_lag10s)
   cor(near_plus1_BID_rets.df, use = "pairwise.complete.obs")  
@@ -392,10 +392,10 @@ for(i in 1:length(dates)){
   near_plus1_OFR_rets   <- merge(nearby_OFR_rets, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
                              retside = TRUE, retclass = "xts")                
   near_plus1_OFR_rets.df<- as.data.frame(near_plus1_OFR_rets)
-  near_plus1_OFR_rets_lag1s   <- merge(nearby_OFR_rets, plus1_OFR_rets_lag1s, all = TRUE, fill = NA, join = "outer", 
+  near_plus1_OFR_rets_lag1s   <- merge(nearby_OFR_rets_lag1s, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
                                         retside = TRUE, retclass = "xts")                
   near_plus1_OFR_rets_lag1s.df<- as.data.frame(near_plus1_OFR_rets_lag1s)
-  near_plus1_OFR_rets_lag10s   <- merge(nearby_OFR_rets, plus1_OFR_rets_lag10s, all = TRUE, fill = NA, join = "outer", 
+  near_plus1_OFR_rets_lag10s   <- merge(nearby_OFR_rets_lag10s, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
                                        retside = TRUE, retclass = "xts")                
   near_plus1_OFR_rets_lag10s.df<- as.data.frame(near_plus1_OFR_rets_lag10s)
   cor(near_plus1_OFR_rets.df, use = "pairwise.complete.obs")
@@ -1058,10 +1058,18 @@ OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ym
 # OFR_plot
 # Bid_plot_no0s 
 # OFR_plot_no0s
-#
-# grid.arrange(Bid_plot, OFR_plot, ncol=1)
+# Bid_plot_timelag
+# OFR_plot_timelag
+#grid.arrange(Bid_plot, OFR_plot, ncol=1)
 # 
 # grid.arrange(Bid_plot_no0s, OFR_plot_no0s, ncol=1)
-x <- 5-8
 
+nsecs_to_update_BID_rets <- -1*nsecs_to_update_BID_rets
+nsecs_to_update_OFR_rets <- -1*nsecs_to_update_OFR_rets
+p1secs_to_update_BID_rets <- -1*p1secs_to_update_BID_rets
+p1secs_to_update_OFR_rets <- -1*p1secs_to_update_OFR_rets
+p2secs_to_update_BID_rets <- -1*p2secs_to_update_BID_rets
+p2secs_to_update_OFR_rets <- -1*p2secs_to_update_OFR_rets
+p3secs_to_update_BID_rets <- -1*p3secs_to_update_BID_rets
+p3secs_to_update_OFR_rets <- -1*p3secs_to_update_OFR_rets
 
