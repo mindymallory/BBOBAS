@@ -15,7 +15,7 @@ library(highfrequency)
 
 
 #setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
-setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') #Office PC
+setwd('E:/2015_05_08_DOCS/INVESTIGACIO5/HFT/HFTdata/Intraday data/2008Jan-2010Jan_txt') #Office PC
 ptm <- proc.time()
 
 ConvertCornFuturesQuotes <- function(x) {
@@ -41,9 +41,9 @@ ConvertCornFuturesQuotes <- function(x) {
 #********************************************************************************************************
 #********************************************************************************************************
 # Define the dates to loop over
-yearstart <- 2011
-yearend   <- 2011
-dates     <- timeSequence(from = paste(yearstart, "-07-06", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
+yearstart <- 2008
+yearend   <- 2009
+dates     <- timeSequence(from = paste(yearstart, "-01-14", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
                           to = paste(yearend, "-12-31", sep = ""))
 # Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
 # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the 
@@ -144,9 +144,8 @@ while(dim(DATA)[1]>0) {
 CUMULDATA      <- CUMULDATA[2:dim(CUMULDATA)[1],]
 CUMULTRANS     <- CUMULTRANS[2:dim(CUMULTRANS)[1],]
 CUMULBADPRICES <- CUMULBADPRICES[2:dim(CUMULBADPRICES)[1],]
-write.csv(CUMULDATA, file = paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
-write.csv(CUMULTRANS, file = paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
-if(is.na(CUMULBADPRICES)[1] == FALSE) {write.csv(CUMULBADPRICES, file = paste0('BADPRICES',as.character(dates[i])))}
+write.csv(CUMULDATA file = paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
+write.csv(CUMULTRANS file = paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
 
 # Separate out the contracts here
 DeliveryDates  <- unique(CUMULDATA$SYMBOL)
@@ -173,7 +172,8 @@ for (j in 1:length(DeliveryDates)) {
   }
   }
 save(DeliveryDates, file = paste0('Contracts', as.character(dates[i]),".rda"))
-write.csv(DeliveryDates, file = paste0('Contracts', as.character(dates[i])))
+write.csv(DeliveryDates, file = paste0('Contracts', as.character(dates[i]))
+
 }
 proc.time() - ptm
 
