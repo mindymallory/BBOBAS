@@ -43,7 +43,7 @@ ConvertCornFuturesQuotes <- function(x) {
 # Define the dates to loop over
 yearstart <- 2011
 yearend   <- 2011
-dates     <- timeSequence(from = paste(yearstart, "-07-06", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
+dates     <- timeSequence(from = paste(yearstart, "-09-21", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
                           to = paste(yearend, "-12-31", sep = ""))
 # Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
 # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the 
