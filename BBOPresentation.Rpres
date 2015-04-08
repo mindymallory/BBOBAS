@@ -3,9 +3,9 @@ Nearby and Deferred Quotes: What They Tell Us about HFT
 author: 
 date: `r format(Sys.time(), '%d %B, %Y')`
 transition: none
-autosize: true
 
-```{r, echo=FALSE, cache=FALSE}
+
+```{r, echo=FALSE, cache=TRUE}
 library(timeDate)
 library(xts)
 library(reshape)
@@ -14,7 +14,8 @@ library(xtable)
 library(highfrequency)
 library(ggplot2)
 library(gridExtra)
-source('C:/Users/mallorym/Documents/BBOBAS/Analysis.R')
+setwd('C:/Users/mallorym/Documents/GitHub/BBOBAS')
+source('C:/Users/mallorym/Documents/GitHub/BBOBAS/Analysis.R')
 ```
 
 Best Bid and Offer Data set from CME Group
@@ -103,8 +104,13 @@ Contemporaneous Correlation
 ```{r, echo=FALSE}
 library(ggplot2)
 library(gridExtra)
-grid.arrange(Bid_plot, OFR_plot, ncol=1)
+library(png)
+#grid.arrange(Bid_plot, OFR_plot, ncol=1)
+#Bid_plot.png <- load("Bid_plot.png")
+#Bid_plot.png
 ```  
+![](\Bid_plot.png)
+
 
 Contemporaneous Correlation II
 ========================================================
@@ -118,8 +124,11 @@ Time Lag
 ========================================================
 ```{r, echo=FALSE}
 library(ggplot2)
-grid.arrange(Bid_plot_timelag, OFR_plot_timelag)
+#grid.arrange(Bid_plot_timelag, OFR_plot_timelag)
+
+Bid_plot_timelag
 ```
+
 
 Proposed Paper Outline
 ========================================================

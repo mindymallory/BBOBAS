@@ -41,8 +41,8 @@ setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sampl
 # Define the dates to loop over
 yearstart <- 2010
 yearend <- 2010
-dates <- timeSequence(from = paste(yearstart, "-01-15", sep = ""), 
-                      to = paste(yearend, "-01-29", sep = ""))
+dates <- timeSequence(from = paste(yearstart, "-01-04", sep = ""), 
+                      to = paste(yearend, "-01-06", sep = ""))
 
 # Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
 # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the
@@ -289,6 +289,7 @@ for(i in 1:length(dates)){
   }
   
   rm(temp)
+#setwd()
 
   #Now begin calculations
   # Identify nearby and two years of the forward maturities
@@ -791,6 +792,7 @@ CUMULCORREL3_OFR_rets_no0s <- cbind(CUMULCORREL3_OFR_rets_no0s, correl3_rets_no0
 
   CUMULCORREL_BID_rets <- rbind(CUMULCORREL1_BID_rets, CUMULCORREL2_BID_rets, CUMULCORREL3_BID_rets)
   
+  
   pd <- position_dodge(0.4)
   MAXES <- min(CUMULCORREL_BID_rets$MEANS - CUMULCORREL_BID_rets$sdS,1)
   MINS <- max(CUMULCORREL_BID_rets$MEANS - CUMULCORREL_BID_rets$sdS,0)
@@ -805,7 +807,9 @@ CUMULCORREL3_OFR_rets_no0s <- cbind(CUMULCORREL3_OFR_rets_no0s, correl3_rets_no0
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) +
     #scale_colour_grey() + 
-    ylab("Correlation")
+    ylab("Correlation") 
+ggsave(file="Bid_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
+
 
 
 ###############################
@@ -851,7 +855,7 @@ OFR_plot <- ggplot(CUMULCORREL_OFR_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS,
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
-
+ggsave(file="OFR_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
 #########################################################################
 
 #######################################
@@ -898,7 +902,7 @@ Bid_plot_no0s <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = M
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
-
+ggsave(file="Bid_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
 
 ###############################
 # OFRs Contemporaneous Plus1
@@ -943,7 +947,7 @@ OFR_plot_no0s <- ggplot(CUMULCORREL_OFR_rets_no0s, aes(TimeBins, MEANS, ymin = M
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
-
+ggsave(file="OFR_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
 
 #########################################################################
 #######################################
@@ -999,7 +1003,7 @@ Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ym
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
-
+ggsave(file="Bid_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
 
 ###############################
 # OFRs Contemporaneous Plus1
@@ -1053,6 +1057,7 @@ OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ym
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
+ggsave(file="OFR_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
 ###########################################
 # Bid_plot
 # OFR_plot
@@ -1073,3 +1078,35 @@ p2secs_to_update_OFR_rets <- -1*p2secs_to_update_OFR_rets
 p3secs_to_update_BID_rets <- -1*p3secs_to_update_BID_rets
 p3secs_to_update_OFR_rets <- -1*p3secs_to_update_OFR_rets
 
+setwd('C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures')
+png(filename="nsecs_to_update_BID_rets.png")
+hist(as.numeric(nsecs_to_update_BID_rets), 200, main = "Nearby Bid", xlab="Number of Seconds")
+dev.off()
+
+png(filename="nsecs_to_update_OFR_rets.png")
+hist(as.numeric(nsecs_to_update_OFR_rets), 200, main = "Nearby Offer", xlab="Number of Seconds")
+dev.off()
+
+png(filename="p1secs_to_update_BID_rets.png")
+hist(as.numeric(p1secs_to_update_BID_rets), 200, main = "Plus 1 Bid", xlab="Number of Seconds")
+dev.off()
+
+png(filename="p1secs_to_update_OFR_rets.png")
+hist(as.numeric(p1secs_to_update_OFR_rets), 200, main = "Plus 1 Offer", xlab="Number of Seconds")
+dev.off()
+
+png(filename="p2secs_to_update_BID_rets.png")
+hist(as.numeric(p2secs_to_update_BID_rets), 200, main = "Plus 2 Bid", xlab="Number of Seconds")
+dev.off()
+
+png(filename="p2secs_to_update_OFR_rets.png")
+p1ofr <- hist(as.numeric(p2secs_to_update_OFR_rets), 200, main = "Plus 2 Offer", xlab="Number of Seconds")
+dev.off()
+
+png(filename="p3secs_to_update_BID_rets.png")
+hist(as.numeric(p3secs_to_update_BID_rets), 200, main = "Plus 3 Bid", xlab="Number of Seconds")
+dev.off()
+
+png(filename="p3secs_to_update_OFR_rets.png")
+p1ofr <- hist(as.numeric(p3secs_to_update_OFR_rets), 200, main = "Plus 3 Offer", xlab="Number of Seconds")
+dev.off()
