@@ -4,6 +4,9 @@ Nearby and Deferred Quotes: What They Tell Us about HFT
 author: Mindy Mallory, Phil Garcia, and Teresa Serra
 date: April 20, 2015
 transition: none
+University of Illinois  
+   
+NCCC 134 Applied Commodity Price Analysis, Forecasting, and Market Risk Management
 
 
 
