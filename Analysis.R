@@ -297,6 +297,9 @@ for(i in 1:length(dates)){
   #Now begin calculations
   # Identify nearby and two years of the forward maturities
   # Need to write a little code to 'roll' before maturity month
+  
+  # See 'substr(x, start, stop)' to match month in 'dates[i] with DeliveryDates[j] and for contract rolling
+  
   qnearby <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
   qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
   qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
