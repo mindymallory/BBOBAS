@@ -285,10 +285,10 @@ for(i in 1:length(dates)){
     temp <- temp["T09:30:00/T13:15:00"] # Focus on the daytime session 9:30am - 1:15pm
     assign(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])), temp)
     
-#     #Transactions
-#     load(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j]), ".rda"))
-#     temp <- temp["T09:29:00/T13:16:00"] # Focus on the daytime session 9:30am - 1:15pm
-#     assign(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])), temp)
+    #Transactions
+    load(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j]), ".rda"))
+    temp <- temp["T09:29:00/T13:16:00"] # Focus on the daytime session 9:30am - 1:15pm
+    assign(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])), temp)
   }
   
   rm(temp)
