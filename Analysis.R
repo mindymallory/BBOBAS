@@ -29,7 +29,8 @@ library(highfrequency)
 library(ggplot2)
 library(gridExtra)
 
-setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
+#setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') # Dropbox
+setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') # Office PC
 
 # File naming convention for xts objects written to disk
 # Transactions - t_%y%m%d_contract.rda E.g., t_100106_1003 contains trasactions for the March 2010 contract on Jan 6, 2010
@@ -41,17 +42,19 @@ setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sampl
 # Define the dates to loop over
 yearstart <- 2010
 yearend <- 2010
-dates <- timeSequence(from = paste(yearstart, "-01-11", sep = ""), 
-                      to = paste(yearend, "-01-29", sep = ""))
+dates <- timeSequence(from = paste(yearstart, "-04-05", sep = ""), 
+                      to = paste(yearend, "-12-31", sep = ""))
 
-# Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
-# and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the
-# file was 12 times larger than the typical size and it was taking too long to process. Would make an interesting case
-# study to go back and investigate.
+
 
 # Code below requires dates to be integers, here we change the format
 dates <- dates[isBizday(dates,holidayNYSE(yearstart:yearend))]
 dates <- as.numeric(format(dates, format = "%y%m%d"))
+  dates <- subset(dates, dates != 100405)
+  # Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
+  # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the
+  # file was 12 times larger than the typical size and it was taking too long to process. Would make an interesting case
+  # study to go back and investigate.
 
 # Initializes data frames where analysis is stored
 #########################################################
@@ -416,349 +419,384 @@ for(i in 1:length(dates)){
 # ten minutes.
   # BIDS, Levels
   ep <- endpoints(near_plus1_BID.df, 'minutes', k=10)
-  correl1<- period.apply(near_plus1_BID.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl1)), 2, substr, 12, 19)
-  row.names(correl1) <- temp
-  CUMULCORREL1_BID <- try(cbind(CUMULCORREL1_BID, correl1$X2), silent=TRUE)
-  
+  if( length(ep) == 24){
+    correl1<- period.apply(near_plus1_BID.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl1)), 2, substr, 12, 19)
+    row.names(correl1) <- temp
+    CUMULCORREL1_BID <- try(cbind(CUMULCORREL1_BID, correl1$X2), silent=TRUE)
+  }
   # BIDS, 'Returns'
   ep <- endpoints(near_plus1_BID_rets.df, 'minutes', k=10)
-  correl1_rets<- period.apply(near_plus1_BID_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl1_rets)), 2, substr, 12, 19)
-  row.names(correl1_rets) <- temp 
-  CUMULCORREL1_BID_rets <- try(cbind(CUMULCORREL1_BID_rets, correl1_rets$X2), silent=TRUE)
-
-  correl1_rets_lag1s <- period.apply(near_plus1_BID_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl1_rets_lag1s)), 2, substr, 12, 19)
-  row.names(correl1_rets_lag1s) <- temp 
-  CUMULCORREL1_BID_rets_1sec <- try(cbind(CUMULCORREL1_BID_rets_1sec, correl1_rets_lag1s$X2), silent=TRUE)
-
-  correl1_rets_lag10s <- period.apply(near_plus1_BID_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl1_rets_lag10s)), 2, substr, 12, 19)
-  row.names(correl1_rets_lag10s) <- temp 
-  CUMULCORREL1_BID_rets_10sec <- try(cbind(CUMULCORREL1_BID_rets_10sec, correl1_rets_lag10s$X2), silent=TRUE)
-
+  if( length(ep) == 24){
+    correl1_rets<- period.apply(near_plus1_BID_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl1_rets)), 2, substr, 12, 19)
+    row.names(correl1_rets) <- temp 
+    CUMULCORREL1_BID_rets <- try(cbind(CUMULCORREL1_BID_rets, correl1_rets$X2), silent=TRUE)
+  
+    correl1_rets_lag1s <- period.apply(near_plus1_BID_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl1_rets_lag1s)), 2, substr, 12, 19)
+    row.names(correl1_rets_lag1s) <- temp 
+    CUMULCORREL1_BID_rets_1sec <- try(cbind(CUMULCORREL1_BID_rets_1sec, correl1_rets_lag1s$X2), silent=TRUE)
+  
+    correl1_rets_lag10s <- period.apply(near_plus1_BID_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl1_rets_lag10s)), 2, substr, 12, 19)
+    row.names(correl1_rets_lag10s) <- temp 
+    CUMULCORREL1_BID_rets_10sec <- try(cbind(CUMULCORREL1_BID_rets_10sec, correl1_rets_lag10s$X2), silent=TRUE)
+    }
   # BIDS, 'Returns' - no zeros
   ep <- endpoints(near_plus1_BID_rets_no0s.df, 'minutes', k=10)
-  correl1_rets_no0s<- period.apply(near_plus1_BID_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl1_rets_no0s)), 2, substr, 12, 19)
-  row.names(correl1_rets_no0s) <- temp 
-  CUMULCORREL1_BID_rets_no0s <- try(cbind(CUMULCORREL1_BID_rets_no0s, correl1_rets_no0s$X2), silent=TRUE)
+  if( length(ep) == 24){
+    correl1_rets_no0s<- period.apply(near_plus1_BID_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl1_rets_no0s)), 2, substr, 12, 19)
+    row.names(correl1_rets_no0s) <- temp 
+    CUMULCORREL1_BID_rets_no0s <- try(cbind(CUMULCORREL1_BID_rets_no0s, correl1_rets_no0s$X2), silent=TRUE)
+  }
+  
   
   # OFRS, Levels
   ep <- endpoints(near_plus1_OFR.df, 'minutes', k=10)
-  correl1<- period.apply(near_plus1_OFR.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl1)), 2, substr, 12, 19)
-  row.names(correl1) <- temp
-  CUMULCORREL1_OFR <- try(cbind(CUMULCORREL1_OFR, correl1$X2), silent=TRUE)
-  
+  if( length(ep) == 24){
+    correl1<- period.apply(near_plus1_OFR.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl1)), 2, substr, 12, 19)
+    row.names(correl1) <- temp
+    CUMULCORREL1_OFR <- try(cbind(CUMULCORREL1_OFR, correl1$X2), silent=TRUE)
+  }
   # OFRS, 'Returns'
   ep <- endpoints(near_plus1_OFR_rets.df, 'minutes', k=10)
-  correl1_rets<- period.apply(near_plus1_OFR_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl1_rets)), 2, substr, 12, 19)
-  row.names(correl1_rets) <- temp 
-  CUMULCORREL1_OFR_rets <- try(cbind(CUMULCORREL1_OFR_rets, correl1_rets$X2), silent=TRUE)
-
-  correl1_rets_lag1s <- period.apply(near_plus1_OFR_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl1_rets_lag1s)), 2, substr, 12, 19)
-  row.names(correl1_rets_lag1s) <- temp 
-  CUMULCORREL1_OFR_rets_1sec <- try(cbind(CUMULCORREL1_OFR_rets_1sec, correl1_rets_lag1s$X2), silent=TRUE)
-
-  correl1_rets_lag10s <- period.apply(near_plus1_OFR_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl1_rets_lag10s)), 2, substr, 12, 19)
-  row.names(correl1_rets_lag10s) <- temp 
-  CUMULCORREL1_OFR_rets_10sec <- try(cbind(CUMULCORREL1_OFR_rets_10sec, correl1_rets_lag10s$X2), silent=TRUE)
-
+  if( length(ep) == 24){  
+    correl1_rets<- period.apply(near_plus1_OFR_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl1_rets)), 2, substr, 12, 19)
+    row.names(correl1_rets) <- temp 
+    CUMULCORREL1_OFR_rets <- try(cbind(CUMULCORREL1_OFR_rets, correl1_rets$X2), silent=TRUE)
+ 
+    correl1_rets_lag1s <- period.apply(near_plus1_OFR_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl1_rets_lag1s)), 2, substr, 12, 19)
+    row.names(correl1_rets_lag1s) <- temp 
+    CUMULCORREL1_OFR_rets_1sec <- try(cbind(CUMULCORREL1_OFR_rets_1sec, correl1_rets_lag1s$X2), silent=TRUE)
+  
+    correl1_rets_lag10s <- period.apply(near_plus1_OFR_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl1_rets_lag10s)), 2, substr, 12, 19)
+    row.names(correl1_rets_lag10s) <- temp 
+    CUMULCORREL1_OFR_rets_10sec <- try(cbind(CUMULCORREL1_OFR_rets_10sec, correl1_rets_lag10s$X2), silent=TRUE)
+  }
   # OFRS, 'Returns' - no zeros
   ep <- endpoints(near_plus1_OFR_rets_no0s.df, 'minutes', k=10)
-  correl1_rets_no0s<- period.apply(near_plus1_OFR_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl1_rets_no0s)), 2, substr, 12, 19)
-  row.names(correl1_rets_no0s) <- temp 
-  CUMULCORREL1_OFR_rets_no0s <- try(cbind(CUMULCORREL1_OFR_rets_no0s, correl1_rets_no0s$X2), silent=TRUE)
+  if( length(ep) == 24){  
+    correl1_rets_no0s<- period.apply(near_plus1_OFR_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl1_rets_no0s)), 2, substr, 12, 19)
+    row.names(correl1_rets_no0s) <- temp 
+    CUMULCORREL1_OFR_rets_no0s <- try(cbind(CUMULCORREL1_OFR_rets_no0s, correl1_rets_no0s$X2), silent=TRUE)
+  }
 ######################################################################################## 
 
 # #Nearby and plus2
 # ########################################################################################  
 
-plus2_BID         <- to.period(qplus2$BID, period = 'seconds', k = 1, OHLC = FALSE)
-plus2_BID_rets    <- diff.xts(plus2_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
-non_zeros         <- index(plus2_BID_rets)[which(plus2_BID_rets != 0)]
-p2secs_to_update_BID_rets  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
-plus2_BID_rets_no0s<- subset(plus2_BID_rets, BID !=0)
-plus2_BID_rets_lag1s<- lag.xts(plus2_BID_rets, k=-1)
-plus2_BID_rets_lag10s<- lag.xts(plus2_BID_rets, k=-10)
-
-plus2_OFR         <- to.period(qplus2$OFR, period = 'seconds', k = 1, OHLC = FALSE)
-plus2_OFR_rets    <- diff.xts(plus2_OFR, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
-non_zeros         <- index(plus2_OFR_rets)[which(plus2_OFR_rets != 0)]
-p2secs_to_update_OFR_rets  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
-plus2_OFR_rets_no0s<- subset(plus2_OFR_rets, OFR !=0)
-plus2_OFR_rets_lag1s<- lag.xts(plus2_OFR_rets, k=-1)
-plus2_OFR_rets_lag10s<- lag.xts(plus2_OFR_rets, k=-10)
-
-# Full day correlations
-# BIDS, Levels
-near_plus2_BID        <- merge(nearby_BID, plus2_BID, all = TRUE, fill = NA, join = "outer", retside = TRUE, 
-                               retclass = "xts")                
-near_plus2_BID.df     <- as.data.frame(near_plus2_BID)
-cor(near_plus2_BID.df, use = "pairwise.complete.obs")
-
-# BIDS, 'Returns'
-#Keep zeroes
-near_plus2_BID_rets   <- merge(nearby_BID_rets, plus2_BID_rets, all = TRUE, fill = NA, join = "outer", 
-                               retside = TRUE, retclass = "xts")                
-near_plus2_BID_rets.df<- as.data.frame(near_plus2_BID_rets)
-near_plus2_BID_rets_lag1s   <- merge(nearby_BID_rets, plus2_BID_rets_lag1s, all = TRUE, fill = NA, join = "outer", 
-                                     retside = TRUE, retclass = "xts")                
-near_plus2_BID_rets_lag1s.df<- as.data.frame(near_plus2_BID_rets_lag1s)
-near_plus2_BID_rets_lag10s   <- merge(nearby_BID_rets, plus2_BID_rets_lag10s, all = TRUE, fill = NA, join = "outer", 
+  plus2_BID         <- to.period(qplus2$BID, period = 'seconds', k = 1, OHLC = FALSE)
+  plus2_BID_rets    <- diff.xts(plus2_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
+  non_zeros         <- index(plus2_BID_rets)[which(plus2_BID_rets != 0)]
+  p2secs_to_update_BID_rets  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
+  plus2_BID_rets_no0s<- subset(plus2_BID_rets, BID !=0)
+  plus2_BID_rets_lag1s<- lag.xts(plus2_BID_rets, k=-1)
+  plus2_BID_rets_lag10s<- lag.xts(plus2_BID_rets, k=-10)
+  
+  plus2_OFR         <- to.period(qplus2$OFR, period = 'seconds', k = 1, OHLC = FALSE)
+  plus2_OFR_rets    <- diff.xts(plus2_OFR, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
+  non_zeros         <- index(plus2_OFR_rets)[which(plus2_OFR_rets != 0)]
+  p2secs_to_update_OFR_rets  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
+  plus2_OFR_rets_no0s<- subset(plus2_OFR_rets, OFR !=0)
+  plus2_OFR_rets_lag1s<- lag.xts(plus2_OFR_rets, k=-1)
+  plus2_OFR_rets_lag10s<- lag.xts(plus2_OFR_rets, k=-10)
+  
+  # Full day correlations
+  # BIDS, Levels
+  near_plus2_BID        <- merge(nearby_BID, plus2_BID, all = TRUE, fill = NA, join = "outer", retside = TRUE, 
+                                 retclass = "xts")                
+  near_plus2_BID.df     <- as.data.frame(near_plus2_BID)
+  cor(near_plus2_BID.df, use = "pairwise.complete.obs")
+  
+  # BIDS, 'Returns'
+  #Keep zeroes
+  near_plus2_BID_rets   <- merge(nearby_BID_rets, plus2_BID_rets, all = TRUE, fill = NA, join = "outer", 
+                                 retside = TRUE, retclass = "xts")                
+  near_plus2_BID_rets.df<- as.data.frame(near_plus2_BID_rets)
+  near_plus2_BID_rets_lag1s   <- merge(nearby_BID_rets, plus2_BID_rets_lag1s, all = TRUE, fill = NA, join = "outer", 
+                                       retside = TRUE, retclass = "xts")                
+  near_plus2_BID_rets_lag1s.df<- as.data.frame(near_plus2_BID_rets_lag1s)
+  near_plus2_BID_rets_lag10s   <- merge(nearby_BID_rets, plus2_BID_rets_lag10s, all = TRUE, fill = NA, join = "outer", 
+                                        retside = TRUE, retclass = "xts")                
+  near_plus2_BID_rets_lag10s.df<- as.data.frame(near_plus2_BID_rets_lag10s)
+  cor(near_plus2_BID_rets.df, use = "pairwise.complete.obs")  
+  cor(near_plus2_BID_rets_lag1s.df, use = "pairwise.complete.obs")
+  cor(near_plus2_BID_rets_lag10s.df, use = "pairwise.complete.obs")
+  
+  # No zeros
+  near_plus2_BID_rets_no0s   <- merge(nearby_BID_rets_no0s, plus2_BID_rets_no0s, all = TRUE, fill = NA, join = "outer", 
                                       retside = TRUE, retclass = "xts")                
-near_plus2_BID_rets_lag10s.df<- as.data.frame(near_plus2_BID_rets_lag10s)
-cor(near_plus2_BID_rets.df, use = "pairwise.complete.obs")  
-cor(near_plus2_BID_rets_lag1s.df, use = "pairwise.complete.obs")
-cor(near_plus2_BID_rets_lag10s.df, use = "pairwise.complete.obs")
-
-# No zeros
-near_plus2_BID_rets_no0s   <- merge(nearby_BID_rets_no0s, plus2_BID_rets_no0s, all = TRUE, fill = NA, join = "outer", 
-                                    retside = TRUE, retclass = "xts")                
-near_plus2_BID_rets_no0s.df<- as.data.frame(near_plus2_BID_rets_no0s)
-cor(near_plus2_BID_rets_no0s.df, use = "pairwise.complete.obs")
-
-# OFR, Levels
-near_plus2_OFR        <- merge(nearby_OFR, plus2_OFR, all = TRUE, fill = NA, join = "outer", retside = TRUE, 
-                               retclass = "xts")                
-near_plus2_OFR.df     <- as.data.frame(near_plus2_OFR)
-cor(near_plus2_OFR.df, use = "pairwise.complete.obs")
-
-# 'Returns'
-near_plus2_OFR_rets   <- merge(nearby_OFR_rets, plus2_OFR_rets, all = TRUE, fill = NA, join = "outer", 
-                               retside = TRUE, retclass = "xts")                
-near_plus2_OFR_rets.df<- as.data.frame(near_plus2_OFR_rets)
-near_plus2_OFR_rets_lag1s   <- merge(nearby_OFR_rets, plus2_OFR_rets_lag1s, all = TRUE, fill = NA, join = "outer", 
-                                     retside = TRUE, retclass = "xts")                
-near_plus2_OFR_rets_lag1s.df<- as.data.frame(near_plus2_OFR_rets_lag1s)
-near_plus2_OFR_rets_lag10s   <- merge(nearby_OFR_rets, plus2_OFR_rets_lag10s, all = TRUE, fill = NA, join = "outer", 
+  near_plus2_BID_rets_no0s.df<- as.data.frame(near_plus2_BID_rets_no0s)
+  cor(near_plus2_BID_rets_no0s.df, use = "pairwise.complete.obs")
+  
+  # OFR, Levels
+  near_plus2_OFR        <- merge(nearby_OFR, plus2_OFR, all = TRUE, fill = NA, join = "outer", retside = TRUE, 
+                                 retclass = "xts")                
+  near_plus2_OFR.df     <- as.data.frame(near_plus2_OFR)
+  cor(near_plus2_OFR.df, use = "pairwise.complete.obs")
+  
+  # 'Returns'
+  near_plus2_OFR_rets   <- merge(nearby_OFR_rets, plus2_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                 retside = TRUE, retclass = "xts")                
+  near_plus2_OFR_rets.df<- as.data.frame(near_plus2_OFR_rets)
+  near_plus2_OFR_rets_lag1s   <- merge(nearby_OFR_rets, plus2_OFR_rets_lag1s, all = TRUE, fill = NA, join = "outer", 
+                                       retside = TRUE, retclass = "xts")                
+  near_plus2_OFR_rets_lag1s.df<- as.data.frame(near_plus2_OFR_rets_lag1s)
+  near_plus2_OFR_rets_lag10s   <- merge(nearby_OFR_rets, plus2_OFR_rets_lag10s, all = TRUE, fill = NA, join = "outer", 
+                                        retside = TRUE, retclass = "xts")                
+  near_plus2_OFR_rets_lag10s.df<- as.data.frame(near_plus2_OFR_rets_lag10s)
+  cor(near_plus2_OFR_rets.df, use = "pairwise.complete.obs")
+  cor(near_plus2_OFR_rets_lag1s.df, use = "pairwise.complete.obs")
+  cor(near_plus2_OFR_rets_lag10s.df, use = "pairwise.complete.obs")
+  
+  # No zeros
+  near_plus2_OFR_rets_no0s   <- merge(nearby_OFR_rets_no0s, plus2_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
                                       retside = TRUE, retclass = "xts")                
-near_plus2_OFR_rets_lag10s.df<- as.data.frame(near_plus2_OFR_rets_lag10s)
-cor(near_plus2_OFR_rets.df, use = "pairwise.complete.obs")
-cor(near_plus2_OFR_rets_lag1s.df, use = "pairwise.complete.obs")
-cor(near_plus2_OFR_rets_lag10s.df, use = "pairwise.complete.obs")
+  near_plus2_OFR_rets_no0s.df<- as.data.frame(near_plus2_OFR_rets_no0s)
+  cor(near_plus2_OFR_rets_no0s.df, use = "pairwise.complete.obs")
+  
+  # In time bins - ten minutes
+  # Date in the CUMULCORREL1_BID timestamp is irrelevant. We are creating 10 minute bins, in which we place 
+  # correlations from each day in columns. Last time stamp says 13:19:50, but really it is 13:15:50
+  # but in the timeSequence function, partial bins are not allowed and 13:09:59 to 13:15:59 is not a full 
+  # ten minutes.
+  # BIDS, Levels
+  ep <- endpoints(near_plus2_BID.df, 'minutes', k=10)
+  if( length(ep) == 24){  
+    correl2<- period.apply(near_plus2_BID.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl2)), 2, substr, 12, 19)
+    row.names(correl2) <- temp
+    CUMULCORREL2_BID <- try(cbind(CUMULCORREL2_BID, correl2$X2), silent=TRUE)
+  }
+  
+  # BIDS, 'Returns'
+  ep <- endpoints(near_plus2_BID_rets.df, 'minutes', k=10)
+  if( length(ep) == 24){  
+    correl2_rets<- period.apply(near_plus2_BID_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl2_rets)), 2, substr, 12, 19)
+    row.names(correl2_rets) <- temp 
+    CUMULCORREL2_BID_rets <- try(cbind(CUMULCORREL2_BID_rets, correl2_rets$X2), silent=TRUE)
+  
+  
+  correl2_rets_lag1s <- period.apply(near_plus2_BID_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.data.frame(rownames(correl2_rets_lag1s)), 2, substr, 12, 19)
+  row.names(correl2_rets_lag1s) <- temp 
+  CUMULCORREL2_BID_rets_1sec <- try(cbind(CUMULCORREL2_BID_rets_1sec, correl2_rets_lag1s$X2), silent=TRUE)
+  
+  correl2_rets_lag10s <- period.apply(near_plus2_BID_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.data.frame(rownames(correl2_rets_lag10s)), 2, substr, 12, 19)
+  row.names(correl2_rets_lag10s) <- temp 
+  CUMULCORREL2_BID_rets_10sec <- try(cbind(CUMULCORREL2_BID_rets_10sec, correl2_rets_lag10s$X2), silent=TRUE)
+  }
+  
+  # BIDS, 'Returns' - no zeros
+  ep <- endpoints(near_plus2_BID_rets_no0s.df, 'minutes', k=10)
+  if( length(ep) == 24){    
+    correl2_rets_no0s<- period.apply(near_plus2_BID_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl2_rets_no0s)), 2, substr, 12, 19)
+    row.names(correl2_rets_no0s) <- temp 
+    CUMULCORREL2_BID_rets_no0s <- try(cbind(CUMULCORREL2_BID_rets_no0s, correl2_rets_no0s$X2), silent=TRUE)
+  }
+  
+  # OFRS, Levels
+  ep <- endpoints(near_plus2_OFR.df, 'minutes', k=10)
+  if( length(ep) == 24){  
+    correl2<- period.apply(near_plus2_OFR.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl2)), 2, substr, 12, 19)
+    row.names(correl2) <- temp
+    CUMULCORREL2_OFR <- try(cbind(CUMULCORREL2_OFR, correl2$X2), silent=TRUE)
+  }
+  
+  # OFRS, 'Returns'
+  ep <- endpoints(near_plus2_OFR_rets.df, 'minutes', k=10)
+  if( length(ep) == 24){  
+    correl2_rets<- period.apply(near_plus2_OFR_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl2_rets)), 2, substr, 12, 19)
+    row.names(correl2_rets) <- temp 
+    CUMULCORREL2_OFR_rets <- try(cbind(CUMULCORREL2_OFR_rets, correl2_rets$X2), silent=TRUE)
+  
+    correl2_rets_lag1s <- period.apply(near_plus2_OFR_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl2_rets_lag1s)), 2, substr, 12, 19)
+    row.names(correl2_rets_lag1s) <- temp 
+    CUMULCORREL2_OFR_rets_1sec <- try(cbind(CUMULCORREL2_OFR_rets_1sec, correl2_rets_lag1s$X2), silent=TRUE)
+    
+    correl2_rets_lag10s <- period.apply(near_plus2_OFR_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl2_rets_lag10s)), 2, substr, 12, 19)
+    row.names(correl2_rets_lag10s) <- temp 
+    CUMULCORREL2_OFR_rets_10sec <- try(cbind(CUMULCORREL2_OFR_rets_10sec, correl2_rets_lag10s$X2), silent=TRUE)
+  }
 
-# No zeros
-near_plus2_OFR_rets_no0s   <- merge(nearby_OFR_rets_no0s, plus2_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
-                                    retside = TRUE, retclass = "xts")                
-near_plus2_OFR_rets_no0s.df<- as.data.frame(near_plus2_OFR_rets_no0s)
-cor(near_plus2_OFR_rets_no0s.df, use = "pairwise.complete.obs")
 
-# In time bins - ten minutes
-# Date in the CUMULCORREL1_BID timestamp is irrelevant. We are creating 10 minute bins, in which we place 
-# correlations from each day in columns. Last time stamp says 13:19:50, but really it is 13:15:50
-# but in the timeSequence function, partial bins are not allowed and 13:09:59 to 13:15:59 is not a full 
-# ten minutes.
-# BIDS, Levels
-ep <- endpoints(near_plus2_BID.df, 'minutes', k=10)
-correl2<- period.apply(near_plus2_BID.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl2)), 2, substr, 12, 19)
-row.names(correl2) <- temp
-CUMULCORREL2_BID <- try(cbind(CUMULCORREL2_BID, correl2$X2), silent=TRUE)
-
-# BIDS, 'Returns'
-ep <- endpoints(near_plus2_BID_rets.df, 'minutes', k=10)
-correl2_rets<- period.apply(near_plus2_BID_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl2_rets)), 2, substr, 12, 19)
-row.names(correl2_rets) <- temp 
-CUMULCORREL2_BID_rets <- try(cbind(CUMULCORREL2_BID_rets, correl2_rets$X2), silent=TRUE)
-
-correl2_rets_lag1s <- period.apply(near_plus2_BID_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl2_rets_lag1s)), 2, substr, 12, 19)
-row.names(correl2_rets_lag1s) <- temp 
-CUMULCORREL2_BID_rets_1sec <- try(cbind(CUMULCORREL2_BID_rets_1sec, correl2_rets_lag1s$X2), silent=TRUE)
-
-correl2_rets_lag10s <- period.apply(near_plus2_BID_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl2_rets_lag10s)), 2, substr, 12, 19)
-row.names(correl2_rets_lag10s) <- temp 
-CUMULCORREL2_BID_rets_10sec <- try(cbind(CUMULCORREL2_BID_rets_10sec, correl2_rets_lag10s$X2), silent=TRUE)
-
-# BIDS, 'Returns' - no zeros
-ep <- endpoints(near_plus2_BID_rets_no0s.df, 'minutes', k=10)
-correl2_rets_no0s<- period.apply(near_plus2_BID_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl2_rets_no0s)), 2, substr, 12, 19)
-row.names(correl2_rets_no0s) <- temp 
-CUMULCORREL2_BID_rets_no0s <- try(cbind(CUMULCORREL2_BID_rets_no0s, correl2_rets_no0s$X2), silent=TRUE)
-
-# OFRS, Levels
-ep <- endpoints(near_plus2_OFR.df, 'minutes', k=10)
-correl2<- period.apply(near_plus2_OFR.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl2)), 2, substr, 12, 19)
-row.names(correl2) <- temp
-CUMULCORREL2_OFR <- try(cbind(CUMULCORREL2_OFR, correl2$X2), silent=TRUE)
-
-# OFRS, 'Returns'
-ep <- endpoints(near_plus2_OFR_rets.df, 'minutes', k=10)
-correl2_rets<- period.apply(near_plus2_OFR_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl2_rets)), 2, substr, 12, 19)
-row.names(correl2_rets) <- temp 
-CUMULCORREL2_OFR_rets <- try(cbind(CUMULCORREL2_OFR_rets, correl2_rets$X2), silent=TRUE)
-
-correl2_rets_lag1s <- period.apply(near_plus2_OFR_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl2_rets_lag1s)), 2, substr, 12, 19)
-row.names(correl2_rets_lag1s) <- temp 
-CUMULCORREL2_OFR_rets_1sec <- try(cbind(CUMULCORREL2_OFR_rets_1sec, correl2_rets_lag1s$X2), silent=TRUE)
-
-correl2_rets_lag10s <- period.apply(near_plus2_OFR_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl2_rets_lag10s)), 2, substr, 12, 19)
-row.names(correl2_rets_lag10s) <- temp 
-CUMULCORREL2_OFR_rets_10sec <- try(cbind(CUMULCORREL2_OFR_rets_10sec, correl2_rets_lag10s$X2), silent=TRUE)
-
-# OFRS, 'Returns' - no zeros
-ep <- endpoints(near_plus2_OFR_rets_no0s.df, 'minutes', k=10)
-correl2_rets_no0s<- period.apply(near_plus2_OFR_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl2_rets_no0s)), 2, substr, 12, 19)
-row.names(correl2_rets_no0s) <- temp 
-CUMULCORREL2_OFR_rets_no0s <- try(cbind(CUMULCORREL2_OFR_rets_no0s, correl2_rets_no0s$X2), silent=TRUE)
-# ######################################################################################## 
-#  
-# 
-# #Nearby and plus3
-# ########################################################################################  
-
-plus3_BID         <- to.period(qplus3$BID, period = 'seconds', k = 1, OHLC = FALSE)
-plus3_BID_rets    <- diff.xts(plus3_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
-non_zeros         <- index(plus3_BID_rets)[which(plus3_BID_rets != 0)]
-p3secs_to_update_BID_rets  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
-plus3_BID_rets_no0s<- subset(plus3_BID_rets, BID !=0)
-plus3_BID_rets_lag1s<- lag.xts(plus3_BID_rets, k=-1)
-plus3_BID_rets_lag10s<- lag.xts(plus3_BID_rets, k=-10)
-
-plus3_OFR         <- to.period(qplus3$OFR, period = 'seconds', k = 1, OHLC = FALSE)
-plus3_OFR_rets    <- diff.xts(plus3_OFR, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
-non_zeros         <- index(plus3_OFR_rets)[which(plus3_OFR_rets != 0)]
-p3secs_to_update_OFR_rets  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
-plus3_OFR_rets_no0s<- subset(plus3_OFR_rets, OFR !=0)
-plus3_OFR_rets_lag1s<- lag.xts(plus3_OFR_rets, k=-1)
-plus3_OFR_rets_lag10s<- lag.xts(plus3_OFR_rets, k=-10)
-
-# Full day correlations
-# BIDS, Levels
-near_plus3_BID        <- merge(nearby_BID, plus3_BID, all = TRUE, fill = NA, join = "outer", retside = TRUE, 
-                               retclass = "xts")                
-near_plus3_BID.df     <- as.data.frame(near_plus3_BID)
-cor(near_plus3_BID.df, use = "pairwise.complete.obs")
-
-# BIDS, 'Returns'
-#Keep zeroes
-near_plus3_BID_rets   <- merge(nearby_BID_rets, plus3_BID_rets, all = TRUE, fill = NA, join = "outer", 
-                               retside = TRUE, retclass = "xts")                
-near_plus3_BID_rets.df<- as.data.frame(near_plus3_BID_rets)
-near_plus3_BID_rets_lag1s   <- merge(nearby_BID_rets, plus3_BID_rets_lag1s, all = TRUE, fill = NA, join = "outer", 
-                                     retside = TRUE, retclass = "xts")                
-near_plus3_BID_rets_lag1s.df<- as.data.frame(near_plus3_BID_rets_lag1s)
-near_plus3_BID_rets_lag10s   <- merge(nearby_BID_rets, plus3_BID_rets_lag10s, all = TRUE, fill = NA, join = "outer", 
+  # OFRS, 'Returns' - no zeros
+  ep <- endpoints(near_plus2_OFR_rets_no0s.df, 'minutes', k=10)
+  if( length(ep) == 24){ 
+    correl2_rets_no0s<- period.apply(near_plus2_OFR_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl2_rets_no0s)), 2, substr, 12, 19)
+    row.names(correl2_rets_no0s) <- temp 
+    CUMULCORREL2_OFR_rets_no0s <- try(cbind(CUMULCORREL2_OFR_rets_no0s, correl2_rets_no0s$X2), silent=TRUE)
+  }
+  # ######################################################################################## 
+  #  
+  # 
+  # #Nearby and plus3
+  # ########################################################################################  
+  
+  plus3_BID         <- to.period(qplus3$BID, period = 'seconds', k = 1, OHLC = FALSE)
+  plus3_BID_rets    <- diff.xts(plus3_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
+  non_zeros         <- index(plus3_BID_rets)[which(plus3_BID_rets != 0)]
+  p3secs_to_update_BID_rets  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
+  plus3_BID_rets_no0s<- subset(plus3_BID_rets, BID !=0)
+  plus3_BID_rets_lag1s<- lag.xts(plus3_BID_rets, k=-1)
+  plus3_BID_rets_lag10s<- lag.xts(plus3_BID_rets, k=-10)
+  
+  plus3_OFR         <- to.period(qplus3$OFR, period = 'seconds', k = 1, OHLC = FALSE)
+  plus3_OFR_rets    <- diff.xts(plus3_OFR, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
+  non_zeros         <- index(plus3_OFR_rets)[which(plus3_OFR_rets != 0)]
+  p3secs_to_update_OFR_rets  <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
+  plus3_OFR_rets_no0s<- subset(plus3_OFR_rets, OFR !=0)
+  plus3_OFR_rets_lag1s<- lag.xts(plus3_OFR_rets, k=-1)
+  plus3_OFR_rets_lag10s<- lag.xts(plus3_OFR_rets, k=-10)
+  
+  # Full day correlations
+  # BIDS, Levels
+  near_plus3_BID        <- merge(nearby_BID, plus3_BID, all = TRUE, fill = NA, join = "outer", retside = TRUE, 
+                                 retclass = "xts")                
+  near_plus3_BID.df     <- as.data.frame(near_plus3_BID)
+  cor(near_plus3_BID.df, use = "pairwise.complete.obs")
+  
+  # BIDS, 'Returns'
+  #Keep zeroes
+  near_plus3_BID_rets   <- merge(nearby_BID_rets, plus3_BID_rets, all = TRUE, fill = NA, join = "outer", 
+                                 retside = TRUE, retclass = "xts")                
+  near_plus3_BID_rets.df<- as.data.frame(near_plus3_BID_rets)
+  near_plus3_BID_rets_lag1s   <- merge(nearby_BID_rets, plus3_BID_rets_lag1s, all = TRUE, fill = NA, join = "outer", 
+                                       retside = TRUE, retclass = "xts")                
+  near_plus3_BID_rets_lag1s.df<- as.data.frame(near_plus3_BID_rets_lag1s)
+  near_plus3_BID_rets_lag10s   <- merge(nearby_BID_rets, plus3_BID_rets_lag10s, all = TRUE, fill = NA, join = "outer", 
+                                        retside = TRUE, retclass = "xts")                
+  near_plus3_BID_rets_lag10s.df<- as.data.frame(near_plus3_BID_rets_lag10s)
+  cor(near_plus3_BID_rets.df, use = "pairwise.complete.obs")  
+  cor(near_plus3_BID_rets_lag1s.df, use = "pairwise.complete.obs")
+  cor(near_plus3_BID_rets_lag10s.df, use = "pairwise.complete.obs")
+  
+  # No zeros
+  near_plus3_BID_rets_no0s   <- merge(nearby_BID_rets_no0s, plus3_BID_rets_no0s, all = TRUE, fill = NA, join = "outer", 
                                       retside = TRUE, retclass = "xts")                
-near_plus3_BID_rets_lag10s.df<- as.data.frame(near_plus3_BID_rets_lag10s)
-cor(near_plus3_BID_rets.df, use = "pairwise.complete.obs")  
-cor(near_plus3_BID_rets_lag1s.df, use = "pairwise.complete.obs")
-cor(near_plus3_BID_rets_lag10s.df, use = "pairwise.complete.obs")
-
-# No zeros
-near_plus3_BID_rets_no0s   <- merge(nearby_BID_rets_no0s, plus3_BID_rets_no0s, all = TRUE, fill = NA, join = "outer", 
-                                    retside = TRUE, retclass = "xts")                
-near_plus3_BID_rets_no0s.df<- as.data.frame(near_plus3_BID_rets_no0s)
-cor(near_plus3_BID_rets_no0s.df, use = "pairwise.complete.obs")
-
-# OFR, Levels
-near_plus3_OFR        <- merge(nearby_OFR, plus3_OFR, all = TRUE, fill = NA, join = "outer", retside = TRUE, 
-                               retclass = "xts")                
-near_plus3_OFR.df     <- as.data.frame(near_plus3_OFR)
-cor(near_plus3_OFR.df, use = "pairwise.complete.obs")
-
-# 'Returns'
-near_plus3_OFR_rets   <- merge(nearby_OFR_rets, plus3_OFR_rets, all = TRUE, fill = NA, join = "outer", 
-                               retside = TRUE, retclass = "xts")                
-near_plus3_OFR_rets.df<- as.data.frame(near_plus3_OFR_rets)
-near_plus3_OFR_rets_lag1s   <- merge(nearby_OFR_rets, plus3_OFR_rets_lag1s, all = TRUE, fill = NA, join = "outer", 
-                                     retside = TRUE, retclass = "xts")                
-near_plus3_OFR_rets_lag1s.df<- as.data.frame(near_plus3_OFR_rets_lag1s)
-near_plus3_OFR_rets_lag10s   <- merge(nearby_OFR_rets, plus3_OFR_rets_lag10s, all = TRUE, fill = NA, join = "outer", 
+  near_plus3_BID_rets_no0s.df<- as.data.frame(near_plus3_BID_rets_no0s)
+  cor(near_plus3_BID_rets_no0s.df, use = "pairwise.complete.obs")
+  
+  # OFR, Levels
+  near_plus3_OFR        <- merge(nearby_OFR, plus3_OFR, all = TRUE, fill = NA, join = "outer", retside = TRUE, 
+                                 retclass = "xts")                
+  near_plus3_OFR.df     <- as.data.frame(near_plus3_OFR)
+  cor(near_plus3_OFR.df, use = "pairwise.complete.obs")
+  
+  # 'Returns'
+  near_plus3_OFR_rets   <- merge(nearby_OFR_rets, plus3_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                 retside = TRUE, retclass = "xts")                
+  near_plus3_OFR_rets.df<- as.data.frame(near_plus3_OFR_rets)
+  near_plus3_OFR_rets_lag1s   <- merge(nearby_OFR_rets, plus3_OFR_rets_lag1s, all = TRUE, fill = NA, join = "outer", 
+                                       retside = TRUE, retclass = "xts")                
+  near_plus3_OFR_rets_lag1s.df<- as.data.frame(near_plus3_OFR_rets_lag1s)
+  near_plus3_OFR_rets_lag10s   <- merge(nearby_OFR_rets, plus3_OFR_rets_lag10s, all = TRUE, fill = NA, join = "outer", 
+                                        retside = TRUE, retclass = "xts")                
+  near_plus3_OFR_rets_lag10s.df<- as.data.frame(near_plus3_OFR_rets_lag10s)
+  cor(near_plus3_OFR_rets.df, use = "pairwise.complete.obs")
+  cor(near_plus3_OFR_rets_lag1s.df, use = "pairwise.complete.obs")
+  cor(near_plus3_OFR_rets_lag10s.df, use = "pairwise.complete.obs")
+  
+  # No zeros
+  near_plus3_OFR_rets_no0s   <- merge(nearby_OFR_rets_no0s, plus3_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
                                       retside = TRUE, retclass = "xts")                
-near_plus3_OFR_rets_lag10s.df<- as.data.frame(near_plus3_OFR_rets_lag10s)
-cor(near_plus3_OFR_rets.df, use = "pairwise.complete.obs")
-cor(near_plus3_OFR_rets_lag1s.df, use = "pairwise.complete.obs")
-cor(near_plus3_OFR_rets_lag10s.df, use = "pairwise.complete.obs")
+  near_plus3_OFR_rets_no0s.df<- as.data.frame(near_plus3_OFR_rets_no0s)
+  cor(near_plus3_OFR_rets_no0s.df, use = "pairwise.complete.obs")
+  
+  # In time bins - ten minutes
+  # Date in the CUMULCORREL1_BID timestamp is irrelevant. We are creating 10 minute bins, in which we place 
+  # correlations from each day in columns. Last time stamp says 13:19:50, but really it is 13:15:50
+  # but in the timeSequence function, partial bins are not allowed and 13:09:59 to 13:15:59 is not a full 
+  # ten minutes.
+  # BIDS, Levels
+  ep <- endpoints(near_plus3_BID.df, 'minutes', k=10)
+  if( length(ep) == 24){ 
+    correl3<- period.apply(near_plus3_BID.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl3)), 2, substr, 12, 19)
+    row.names(correl3) <- temp
+    CUMULCORREL3_BID <- try(cbind(CUMULCORREL3_BID, correl3$X2), silent=TRUE)
+  }
+  
+  # BIDS, 'Returns'
+  ep <- endpoints(near_plus3_BID_rets.df, 'minutes', k=10)
+  if( length(ep) == 24){ 
+    correl3_rets<- period.apply(near_plus3_BID_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl3_rets)), 2, substr, 12, 19)
+    row.names(correl3_rets) <- temp 
+    CUMULCORREL3_BID_rets <- try(cbind(CUMULCORREL3_BID_rets, correl3_rets$X2), silent=TRUE)
+      
+    correl3_rets_lag1s <- period.apply(near_plus3_BID_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl3_rets_lag1s)), 2, substr, 12, 19)
+    row.names(correl3_rets_lag1s) <- temp 
+    CUMULCORREL3_BID_rets_1sec <- try(cbind(CUMULCORREL3_BID_rets_1sec, correl3_rets_lag1s$X2), silent=TRUE)
+    
+    correl3_rets_lag10s <- period.apply(near_plus3_BID_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl3_rets_lag10s)), 2, substr, 12, 19)
+    row.names(correl3_rets_lag10s) <- temp 
+    CUMULCORREL3_BID_rets_10sec <- try(cbind(CUMULCORREL3_BID_rets_10sec, correl3_rets_lag10s$X2), silent=TRUE)
+  }
 
-# No zeros
-near_plus3_OFR_rets_no0s   <- merge(nearby_OFR_rets_no0s, plus3_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
-                                    retside = TRUE, retclass = "xts")                
-near_plus3_OFR_rets_no0s.df<- as.data.frame(near_plus3_OFR_rets_no0s)
-cor(near_plus3_OFR_rets_no0s.df, use = "pairwise.complete.obs")
+  # BIDS, 'Returns' - no zeros
+  ep <- endpoints(near_plus3_BID_rets_no0s.df, 'minutes', k=10)
+  if( length(ep) == 24){
+    correl3_rets_no0s<- period.apply(near_plus3_BID_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl3_rets_no0s)), 2, substr, 12, 19)
+    row.names(correl3_rets_no0s) <- temp 
+    CUMULCORREL3_BID_rets_no0s <- try(cbind(CUMULCORREL3_BID_rets_no0s, correl3_rets_no0s$X2), silent=TRUE)
+  }
 
-# In time bins - ten minutes
-# Date in the CUMULCORREL1_BID timestamp is irrelevant. We are creating 10 minute bins, in which we place 
-# correlations from each day in columns. Last time stamp says 13:19:50, but really it is 13:15:50
-# but in the timeSequence function, partial bins are not allowed and 13:09:59 to 13:15:59 is not a full 
-# ten minutes.
-# BIDS, Levels
-ep <- endpoints(near_plus3_BID.df, 'minutes', k=10)
-correl3<- period.apply(near_plus3_BID.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl3)), 2, substr, 12, 19)
-row.names(correl3) <- temp
-CUMULCORREL3_BID <- try(cbind(CUMULCORREL3_BID, correl3$X2), silent=TRUE)
-
-# BIDS, 'Returns'
-ep <- endpoints(near_plus3_BID_rets.df, 'minutes', k=10)
-correl3_rets<- period.apply(near_plus3_BID_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl3_rets)), 2, substr, 12, 19)
-row.names(correl3_rets) <- temp 
-CUMULCORREL3_BID_rets <- try(cbind(CUMULCORREL3_BID_rets, correl3_rets$X2), silent=TRUE)
-
-correl3_rets_lag1s <- period.apply(near_plus3_BID_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl3_rets_lag1s)), 2, substr, 12, 19)
-row.names(correl3_rets_lag1s) <- temp 
-CUMULCORREL3_BID_rets_1sec <- try(cbind(CUMULCORREL3_BID_rets_1sec, correl3_rets_lag1s$X2), silent=TRUE)
-
-correl3_rets_lag10s <- period.apply(near_plus3_BID_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl3_rets_lag10s)), 2, substr, 12, 19)
-row.names(correl3_rets_lag10s) <- temp 
-CUMULCORREL3_BID_rets_10sec <- try(cbind(CUMULCORREL3_BID_rets_10sec, correl3_rets_lag10s$X2), silent=TRUE)
-
-# BIDS, 'Returns' - no zeros
-ep <- endpoints(near_plus3_BID_rets_no0s.df, 'minutes', k=10)
-correl3_rets_no0s<- period.apply(near_plus3_BID_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl3_rets_no0s)), 2, substr, 12, 19)
-row.names(correl3_rets_no0s) <- temp 
-CUMULCORREL3_BID_rets_no0s <- try(cbind(CUMULCORREL3_BID_rets_no0s, correl3_rets_no0s$X2), silent=TRUE)
-
-# OFRS, Levels
-ep <- endpoints(near_plus3_OFR.df, 'minutes', k=10)
-correl3<- period.apply(near_plus3_OFR.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl3)), 2, substr, 12, 19)
-row.names(correl3) <- temp
-CUMULCORREL3_OFR <- try(cbind(CUMULCORREL3_OFR, correl3$X2), silent=TRUE)
-
-# OFRS, 'Returns'
-ep <- endpoints(near_plus3_OFR_rets.df, 'minutes', k=10)
-correl3_rets<- period.apply(near_plus3_OFR_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl3_rets)), 2, substr, 12, 19)
-row.names(correl3_rets) <- temp 
-CUMULCORREL3_OFR_rets <- try(cbind(CUMULCORREL3_OFR_rets, correl3_rets$X2), silent=TRUE)
-
-correl3_rets_lag1s <- period.apply(near_plus3_OFR_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl3_rets_lag1s)), 2, substr, 12, 19)
-row.names(correl3_rets_lag1s) <- temp 
-CUMULCORREL3_OFR_rets_1sec <- try(cbind(CUMULCORREL3_OFR_rets_1sec, correl3_rets_lag1s$X2), silent=TRUE)
-
-correl3_rets_lag10s <- period.apply(near_plus3_OFR_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl3_rets_lag10s)), 2, substr, 12, 19)
-row.names(correl3_rets_lag10s) <- temp 
-CUMULCORREL3_OFR_rets_10sec <- try(cbind(CUMULCORREL3_OFR_rets_10sec, correl3_rets_lag10s$X2), silent=TRUE)
-
-# OFRS, 'Returns' - no zeros
-ep <- endpoints(near_plus3_OFR_rets_no0s.df, 'minutes', k=10)
-correl3_rets_no0s<- period.apply(near_plus3_OFR_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-temp <- apply(as.data.frame(rownames(correl3_rets_no0s)), 2, substr, 12, 19)
-row.names(correl3_rets_no0s) <- temp 
-CUMULCORREL3_OFR_rets_no0s <- try(cbind(CUMULCORREL3_OFR_rets_no0s, correl3_rets_no0s$X2), silent=TRUE)
-# ######################################################################################## 
+  # OFRS, Levels
+  ep <- endpoints(near_plus3_OFR.df, 'minutes', k=10)
+  if( length(ep) == 24){
+    correl3<- period.apply(near_plus3_OFR.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl3)), 2, substr, 12, 19)
+    row.names(correl3) <- temp
+    CUMULCORREL3_OFR <- try(cbind(CUMULCORREL3_OFR, correl3$X2), silent=TRUE)
+  }
+  
+  # OFRS, 'Returns'
+  ep <- endpoints(near_plus3_OFR_rets.df, 'minutes', k=10)
+  if( length(ep) == 24){
+    correl3_rets<- period.apply(near_plus3_OFR_rets.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl3_rets)), 2, substr, 12, 19)
+    row.names(correl3_rets) <- temp 
+    CUMULCORREL3_OFR_rets <- try(cbind(CUMULCORREL3_OFR_rets, correl3_rets$X2), silent=TRUE)
+    
+    correl3_rets_lag1s <- period.apply(near_plus3_OFR_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl3_rets_lag1s)), 2, substr, 12, 19)
+    row.names(correl3_rets_lag1s) <- temp 
+    CUMULCORREL3_OFR_rets_1sec <- try(cbind(CUMULCORREL3_OFR_rets_1sec, correl3_rets_lag1s$X2), silent=TRUE)
+    
+    correl3_rets_lag10s <- period.apply(near_plus3_OFR_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl3_rets_lag10s)), 2, substr, 12, 19)
+    row.names(correl3_rets_lag10s) <- temp 
+    CUMULCORREL3_OFR_rets_10sec <- try(cbind(CUMULCORREL3_OFR_rets_10sec, correl3_rets_lag10s$X2), silent=TRUE)
+  }
+  
+  # OFRS, 'Returns' - no zeros
+  ep <- endpoints(near_plus3_OFR_rets_no0s.df, 'minutes', k=10)
+  if( length(ep) == 24){
+    correl3_rets_no0s<- period.apply(near_plus3_OFR_rets_no0s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl3_rets_no0s)), 2, substr, 12, 19)
+    row.names(correl3_rets_no0s) <- temp 
+    CUMULCORREL3_OFR_rets_no0s <- try(cbind(CUMULCORREL3_OFR_rets_no0s, correl3_rets_no0s$X2), silent=TRUE)
+  }
+  # ######################################################################################## 
 
 
 }
@@ -808,7 +846,7 @@ CUMULCORREL3_OFR_rets_no0s <- try(cbind(CUMULCORREL3_OFR_rets_no0s, correl3_rets
         panel.grid.major = element_line(colour = "grey")) +
     #scale_colour_grey() + 
     ylab("Correlation") 
-ggsave(file="Bid_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
+ggsave(file="Bid_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 
 
@@ -855,7 +893,7 @@ OFR_plot <- ggplot(CUMULCORREL_OFR_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS,
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
-ggsave(file="OFR_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
+ggsave(file="OFR_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 #########################################################################
 
 #######################################
@@ -902,7 +940,7 @@ Bid_plot_no0s <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = M
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
-ggsave(file="Bid_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
+ggsave(file="Bid_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 ###############################
 # OFRs Contemporaneous Plus1
@@ -947,7 +985,7 @@ OFR_plot_no0s <- ggplot(CUMULCORREL_OFR_rets_no0s, aes(TimeBins, MEANS, ymin = M
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
-ggsave(file="OFR_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
+ggsave(file="OFR_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 #########################################################################
 #######################################
@@ -1003,7 +1041,7 @@ Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ym
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
-ggsave(file="Bid_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
+ggsave(file="Bid_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 ###############################
 # OFRs Contemporaneous Plus1
@@ -1057,7 +1095,7 @@ OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ym
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
   ylab("Correlation")
-ggsave(file="OFR_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures', scale=1, height=4, width=8, units="in")
+ggsave(file="OFR_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 ###########################################
 # Bid_plot
 # OFR_plot
@@ -1078,7 +1116,7 @@ p2secs_to_update_OFR_rets <- -1*p2secs_to_update_OFR_rets
 p3secs_to_update_BID_rets <- -1*p3secs_to_update_BID_rets
 p3secs_to_update_OFR_rets <- -1*p3secs_to_update_OFR_rets
 
-setwd('C:/Users/mallorym/Documents/GitHub/BBOBAS/Figures')
+setwd('C:/Users/mallorym/Documents/GitHub/BBOBAS/')
 png(filename="nsecs_to_update_BID_rets.png")
 hist(as.numeric(nsecs_to_update_BID_rets), 200, main = "Nearby Bid", xlab="Number of Seconds")
 dev.off()
