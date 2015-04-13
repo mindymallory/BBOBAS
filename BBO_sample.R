@@ -43,7 +43,7 @@ ConvertCornFuturesQuotes <- function(x) {
 # Define the dates to loop over
 yearstart <- 2011
 yearend   <- 2011
-dates     <- timeSequence(from = paste(yearstart, "-09-29", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
+dates     <- timeSequence(from = paste(yearstart, "-10-26", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
                           to = paste(yearend, "-12-31", sep = ""))
 # Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
 # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the 
@@ -144,13 +144,13 @@ while(dim(DATA)[1]>0) {
 CUMULDATA      <- CUMULDATA[2:dim(CUMULDATA)[1],]
 CUMULTRANS     <- CUMULTRANS[2:dim(CUMULTRANS)[1],]
 CUMULBADPRICES <- CUMULBADPRICES[2:dim(CUMULBADPRICES)[1],]
-write.csv(CUMULDATA, file = paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
-write.csv(CUMULTRANS, file = paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
-if(is.na(CUMULBADPRICES)[1] == FALSE) {write.csv(CUMULBADPRICES, file = paste0('BADPRICES',as.character(dates[i])))}
 
 # Separate out the contracts here
 DeliveryDates  <- unique(CUMULDATA$SYMBOL)
 DeliveryDates  <- DeliveryDates[order(DeliveryDates)]
+write.csv(CUMULDATA, file = paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
+write.csv(CUMULTRANS, file = paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
+if(is.na(CUMULBADPRICES)[1] == FALSE) {write.csv(CUMULBADPRICES, file = paste0('BADPRICES',as.character(dates[i])))}
 
 # Creates an XTS object for every contract's quotes and trades
 # Naming convention is 't_date_contract'. for example t_20100126_1003 is the trades on 01-26-2010 for the March10 contract
