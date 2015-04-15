@@ -307,7 +307,6 @@ for(i in 1:length(dates)){
 #setwd()
 
   #Now begin calculations
-<<<<<<< HEAD
   # Identify nearby and two years of the forward maturities including an if statement to 
   # 'roll' before maturity month. Second part of the && statement is only <15 because then the
   # nearby goes off the board and you can reference DeliveryDates[1] for the nearby again
