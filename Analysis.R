@@ -307,6 +307,7 @@ for(i in 1:length(dates)){
 #setwd()
 
   #Now begin calculations
+<<<<<<< HEAD
   # Identify nearby and two years of the forward maturities including an if statement to 
   # 'roll' before maturity month. Second part of the && statement is only <15 because then the
   # nearby goes off the board and you can reference DeliveryDates[1] for the nearby again
@@ -363,6 +364,37 @@ for(i in 1:length(dates)){
     rm(list = ls()[grep("^t_", ls())]) # Removes all varaibles that start with "q_"
    }
     
+=======
+  # Identify nearby and two years of the forward maturities
+  # Need to write a little code to 'roll' before maturity month
+  
+  # See 'substr(x, start, stop)' to match month in 'dates[i] with DeliveryDates[j] and for contract rolling
+  
+  qnearby <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
+  qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
+  qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
+  qplus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
+  qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
+  qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
+  qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
+  qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
+  qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
+  qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
+
+  #   tnearby <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
+  #   tplus1  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
+  #   tplus2  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
+  #   tplus3  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
+  #   tplus4  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
+  #   tplus5  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
+  #   tplus6  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
+  #   tplus7  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
+  #   tplus8  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
+  #   tplus9  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
+  
+  rm(list = ls()[grep("^q_", ls())]) # Removes all varaibles that start with "q_"
+  rm(list = ls()[grep("^t_", ls())]) # Removes all varaibles that start with "q_"
+>>>>>>> 66535353217d4cfa338d6b6d6f50652cf23096df
 
 # Nearby and plus1
 ########################################################################################  
