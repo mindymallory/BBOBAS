@@ -23,15 +23,15 @@ Objectives
 Identify patterns of correlation in the best bid/offer of the nearby and deferred contracts
 - Contemporaneous Correlations
  + Bid-to-Bid
- + Ask-to-Ask
+ + Offer-to-Offer
  + Bid-to-Ask
- + Ask-to-Bid  
+ + Offer-to-Bid  
 
 - Time Lagged Correleation
  + Bid-to-Bid
- + Ask-to-Ask
- + Bid-to-Ask
- + Ask-to-Bid
+ + Offer-to-Offer
+ + Bid-to-Offer
+ + Offer-to-Bid
 
 
 Objectives
@@ -63,8 +63,8 @@ incremental: true
 Methods
 ========================================================
 Data
-- Corn BBO data set from CME Group 
-- More details here.
+- Corn Best Bid and Offer (BBO) data set from CME Group 
+
 
 Methods
 ========================================================
@@ -79,18 +79,16 @@ Methods
 incremental: true
 Analysis
 
-1. Compute quotes per second
-2. Compute seconds to next revision
-3. Compute simple correlations between the nearby contract and the one, two, and three month deferred contracts in ten minute time bins
+1. Compute seconds to next revision
+2. Compute simple correlations between the nearby contract and the one, two, and three month deferred contracts in ten minute time bins
  + Since data are aggregated to the second, one would expect the presence of hft and/or spread trading to imply significant contemporaneous correlation between the nearby and the deferred contracts
  + Additionally, since the time intervals of importance to hft are so short, one would expect the correlation between the nearby and deferred contracts lagged even one second to be small
  
 Methods
 ===========================================================
 Analysis
-- Consider various special cases such as USDA announcement days
-- Monthy?
-- Day of week?
+- Consider USDA announcement days
+
 
 Number of Seconds to a Revision in Bid/Ask
 ========================================================
@@ -140,6 +138,19 @@ Contemporaneous Correlation
 ========================================================
 ![](\Bid_plot.png)
 
+Contemporaneous Correlation
+========================================================
+![](\OFR_plot.png)
+
+Contemporaneous Correlation
+========================================================
+![](\Bid_plot_report.png)
+report days
+
+Contemporaneous Correlation
+========================================================
+![](\OFR_plot_report.png)
+report days
 
 Contemporaneous Correlation II
 ========================================================
@@ -147,7 +158,17 @@ Contemporaneous Correlation II
 
 Contemporaneous Correlation II
 ========================================================
+![](\Bid_plot_no0s_report.png)
+report days
+
+Contemporaneous Correlation II
+========================================================
 ![](\OFR_plot_no0s.png)
+
+Contemporaneous Correlation II
+========================================================
+![](\OFR_plot_no0s_report.png)
+report days
 
 Time Lag
 ========================================================
@@ -157,4 +178,16 @@ Time Lag
 Time Lag
 ========================================================
 
+![](\Bid_plot_timelag_report.png)
+report days
+
+Time Lag
+========================================================
+
 ![](\OFR_plot_timelag.png)
+
+Time Lag
+========================================================
+
+![](\OFR_plot_timelag.png)
+report days

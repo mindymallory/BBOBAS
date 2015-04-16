@@ -40,9 +40,9 @@ setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') # Office PC
 
 # Build the file names to be imported
 # Define the dates to loop over
-yearstart <- 2011
+yearstart <- 2010
 yearend <- 2011
-dates <- timeSequence(from = paste(yearstart, "-11-01", sep = ""), 
+dates <- timeSequence(from = paste(yearstart, "-01-04", sep = ""), 
                       to = paste(yearend, "-11-04", sep = ""))
 
 
@@ -603,14 +603,14 @@ rm(temp)
   # correlations from each day in columns. Last time stamp says 13:19:50, but really it is 13:15:50
   # but in the timeSequence function, partial bins are not allowed and 13:09:59 to 13:15:59 is not a full 
   # ten minutes.
-  # BIDS, Levels
-  ep <- endpoints(near_plus2_BID.df, 'minutes', k=10)
-  if( length(ep) == 24){  
-    correl2<- period.apply(near_plus2_BID.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-    temp <- apply(as.data.frame(rownames(correl2)), 2, substr, 12, 19)
-    row.names(correl2) <- temp
-    CUMULCORREL2_BID <- try(cbind(CUMULCORREL2_BID, correl2$X2), silent=TRUE)
-  }
+#   # BIDS, Levels
+#   ep <- endpoints(near_plus2_BID.df, 'minutes', k=10)
+#   if( length(ep) == 24){  
+#     correl2<- period.apply(near_plus2_BID.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+#     temp <- apply(as.data.frame(rownames(correl2)), 2, substr, 12, 19)
+#     row.names(correl2) <- temp
+#     CUMULCORREL2_BID <- try(cbind(CUMULCORREL2_BID, correl2$X2), silent=TRUE)
+#   }
   
   # BIDS, 'Returns'
   ep <- endpoints(near_plus2_BID_rets.df, 'minutes', k=10)
@@ -621,15 +621,15 @@ rm(temp)
     CUMULCORREL2_BID_rets <- try(cbind(CUMULCORREL2_BID_rets, correl2_rets$X2), silent=TRUE)
   
   
-  correl2_rets_lag1s <- period.apply(near_plus2_BID_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl2_rets_lag1s)), 2, substr, 12, 19)
-  row.names(correl2_rets_lag1s) <- temp 
-  CUMULCORREL2_BID_rets_1sec <- try(cbind(CUMULCORREL2_BID_rets_1sec, correl2_rets_lag1s$X2), silent=TRUE)
-  
-  correl2_rets_lag10s <- period.apply(near_plus2_BID_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
-  temp <- apply(as.data.frame(rownames(correl2_rets_lag10s)), 2, substr, 12, 19)
-  row.names(correl2_rets_lag10s) <- temp 
-  CUMULCORREL2_BID_rets_10sec <- try(cbind(CUMULCORREL2_BID_rets_10sec, correl2_rets_lag10s$X2), silent=TRUE)
+    correl2_rets_lag1s <- period.apply(near_plus2_BID_rets_lag1s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl2_rets_lag1s)), 2, substr, 12, 19)
+    row.names(correl2_rets_lag1s) <- temp 
+    CUMULCORREL2_BID_rets_1sec <- try(cbind(CUMULCORREL2_BID_rets_1sec, correl2_rets_lag1s$X2), silent=TRUE)
+    
+    correl2_rets_lag10s <- period.apply(near_plus2_BID_rets_lag10s.df, INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+    temp <- apply(as.data.frame(rownames(correl2_rets_lag10s)), 2, substr, 12, 19)
+    row.names(correl2_rets_lag10s) <- temp 
+    CUMULCORREL2_BID_rets_10sec <- try(cbind(CUMULCORREL2_BID_rets_10sec, correl2_rets_lag10s$X2), silent=TRUE)
   }
   
   # BIDS, 'Returns' - no zeros
@@ -766,7 +766,10 @@ rm(temp)
     temp <- apply(as.data.frame(rownames(correl3)), 2, substr, 12, 19)
     row.names(correl3) <- temp
     CUMULCORREL3_BID <- try(cbind(CUMULCORREL3_BID, correl3$X2), silent=TRUE)
-  }
+  } else{
+    x <- rep(NA, times = 24)
+    CUMULCORREL3_BID <- cbind(CUMULCORREL3_BID,x)
+  } 
   
   # BIDS, 'Returns'
   ep <- endpoints(near_plus3_BID_rets.df, 'minutes', k=10)
@@ -785,7 +788,11 @@ rm(temp)
     temp <- apply(as.data.frame(rownames(correl3_rets_lag10s)), 2, substr, 12, 19)
     row.names(correl3_rets_lag10s) <- temp 
     CUMULCORREL3_BID_rets_10sec <- try(cbind(CUMULCORREL3_BID_rets_10sec, correl3_rets_lag10s$X2), silent=TRUE)
-  }
+  } else{
+      x <- rep(NA, times = 24)
+      CUMULCORREL3_BID_rets <- cbind(CUMULCORREL3_BID,x)
+    } 
+  } 
 
   # BIDS, 'Returns' - no zeros
   ep <- endpoints(near_plus3_BID_rets_no0s.df, 'minutes', k=10)
@@ -881,7 +888,8 @@ rm(temp)
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) +
     #scale_colour_grey() + 
-    ylab("Correlation") 
+    ylab("Correlation") +
+    scale_y_continuous(limits=c(-0.1,1.1))
 ggsave(file="Bid_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 
@@ -928,7 +936,8 @@ OFR_plot <- ggplot(CUMULCORREL_OFR_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS,
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
-  ylab("Correlation")
+  ylab("Correlation")+
+  scale_y_continuous(limits=c(-0.1,1.1))
 ggsave(file="OFR_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 #########################################################################
 
@@ -975,7 +984,8 @@ Bid_plot_no0s <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = M
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
-  ylab("Correlation")
+  ylab("Correlation") +
+  scale_y_continuous(limits=c(-0.1,1.1))
 ggsave(file="Bid_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 ###############################
@@ -1020,7 +1030,8 @@ OFR_plot_no0s <- ggplot(CUMULCORREL_OFR_rets_no0s, aes(TimeBins, MEANS, ymin = M
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
-  ylab("Correlation")
+  ylab("Correlation") +
+  scale_y_continuous(limits=c(-0.1,1.1))
 ggsave(file="OFR_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 #########################################################################
@@ -1076,7 +1087,8 @@ Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ym
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
-  ylab("Correlation")
+  ylab("Correlation") +
+  scale_y_continuous(limits=c(-0.1,1.1))
 ggsave(file="Bid_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 ###############################
@@ -1130,7 +1142,8 @@ OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ym
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) +
   #scale_colour_grey() + 
-  ylab("Correlation")
+  ylab("Correlation") +
+  scale_y_continuous(limits=c(-0.1,1.1))
 ggsave(file="OFR_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 ###########################################
 # Bid_plot
