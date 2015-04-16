@@ -41,7 +41,7 @@ Objectives
 ========================================================
 Identify patterns of correlation in the best bid/offer of the nearby and deferred contracts
 - Learn something about the effect of spread trading and high frequency trade on futures markets 
-- ... But we will not be able to identify these effects separately\\ 
+- ... But we will not be able to identify these effects separately
  + Compare quoting frequency in futures with the quoting frequency reported in equities to get some sense of whether correlations are driven by spread trading or hft
 
 Motivation
@@ -58,7 +58,7 @@ A trader identified dataset does not exist for futures markets, but we do benefi
 Contributions
 ========================================================
 incremental: true
-1. Provide evidence on the presence of 'quote stuffing' by comparing the frequency of of quoting in futures with the frequency of quoting in equities, where it is known to occur.
+1. Provide evidence (or lack thereof) on the presence of 'quote stuffing' by comparing the frequency of of quoting in futures with the frequency of quoting in equities, where it is known to occur.
 2. Measure the correlation between nearby and deferred contracts, which is suggestive of efficiency in the transfer of information. Brought about by hft, spread trading, or both.
 3. Explore whether either of these outcomes are different on USDA report days.
 

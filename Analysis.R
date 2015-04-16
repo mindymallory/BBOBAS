@@ -40,10 +40,10 @@ setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') # Office PC
 
 # Build the file names to be imported
 # Define the dates to loop over
-yearstart <- 2010
+yearstart <- 2011
 yearend <- 2011
-dates <- timeSequence(from = paste(yearstart, "-01-01", sep = ""), 
-                      to = paste(yearend, "-12-31", sep = ""))
+dates <- timeSequence(from = paste(yearstart, "-11-01", sep = ""), 
+                      to = paste(yearend, "-11-04", sep = ""))
 
 
 
@@ -55,6 +55,14 @@ dates <- as.numeric(format(dates, format = "%y%m%d"))
   # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the
   # file was 12 times larger than the typical size and it was taking too long to process. Would make an interesting case
   # study to go back and investigate.
+
+# Delete Limit days when there were no quote revisions. Couldn't make all delitions in one line; not sure why not.
+dates <- subset(dates, dates != c('101008'))
+dates <- subset(dates, dates != c('111209'))
+dates <- subset(dates, dates != c('110331')) # Prospective Plantings report (Not included in our report days)
+dates <- subset(dates, dates != c('110630')) # Planted Acres report (Not included in our report days)
+dates <- subset(dates, dates != c('110705')) # Light trade after the 4th holiday. No trades or quotes for '3 deferred' which
+                                             # would have been the March 2012 contract.
 
 # Initializes data frames where analysis is stored
 #########################################################
@@ -280,17 +288,7 @@ for(i in 1:length(dates)){
 
   #Load all the contracts on a single day
   for(j in 1:(length(DeliveryDates)-1)){
-    #BBO
-   # if(substr(dates[i], 3, 4) == substr(DeliveryDates[1], 3, 4) && as.numeric(substr(dates[i], 5, 6)) < 15){
-#     load(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j+1]), ".rda"))
-#     temp <- temp["T09:30:00/T13:15:00"] # Focus on the daytime session 9:30am - 1:15pm
-#     assign(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j+1])), temp)
-#     
-#     #Transactions
-#     load(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j+1]), ".rda"))
-#     temp <- temp["T09:29:00/T13:16:00"] # Focus on the daytime session 9:30am - 1:15pm
-#     assign(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j+1])), temp)
-    #} else{
+        #Quotes
         load(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j]), ".rda"))
         temp <- temp["T09:30:00/T13:15:00"] # Focus on the daytime session 9:30am - 1:15pm
         assign(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])), temp)
@@ -299,12 +297,9 @@ for(i in 1:length(dates)){
         load(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j]), ".rda"))
         try(temp <- temp["T09:29:00/T13:16:00"]) # Focus on the daytime session 9:30am - 1:15pm
         try(assign(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])), temp))
-#     }
-  }
 
-  
-  rm(temp)
-#setwd()
+  }
+rm(temp)
 
   #Now begin calculations
   # Identify nearby and two years of the forward maturities including an if statement to 
@@ -363,38 +358,6 @@ for(i in 1:length(dates)){
     rm(list = ls()[grep("^t_", ls())]) # Removes all varaibles that start with "q_"
    }
     
-=======
-  # Identify nearby and two years of the forward maturities
-  # Need to write a little code to 'roll' before maturity month
-  
-  # See 'substr(x, start, stop)' to match month in 'dates[i] with DeliveryDates[j] and for contract rolling
-  
-  qnearby <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
-  qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
-  qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
-  qplus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
-  qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
-  qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
-  qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
-  qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
-  qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
-  qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
-
-  #   tnearby <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
-  #   tplus1  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
-  #   tplus2  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
-  #   tplus3  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
-  #   tplus4  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
-  #   tplus5  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
-  #   tplus6  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
-  #   tplus7  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
-  #   tplus8  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
-  #   tplus9  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
-  
-  rm(list = ls()[grep("^q_", ls())]) # Removes all varaibles that start with "q_"
-  rm(list = ls()[grep("^t_", ls())]) # Removes all varaibles that start with "q_"
->>>>>>> 66535353217d4cfa338d6b6d6f50652cf23096df
-
 # Nearby and plus1
 ########################################################################################  
 
@@ -882,7 +845,7 @@ for(i in 1:length(dates)){
   
   CUMULCORREL1_BID_rets$MEANS <- apply(CUMULCORREL1_BID_rets[,2:dim(CUMULCORREL1_BID_rets)[2]], 1, mean, na.rm = TRUE)
   CUMULCORREL1_BID_rets$sdS <- apply(CUMULCORREL1_BID_rets[,2:dim(CUMULCORREL1_BID_rets)[2]], 1, sd, na.rm = TRUE) 
-  CUMULCORREL1_BID_rets$contract <- factor("plus1")  
+  CUMULCORREL1_BID_rets$contract <- factor("1Deferred")  
 
   # Bids Contemporaneous Plus2
   colnames(CUMULCORREL2_BID_rets) <- "TimeBins" # This wipes the column names which is required for an rbind below 
@@ -890,7 +853,7 @@ for(i in 1:length(dates)){
 
   CUMULCORREL2_BID_rets$MEANS <- apply(CUMULCORREL2_BID_rets[,2:dim(CUMULCORREL2_BID_rets)[2]], 1, mean, na.rm = TRUE)
   CUMULCORREL2_BID_rets$sdS <- apply(CUMULCORREL2_BID_rets[,2:dim(CUMULCORREL2_BID_rets)[2]], 1, sd, na.rm = TRUE) 
-  CUMULCORREL2_BID_rets$contract <- factor("plus2")
+  CUMULCORREL2_BID_rets$contract <- factor("2Deferred")
 
   # Bids Contemporaneous Plus3
   colnames(CUMULCORREL3_BID_rets) <- "TimeBins" # This wipes the column names which is required for an rbind below
@@ -898,7 +861,7 @@ for(i in 1:length(dates)){
 
   CUMULCORREL3_BID_rets$MEANS <- apply(CUMULCORREL3_BID_rets[,2:dim(CUMULCORREL3_BID_rets)[2]], 1, mean, na.rm = TRUE)
   CUMULCORREL3_BID_rets$sdS <- apply(CUMULCORREL3_BID_rets[,2:dim(CUMULCORREL3_BID_rets)[2]], 1, sd, na.rm = TRUE) 
-  CUMULCORREL3_BID_rets$contract <- factor("plus3")
+  CUMULCORREL3_BID_rets$contract <- factor("3Deferred")
 
 
   CUMULCORREL_BID_rets <- rbind(CUMULCORREL1_BID_rets, CUMULCORREL2_BID_rets, CUMULCORREL3_BID_rets)
@@ -930,7 +893,7 @@ CUMULCORREL1_OFR_rets$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets))
 
 CUMULCORREL1_OFR_rets$MEANS <- apply(CUMULCORREL1_OFR_rets[,2:dim(CUMULCORREL1_OFR_rets)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_OFR_rets$sdS <- apply(CUMULCORREL1_OFR_rets[,2:dim(CUMULCORREL1_OFR_rets)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL1_OFR_rets$contract <- factor("plus1")  
+CUMULCORREL1_OFR_rets$contract <- factor("1Deferred")  
 
 # OFRs Contemporaneous Plus2
 colnames(CUMULCORREL2_OFR_rets) <- "TimeBins" # This wipes the column names which is required for an rbind below 
@@ -938,7 +901,7 @@ CUMULCORREL2_OFR_rets$TimeBins <- factor(row.names(CUMULCORREL2_OFR_rets))
 
 CUMULCORREL2_OFR_rets$MEANS <- apply(CUMULCORREL2_OFR_rets[,2:dim(CUMULCORREL2_OFR_rets)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL2_OFR_rets$sdS <- apply(CUMULCORREL2_OFR_rets[,2:dim(CUMULCORREL2_OFR_rets)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL2_OFR_rets$contract <- factor("plus2")
+CUMULCORREL2_OFR_rets$contract <- factor("2Deferred")
 
 # OFRs Contemporaneous Plus3
 colnames(CUMULCORREL3_OFR_rets) <- "TimeBins" # This wipes the column names which is required for an rbind below
@@ -946,7 +909,7 @@ CUMULCORREL3_OFR_rets$TimeBins <- factor(row.names(CUMULCORREL3_OFR_rets))
 
 CUMULCORREL3_OFR_rets$MEANS <- apply(CUMULCORREL3_OFR_rets[,2:dim(CUMULCORREL3_OFR_rets)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL3_OFR_rets$sdS <- apply(CUMULCORREL3_OFR_rets[,2:dim(CUMULCORREL3_OFR_rets)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL3_OFR_rets$contract <- factor("plus3")
+CUMULCORREL3_OFR_rets$contract <- factor("3Deferred")
 
 
 CUMULCORREL_OFR_rets <- rbind(CUMULCORREL1_OFR_rets, CUMULCORREL2_OFR_rets, CUMULCORREL3_OFR_rets)
@@ -977,7 +940,7 @@ CUMULCORREL1_BID_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL1_BID_rets_no
 
 CUMULCORREL1_BID_rets_no0s$MEANS <- apply(CUMULCORREL1_BID_rets_no0s[,2:dim(CUMULCORREL1_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_BID_rets_no0s$sdS <- apply(CUMULCORREL1_BID_rets_no0s[,2:dim(CUMULCORREL1_BID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL1_BID_rets_no0s$contract <- factor("plus1")  
+CUMULCORREL1_BID_rets_no0s$contract <- factor("1Deferred")  
 
 # Bids Contemporaneous Plus2
 colnames(CUMULCORREL2_BID_rets_no0s) <- "TimeBins" # This wipes the column names which is required for an rbind below 
@@ -985,7 +948,7 @@ CUMULCORREL2_BID_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL2_BID_rets_no
 
 CUMULCORREL2_BID_rets_no0s$MEANS <- apply(CUMULCORREL2_BID_rets_no0s[,2:dim(CUMULCORREL2_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL2_BID_rets_no0s$sdS <- apply(CUMULCORREL2_BID_rets_no0s[,2:dim(CUMULCORREL2_BID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL2_BID_rets_no0s$contract <- factor("plus2")
+CUMULCORREL2_BID_rets_no0s$contract <- factor("2Deferred")
 
 # Bids Contemporaneous Plus3
 colnames(CUMULCORREL3_BID_rets_no0s) <- "TimeBins" # This wipes the column names which is required for an rbind below
@@ -993,7 +956,7 @@ CUMULCORREL3_BID_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL3_BID_rets_no
 
 CUMULCORREL3_BID_rets_no0s$MEANS <- apply(CUMULCORREL3_BID_rets_no0s[,2:dim(CUMULCORREL3_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL3_BID_rets_no0s$sdS <- apply(CUMULCORREL3_BID_rets_no0s[,2:dim(CUMULCORREL3_BID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL3_BID_rets_no0s$contract <- factor("plus3")
+CUMULCORREL3_BID_rets_no0s$contract <- factor("3Deferred")
 
 
 CUMULCORREL_BID_rets_no0s <- rbind(CUMULCORREL1_BID_rets_no0s, CUMULCORREL2_BID_rets_no0s, CUMULCORREL3_BID_rets_no0s)
@@ -1022,7 +985,7 @@ CUMULCORREL1_OFR_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets_no
 
 CUMULCORREL1_OFR_rets_no0s$MEANS <- apply(CUMULCORREL1_OFR_rets_no0s[,2:dim(CUMULCORREL1_OFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_OFR_rets_no0s$sdS <- apply(CUMULCORREL1_OFR_rets_no0s[,2:dim(CUMULCORREL1_OFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL1_OFR_rets_no0s$contract <- factor("plus1")  
+CUMULCORREL1_OFR_rets_no0s$contract <- factor("1Deferred")  
 
 # OFRs Contemporaneous Plus2
 colnames(CUMULCORREL2_OFR_rets_no0s) <- "TimeBins" # This wipes the column names which is required for an rbind below 
@@ -1030,7 +993,7 @@ CUMULCORREL2_OFR_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL2_OFR_rets_no
 
 CUMULCORREL2_OFR_rets_no0s$MEANS <- apply(CUMULCORREL2_OFR_rets_no0s[,2:dim(CUMULCORREL2_OFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL2_OFR_rets_no0s$sdS <- apply(CUMULCORREL2_OFR_rets_no0s[,2:dim(CUMULCORREL2_OFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL2_OFR_rets_no0s$contract <- factor("plus2")
+CUMULCORREL2_OFR_rets_no0s$contract <- factor("2Deferred")
 
 # OFRs Contemporaneous Plus3
 colnames(CUMULCORREL3_OFR_rets_no0s) <- "TimeBins" # This wipes the column names which is required for an rbind below
@@ -1038,7 +1001,7 @@ CUMULCORREL3_OFR_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL3_OFR_rets_no
 
 CUMULCORREL3_OFR_rets_no0s$MEANS <- apply(CUMULCORREL3_OFR_rets_no0s[,2:dim(CUMULCORREL3_OFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL3_OFR_rets_no0s$sdS <- apply(CUMULCORREL3_OFR_rets_no0s[,2:dim(CUMULCORREL3_OFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL3_OFR_rets_no0s$contract <- factor("plus3")
+CUMULCORREL3_OFR_rets_no0s$contract <- factor("3Deferred")
 
 
 CUMULCORREL_OFR_rets_no0s <- rbind(CUMULCORREL1_OFR_rets_no0s, CUMULCORREL2_OFR_rets_no0s, CUMULCORREL3_OFR_rets_no0s)
@@ -1069,7 +1032,7 @@ CUMULCORREL1_BID_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL1_BID_rets_1s
 
 CUMULCORREL1_BID_rets_1sec$MEANS <- apply(CUMULCORREL1_BID_rets_1sec[,2:dim(CUMULCORREL1_BID_rets_1sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_BID_rets_1sec$sdS <- apply(CUMULCORREL1_BID_rets_1sec[,2:dim(CUMULCORREL1_BID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL1_BID_rets_1sec$contract <- factor("plus1")
+CUMULCORREL1_BID_rets_1sec$contract <- factor("1Deferred")
 CUMULCORREL1_BID_rets_1sec$lag <- factor("One Second")
 
 colnames(CUMULCORREL1_BID_rets_10sec) <- "TimeBins" # This wipes the column names which is required for an rbind below
@@ -1077,7 +1040,7 @@ CUMULCORREL1_BID_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL1_BID_rets_1
 
 CUMULCORREL1_BID_rets_10sec$MEANS <- apply(CUMULCORREL1_BID_rets_10sec[,2:dim(CUMULCORREL1_BID_rets_10sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_BID_rets_10sec$sdS <- apply(CUMULCORREL1_BID_rets_10sec[,2:dim(CUMULCORREL1_BID_rets_10sec)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL1_BID_rets_10sec$contract <- factor("plus1")  
+CUMULCORREL1_BID_rets_10sec$contract <- factor("1Deferred")  
 CUMULCORREL1_BID_rets_10sec$lag <- factor("Ten Seconds")  
 
 # Bids  Plus2
@@ -1086,7 +1049,7 @@ CUMULCORREL2_BID_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL2_BID_rets_1s
 
 CUMULCORREL2_BID_rets_1sec$MEANS <- apply(CUMULCORREL2_BID_rets_1sec[,2:dim(CUMULCORREL2_BID_rets_1sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL2_BID_rets_1sec$sdS <- apply(CUMULCORREL2_BID_rets_1sec[,2:dim(CUMULCORREL2_BID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL2_BID_rets_1sec$contract <- factor("plus2")
+CUMULCORREL2_BID_rets_1sec$contract <- factor("2Deferred")
 
 # Bids  Plus3
 colnames(CUMULCORREL3_BID_rets_1sec) <- "TimeBins" # This wipes the column names which is required for an rbind below
@@ -1094,7 +1057,7 @@ CUMULCORREL3_BID_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL3_BID_rets_1s
 
 CUMULCORREL3_BID_rets_1sec$MEANS <- apply(CUMULCORREL3_BID_rets_1sec[,2:dim(CUMULCORREL3_BID_rets_1sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL3_BID_rets_1sec$sdS <- apply(CUMULCORREL3_BID_rets_1sec[,2:dim(CUMULCORREL3_BID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL3_BID_rets_1sec$contract <- factor("plus3")
+CUMULCORREL3_BID_rets_1sec$contract <- factor("3Deferred")
 
 CUMULCORREL1_BID_rets$lag <- factor("Contemporaneous")
 CUMULCORREL_BID_rets_timelag <- rbind(CUMULCORREL1_BID_rets, CUMULCORREL1_BID_rets_1sec, CUMULCORREL1_BID_rets_10sec)
@@ -1107,7 +1070,7 @@ Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ym
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Correleation between Nearby and plus 1 in Bid for Various Time Lags - keep zeros') +
+  ggtitle('Time Lagged Nearby and 1 Deferred Correlations, Bid') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1123,7 +1086,7 @@ CUMULCORREL1_OFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets_1s
 
 CUMULCORREL1_OFR_rets_1sec$MEANS <- apply(CUMULCORREL1_OFR_rets_1sec[,2:dim(CUMULCORREL1_OFR_rets_1sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_OFR_rets_1sec$sdS <- apply(CUMULCORREL1_OFR_rets_1sec[,2:dim(CUMULCORREL1_OFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL1_OFR_rets_1sec$contract <- factor("plus1")
+CUMULCORREL1_OFR_rets_1sec$contract <- factor("1Deferred")
 CUMULCORREL1_OFR_rets_1sec$lag <- factor("One Second")
 
 colnames(CUMULCORREL1_OFR_rets_10sec) <- "TimeBins" # This wipes the column names which is required for an rbind below
@@ -1131,7 +1094,7 @@ CUMULCORREL1_OFR_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets_1
 
 CUMULCORREL1_OFR_rets_10sec$MEANS <- apply(CUMULCORREL1_OFR_rets_10sec[,2:dim(CUMULCORREL1_OFR_rets_10sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_OFR_rets_10sec$sdS <- apply(CUMULCORREL1_OFR_rets_10sec[,2:dim(CUMULCORREL1_OFR_rets_10sec)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL1_OFR_rets_10sec$contract <- factor("plus1")  
+CUMULCORREL1_OFR_rets_10sec$contract <- factor("1Deferred")  
 CUMULCORREL1_OFR_rets_10sec$lag <- factor("Ten Seconds")  
 
 # OFRs  Plus2
@@ -1140,7 +1103,7 @@ CUMULCORREL2_OFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL2_OFR_rets_1s
 
 CUMULCORREL2_OFR_rets_1sec$MEANS <- apply(CUMULCORREL2_OFR_rets_1sec[,2:dim(CUMULCORREL2_OFR_rets_1sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL2_OFR_rets_1sec$sdS <- apply(CUMULCORREL2_OFR_rets_1sec[,2:dim(CUMULCORREL2_OFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL2_OFR_rets_1sec$contract <- factor("plus2")
+CUMULCORREL2_OFR_rets_1sec$contract <- factor("2Deferred")
 
 # OFRs  Plus3
 colnames(CUMULCORREL3_OFR_rets_1sec) <- "TimeBins" # This wipes the column names which is required for an rbind below
@@ -1148,7 +1111,7 @@ CUMULCORREL3_OFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL3_OFR_rets_1s
 
 CUMULCORREL3_OFR_rets_1sec$MEANS <- apply(CUMULCORREL3_OFR_rets_1sec[,2:dim(CUMULCORREL3_OFR_rets_1sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL3_OFR_rets_1sec$sdS <- apply(CUMULCORREL3_OFR_rets_1sec[,2:dim(CUMULCORREL3_OFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL3_OFR_rets_1sec$contract <- factor("plus3")
+CUMULCORREL3_OFR_rets_1sec$contract <- factor("3Deferred")
 
 CUMULCORREL1_OFR_rets$lag <- factor("Contemporaneous")
 CUMULCORREL_OFR_rets_timelag <- rbind(CUMULCORREL1_OFR_rets, CUMULCORREL1_OFR_rets_1sec, CUMULCORREL1_OFR_rets_10sec)
@@ -1161,7 +1124,7 @@ OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ym
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Correleation between Nearby and plus 1 in OFR for Various Time Lags - keep zeros') +
+  ggtitle('Time Lagged Nearby and 1 Deferred Correlations, Offer') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1199,25 +1162,25 @@ hist(as.numeric(nsecs_to_update_OFR_rets), 200, main = "Nearby Offer", xlab="Num
 dev.off()
 
 png(filename="p1secs_to_update_BID_rets.png")
-hist(as.numeric(p1secs_to_update_BID_rets), 200, main = "Plus 1 Bid", xlab="Number of Seconds")
+hist(as.numeric(p1secs_to_update_BID_rets), 200, main = "1 Deferred Bid", xlab="Number of Seconds")
 dev.off()
 
 png(filename="p1secs_to_update_OFR_rets.png")
-hist(as.numeric(p1secs_to_update_OFR_rets), 200, main = "Plus 1 Offer", xlab="Number of Seconds")
+hist(as.numeric(p1secs_to_update_OFR_rets), 200, main = "1 Deferred Offer", xlab="Number of Seconds")
 dev.off()
 
 png(filename="p2secs_to_update_BID_rets.png")
-hist(as.numeric(p2secs_to_update_BID_rets), 200, main = "Plus 2 Bid", xlab="Number of Seconds")
+hist(as.numeric(p2secs_to_update_BID_rets), 200, main = "2 Deferred Bid", xlab="Number of Seconds")
 dev.off()
 
 png(filename="p2secs_to_update_OFR_rets.png")
-p1ofr <- hist(as.numeric(p2secs_to_update_OFR_rets), 200, main = "Plus 2 Offer", xlab="Number of Seconds")
+p1ofr <- hist(as.numeric(p2secs_to_update_OFR_rets), 200, main = "2 Deferred Offer", xlab="Number of Seconds")
 dev.off()
 
 png(filename="p3secs_to_update_BID_rets.png")
-hist(as.numeric(p3secs_to_update_BID_rets), 200, main = "Plus 3 Bid", xlab="Number of Seconds")
+hist(as.numeric(p3secs_to_update_BID_rets), 200, main = "3 Deferred Bid", xlab="Number of Seconds")
 dev.off()
 
 png(filename="p3secs_to_update_OFR_rets.png")
-p1ofr <- hist(as.numeric(p3secs_to_update_OFR_rets), 200, main = "Plus 3 Offer", xlab="Number of Seconds")
+p1ofr <- hist(as.numeric(p3secs_to_update_OFR_rets), 200, main = "3 Deferred Offer", xlab="Number of Seconds")
 dev.off()
