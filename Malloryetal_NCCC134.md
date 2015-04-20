@@ -29,7 +29,7 @@ Data
 - Records every change to the top of the order book (Bid, Bid size, Offer, Offer Size) & transactions (On Globex)
 - Create the 'top of the book' from the BBO data (time-stamped to the second)
 - Aggregate to the second. 
-- 01/04/2011 to 11/04/2011 (We have 2008-2009 and 2012-2013 to process and incorporate)
+- 01/04/2010 to 11/04/2011 (We have 2008-2009 and 2012-2013 to process and incorporate)
  + Excluded most days with a limit price move. 
 
 Objectives
