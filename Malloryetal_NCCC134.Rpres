@@ -1,5 +1,5 @@
 
-Nearby and Deferred Quotes: What They Tell Us about HFT
+Nearby and Deferred Quotes: What They Tell us About Linkages and Adjustments to Information
 ========================================================
 author: Mindy Mallory, Phil Garcia, and Teresa Serra
 date: April 20, 2015
@@ -10,88 +10,213 @@ NCCC 134 Applied Commodity Price Analysis, Forecasting, and Market Risk Manageme
 
 
 
-```{r, echo=FALSE, cache=TRUE}
-setwd('C:/Users/mallorym/Documents/GitHub/BBOBAS')
-source('C:/Users/mallorym/Documents/GitHub/BBOBAS/Analysis.R')
+# ```{r, echo=FALSE, cache=TRUE}
+# setwd('C:/Users/mallorym/Documents/GitHub/BBOBAS')
+# source('C:/Users/mallorym/Documents/GitHub/BBOBAS/Analysis.R')
+# ```
+
+========================================================
+```{r, echo=FALSE}
+#library(EBImage)
+#kids <- readImage('C:/Users/mallorym/Documents/GitHub/BBOBAS/kids2015.jpg')
+#display(rotate(kids, 90))
 ```
 
-Objectives
+Overview
 ========================================================
-Identify patterns of correlation in the best bid/offer of the nearby and deferred contracts
-- When information arrives to the marketplace it is relevant to the entire forward curve
-- But we have little understanding of how quickly and efficiently information is incorporated along the forward curve
+incremental: true
+
+Compute correlation in percent changes of the best bid (offer) of the nearby and deferred contracts
+
+Data
+- Corn Best Bid and Offer (BBO) data set from CME Group 
+- Records every change to the top of the order book (Bid, Bid size, Offer, Offer Size) & transactions (On Globex)
+- Create the 'top of the book' from the BBO data (time-stamped to the second)
+- Aggregate to the second. 
+- 01/04/2011 to 11/04/2011 (We have 2008-2009 and 2012-2013 to process and incorporate)
+ + Excluded most days with a limit price move. 
 
 Objectives
 ========================================================
-Identify patterns of correlation in the best bid/offer of the nearby and deferred contracts
+incremental: true
+Computing correlation between percent changes of nearby and deferred Bids (Offers) we gain an understanding how quickly and efficiently information is incorporated along the forward curve
+- Suggestive of the role liquidity trades verses information based trades play on the forward curve
+- Determine whether these patterns are different on USDA report days (arrivals of important information).
+ + Crop Production, WASDE, Grain Stocks
+
+Objectives
+========================================================
 - Contemporaneous Correlations
  + Bid-to-Bid
  + Offer-to-Offer
  + Bid-to-Ask
  + Offer-to-Bid  
 
-- Time Lagged Correleation
+- Time Lagged Correlation (1 second, 10 seconds)
  + Bid-to-Bid
  + Offer-to-Offer
  + Bid-to-Offer
  + Offer-to-Bid
 
 
-Objectives
-========================================================
-Identify patterns of correlation in the best bid/offer of the nearby and deferred contracts
-- Learn something about the effect of spread trading and high frequency trade on futures markets 
-- ... But we will not be able to identify these effects separately
- + Compare quoting frequency in futures with the quoting frequency reported in equities to get some sense of whether correlations are driven by spread trading or hft
-
-Motivation
+Contemporaneous Correlation of Quotes in the Nearby and Deferred Contracts
 ========================================================
 incremental: true
-Large and developing literature in finance on the effects of hft on equity markets
-- These papers almost unanimously conclude that hft improves markets: information transmission, liquidity, volatility
-- But they all suffer similar criticism from thier critics
- + (1) Use datasets that do not identify hft trades, (2) only include trades routed to one exchange, or both
-
-
-A trader identified dataset does not exist for futures markets, but we do benefit from having centralized markets. We see ALL trades in a given commodity for ALL the contracts in the forward curve
-
-Contributions
-========================================================
-incremental: true
-1. Provide evidence (or lack thereof) on the presence of 'quote stuffing' by comparing the frequency of of quoting in futures with the frequency of quoting in equities, where it is known to occur.
-2. Measure the correlation between nearby and deferred contracts, which is suggestive of efficiency in the transfer of information. Brought about by hft, spread trading, or both.
-3. Explore whether either of these outcomes are different on USDA report days.
-
-
-Methods
-========================================================
-Data
-- Corn Best Bid and Offer (BBO) data set from CME Group 
-
-
-Methods
-========================================================
-Data Preparation
-- Create 'Top of the Book" for the nearby contract and the one, two, and three contracts deferred
-- Aggregate to the second
-  + Since data not time stamped to the ms the only other option is to simulate the ms time stamp and Hasbrouck and Wang did.  
-  + But, since we are examining relationships across markets, one would hope your simulated time stamps would preserve the order in which quotes arrived accross different markets. Impossible
+- Calculated correlations for log changes of Bids (OFRs) in Nearby and:
+  + One contract deferred
+  + Two contracts deferred
+  + Three contracts deferred
+- Need to consider the effect of long periods of no revisions on the correlations
+  + Both presented 
   
-Methods
-=========================================================
+Contemporaneous Correlation
+========================================================
+![](\Bid_plot.png)
+***
+- For each day, divide into 24 ten minute sub-samples with observations time-stamped to the second
+ + Calculate the correlations in each sub-sample and record
+- Figure displays Means and 1 St Dev error bars. 
+
+Contemporaneous Correlation
+========================================================
+![](\Bid_plot.png)
+
+Contemporaneous Correlation
+========================================================
+![](\OFR_plot.png)
+
+
+Contemporaneous Correlation II
+========================================================
+![](\Bid_plot_no0s.png)
+
+Contemporaneous Correlation II
+========================================================
+![](\OFR_plot_no0s.png)
+
+
+Hypothesis: Liquidity Activity vs Information-Based Activity
+========================================================
 incremental: true
-Analysis
-
-1. Compute seconds to next revision
-2. Compute simple correlations between the nearby contract and the one, two, and three month deferred contracts in ten minute time bins
- + Since data are aggregated to the second, one would expect the presence of hft and/or spread trading to imply significant contemporaneous correlation between the nearby and the deferred contracts
- + Additionally, since the time intervals of importance to hft are so short, one would expect the correlation between the nearby and deferred contracts lagged even one second to be small
+- 'Keep Zeros' Includes many cases where the nearby's TOB was revised 
+but the deferred's TOB was not (and vice versa)
+- Whether this was a revision of a limit 
+order or a transaction, the rest of the forward curve did not respond
+- Making or taking liquidity - no information
+ + Generates 'low correlation' activity
  
-Methods
-===========================================================
-Analysis
-- Consider USDA announcement days
+ Hypothesis: Liquidity Activity vs Information-Based Activity
+========================================================
+incremental: true
+- 'No Zeros', by contrast, only includes cases where the TOB of the nearby
+and deferred were revised simultaneously (as far as we can tell after aggregating to the second)
+- These cases generate nearly perfect correlation. 
+- Information?
+- This interpretation is consistent with the correlation between the nearby and the 1 deferred 
+being lowest in the 'keep zeros' case 
+ + Relative to the other deferreds, the 1 deferred contract has the highest volume and (presumably) purely 
+ liquidity-based trading
+ 
+USDA Report Days?
+========================================================
+- Recall that in our sub-sample (2010-2011), reports were released at 8:30am.
+ + Before the start of the day trading session
 
+Contemporaneous Correlation
+========================================================
+![](\Bid_plot_report.png)
+report days
+
+Contemporaneous Correlation
+========================================================
+![](\OFR_plot_report.png)
+report days
+
+Contemporaneous Correlation II
+========================================================
+![](\Bid_plot_no0s_report.png)
+report days
+
+Contemporaneous Correlation II
+========================================================
+![](\OFR_plot_no0s_report.png)
+report days
+
+USDA Report Days?
+========================================================
+- Very similar pattern as a typical day, with a slightly elevated correlation 
+at the market open (indicating a higher than usual proportion of information based trading?)
+ + This was surprising to us. 
+ + Interested to see 2012-2013 when reports are released at 11:00am. 
+
+How Long Does the Correlation Persist?
+========================================================
+- Lag nearby by 1 second (10 seconds) and calculate the same correlations with the 1 deferred contract
+
+Contemporaneous and Time Lagged Correlations
+========================================================
+![](\Bid_plot_timelag.png)
+
+Contemporaneous and Time Lagged Correlations
+========================================================
+![](\OFR_plot_timelag.png)
+
+Correlation Gone Immediately (1 sec)
+========================================================
+Possible causes?
+- HFT? 
+ + Anecdotally speaking, HFT did not seem that prevalent (at least not a lot of quote spoofing or pinging)
+- Spread Trading
+ + An order to the spread book affects both the nearby and deferred simultaneously
+
+Contemporaneous and Time Lagged Correlations
+========================================================
+![](\Bid_plot_timelag_report.png)
+report days
+
+
+Contemporaneous and Time Lagged Correlations
+========================================================
+![](\OFR_plot_timelag_report.png)
+report days
+
+If Its Spread Traders...
+=======================================================
+Check Correlation of Bid-to-OFR and OFR-to-Bid
+- Recall previous was Bid-to-Bid and OFR-to-OFR
+
+Contemporaneous Correlation
+========================================================
+![](\BIDOFR_plot.png)
+
+Contemporaneous Correlation
+========================================================
+![](\OFRBID_plot.png)
+
+Contemporaneous Correlation II
+========================================================
+![](\BIDOFR_plot_no0s.png)
+
+Contemporaneous and Time Lagged Correlations
+========================================================
+![](\BIDOFR_plot_timelag.png)
+
+Implications 
+========================================================
+- Nearby and deferred contract quotes appear to be highly correlated, even to the second
+- Indicating an efficiency in the transmission of information up the forward curve
+- Correlation does not persist past one second, indicating information has been fully incorporated
+
+Future Research
+========================================================
+- More detailed quantification of the possible presence of HFT
+- Apply the Probability of Informed Trader (PIN) model to the corn market
+to test the information hypothesis (Easley and O'Hara 1987)
+- Of course, extend to more markets. 
+
+
+Anecdotes about the Presence of HFT
+========================================================
 
 Number of Seconds to a Revision in Bid/Ask
 ========================================================
@@ -124,73 +249,3 @@ Number of Seconds to a Revision in Bid/Ask
 
 ***
 ![](\p3secs_to_update_OFR_rets.png)
-
-Contemporaneous Correlation of Quotes in the Nearby and Deferred Contracts
-========================================================
-incremental: true
-- Since we had to aggregate to the second, we might expect the quotes to be 
-contemporaneously correlated
-- Calculated correlations for log changes of Nearby and:
-  + One contract deferred
-  + Two contracts deferred
-  + Three contracts deferred
-- Need to consider the effect of long periods of no revisions on the correlations
-  + Both presented 
-  
-Contemporaneous Correlation
-========================================================
-![](\Bid_plot.png)
-
-Contemporaneous Correlation
-========================================================
-![](\OFR_plot.png)
-
-Contemporaneous Correlation
-========================================================
-![](\Bid_plot_report.png)
-report days
-
-Contemporaneous Correlation
-========================================================
-![](\OFR_plot_report.png)
-report days
-
-Contemporaneous Correlation II
-========================================================
-![](\Bid_plot_no0s.png)
-
-Contemporaneous Correlation II
-========================================================
-![](\Bid_plot_no0s_report.png)
-report days
-
-Contemporaneous Correlation II
-========================================================
-![](\OFR_plot_no0s.png)
-
-Contemporaneous Correlation II
-========================================================
-![](\OFR_plot_no0s_report.png)
-report days
-
-Time Lag
-========================================================
-
-![](\Bid_plot_timelag.png)
-
-Time Lag
-========================================================
-
-![](\Bid_plot_timelag_report.png)
-report days
-
-Time Lag
-========================================================
-
-![](\OFR_plot_timelag.png)
-
-Time Lag
-========================================================
-
-![](\OFR_plot_timelag.png)
-report days
