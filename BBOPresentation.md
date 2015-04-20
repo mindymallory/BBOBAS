@@ -1,9 +1,9 @@
 Nearby and Deferred Quotes: What They Tell Us about HFT
 ========================================================
 author: 
-date: 01 April, 2015
+date: 07 April, 2015
 transition: none
-autosize: true
+
 
 
 
@@ -25,11 +25,11 @@ Best Bid and Offer Data set from CME Group
 - These preliminary results are from January 2010 just as an example. Dates:
 
 ```
-[1] 100115
+[1] 100104
 ```
 
 ```
-[1] 100129
+[1] 100106
 ```
 
 
@@ -74,7 +74,9 @@ contemporaneously correlated
   
 Contemporaneous Correlation
 ========================================================
-![plot of chunk unnamed-chunk-7](BBOPresentation-figure/unnamed-chunk-7.png) 
+
+![](\Bid_plot.png)
+
 
 Contemporaneous Correlation II
 ========================================================
@@ -83,6 +85,7 @@ Contemporaneous Correlation II
 Time Lag
 ========================================================
 ![plot of chunk unnamed-chunk-9](BBOPresentation-figure/unnamed-chunk-9.png) 
+
 
 Proposed Paper Outline
 ========================================================
