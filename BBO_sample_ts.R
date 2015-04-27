@@ -12,10 +12,10 @@ library(reshape)
 library(dplyr)
 library(xtable)
 library(highfrequency)
-j=1 # This is a lame hack to fix the fact that I didn't rewrite the naming code for the csv files. 
+
 
 #setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
-setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') #Office PC
+setwd('E:/2015_05_08_DOCS/INVESTIGACIO5/HFT/HFTdata/Intraday data/2008Jan-2010Jan_txt') #Office PC
 ptm <- proc.time()
 
 ConvertCornFuturesQuotes <- function(x) {
@@ -41,18 +41,14 @@ ConvertCornFuturesQuotes <- function(x) {
 #********************************************************************************************************
 #********************************************************************************************************
 # Define the dates to loop over
-yearstart <- 2011
-yearend   <- 2011
-dates     <- timeSequence(from = paste(yearstart, "-11-04", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
+yearstart <- 2008
+yearend   <- 2009
+dates     <- timeSequence(from = paste(yearstart, "-01-14", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
                           to = paste(yearend, "-12-31", sep = ""))
 # Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
 # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the 
 # file was 12 times larger than the typical size and it was taking too long to process. Would make an interesting case
 # study to go back and investigate. 
-
-# Stopped at 11-01-2011 for now because they changed the format. EX is different for bid ask, whereas before bid and ask 
-# got the same EX. Beginning in 2012 the format changes yet again where they are giving large files and only reporting 
-# which quote changed. Might not be worth processing nov and dec 2011 for this paper. 
 
 
 # Code below requires dates to be integers, here we change the format
@@ -148,14 +144,12 @@ while(dim(DATA)[1]>0) {
 CUMULDATA      <- CUMULDATA[2:dim(CUMULDATA)[1],]
 CUMULTRANS     <- CUMULTRANS[2:dim(CUMULTRANS)[1],]
 CUMULBADPRICES <- CUMULBADPRICES[2:dim(CUMULBADPRICES)[1],]
+write.csv(CUMULDATA file = paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
+write.csv(CUMULTRANS file = paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
 
-j=1 # This is a lame hack to fix the fact that I didn't rewrite the naming code for the csv files.
 # Separate out the contracts here
 DeliveryDates  <- unique(CUMULDATA$SYMBOL)
 DeliveryDates  <- DeliveryDates[order(DeliveryDates)]
-write.csv(CUMULDATA, file = paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
-write.csv(CUMULTRANS, file = paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j])))
-if(is.na(CUMULBADPRICES)[1] == FALSE) {write.csv(CUMULBADPRICES, file = paste0('BADPRICES',as.character(dates[i])))}
 
 # Creates an XTS object for every contract's quotes and trades
 # Naming convention is 't_date_contract'. for example t_20100126_1003 is the trades on 01-26-2010 for the March10 contract
@@ -178,7 +172,8 @@ for (j in 1:length(DeliveryDates)) {
   }
   }
 save(DeliveryDates, file = paste0('Contracts', as.character(dates[i]),".rda"))
-write.csv(DeliveryDates, file = paste0('Contracts', as.character(dates[i])))
+write.csv(DeliveryDates, file = paste0('Contracts', as.character(dates[i]))
+
 }
 proc.time() - ptm
 
