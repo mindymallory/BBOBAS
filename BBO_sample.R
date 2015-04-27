@@ -14,9 +14,11 @@ library(xtable)
 library(highfrequency)
 j=1 # This is a lame hack to fix the fact that I didn't rewrite the naming code for the csv files. 
 
-#setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
-setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') #Office PC
+setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
+#setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') #Office PC
 ptm <- proc.time()
+
+
 
 ConvertCornFuturesQuotes <- function(x) {
   # x is a vector or variable that can be coerced to char type
@@ -37,6 +39,7 @@ ConvertCornFuturesQuotes <- function(x) {
   price <- price + e
   return(price)
 }
+
 
 #********************************************************************************************************
 #********************************************************************************************************
@@ -110,6 +113,7 @@ while(dim(DATA)[1]>0) {
   DATA           <- subset(DATA, DATA$TrPrice > 1000)
   DATA$TrPrice   <- ConvertCornFuturesQuotes(DATA$TrPrice)
     
+
   #Build the independent Ask and Bid objects
     ask          <- subset(DATA, ASKBID == "A", select=-c(ASKBID))
     ask          <- rename(ask, OFRSIZ=TrQuantity, OFR=TrPrice) #dplyr #Seems like sometimes rename 
@@ -118,6 +122,7 @@ while(dim(DATA)[1]>0) {
     bid          <- subset(DATA, ASKBID == "B", select=-c(ASKBID))
     bid          <- rename(bid, BIDSIZ=TrQuantity, BID=TrPrice) #dplyr
     #bid          <- rename(bid, c(TrQuantity="QOfferedAtBid", TrPrice="BidPrice")) #reshape #
+
     
     TRANSACTIONS <- subset(DATA, ASKBID != "A" & ASKBID != "B" , select=-c(ASKBID)) #
     TRANSACTIONS <- rename(TRANSACTIONS, SIZE= TrQuantity, PRICE=TrPrice) #dplyr no rename needed
@@ -224,5 +229,25 @@ proc.time() - ptm
   rm(mtq)
   load('mtq.rda')
 
+
+
+write.csv(SummaryTableCum, "SummaryJan2010.csv")
+write.csv(CUMULDATA, 'CUMULDATA.csv')
+write.csv(CUMULTRANS, 'CUMULTRANS.csv')
+
+
+
+
+
+# #Define as xts object (time series package)
+# times <- timeDate(paste0(CUMULDATA$TradeDate,CUMULDATA$TradeTime), format = "%Y%m%d%H%M%S")
+# CUMULDATA <- as.xts(subset(CUMULDATA, select = -c(TradeDate, TradeTime)), order.by = times)
+#timest <- timeDate(paste0(CUMULTRANS$TradeDate,CUMULTRANS$TradeTime), format = "%Y%m%d%H%M%S")
+#CUMULTRANS <- as.xts(subset(CUMULTRANS, select = -c(TradeDate, TradeTime)), order.by = timest)
+# 
+# head(temp)
+# temp <- to.period(temp$TrPrice, period = "minutes", k = 1, OHLC=TRUE)
+# plot(temp["2011-01-10 09:29:00/2011-01-10 13:17:00"], main = "Outright Transaction Prices")
+# #BASpread["2011-01-10 09:25:00/2011-01-10 10:35:00"]
 
 
