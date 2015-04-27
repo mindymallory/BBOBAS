@@ -1,4 +1,4 @@
-# Exploring the Bid-Ask Spreak with CME's BBO Database
+# Exploring the Bid-Ask Spread with CME's BBO Database
 
 Working repository for BAS corrleations paper
 ------------------------------------------------
