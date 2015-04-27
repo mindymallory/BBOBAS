@@ -1,0 +1,173 @@
+\documentclass[t]{beamer}
+%\usetheme{berkeley}
+\title[Nearby and Deferred Quotes]{What can we learn from correlations across the nearby and deferred contract quotes?\\}
+\subtitle{NCCC-134 Conference: Applied Commodity Price Analysis, Forecasting, and Market Risk Management\\ St. Louis, MO}
+\author{
+  Mindy Mallory\inst{1} 
+  \and 
+  Phil Garcia\inst{1} 
+  \and 
+  Teresa Serra\inst{1}
+  }
+\institute{
+  \inst{1}Department of Agricultural and Consumer Economics\\
+  University of Illinois\\
+  \url{mallorym@illinois.edu}
+} 
+
+\date{April 20, 2015}
+
+\begin{document}
+
+\begin{frame}{}
+  \titlepage
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Objectives}
+  Identify patterns of correlation in the best bid/offer of the nearby and deferred contracts
+  \begin{itemize}
+
+    \item When information arrives to the marketplace it is relevant to the entire forward curve
+    \item But we have little understanding of how quickly and efficiently information is incorporated along the forward curve
+    \end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Objectives}
+  Identify patterns of correlation in the best bid/offer of the nearby and deferred contracts
+  \begin{itemize}
+ \item Contemporaneous Correlations
+  \begin{itemize}
+    \item Bid-to-Bid
+    \item Ask-to-Ask
+    \item Bid-to-Ask
+    \item Ask-to-Bid  
+    \end{itemize}
+  \item Time Lagged Correleation
+     \begin{itemize}
+    \item Bid-to-Bid
+    \item Ask-to-Ask
+    \item Bid-to-Ask
+    \item Ask-to-Bid
+    \end{itemize}
+    
+    \end{itemize}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Objectives}
+  Identify patterns of correlation in the best bid/offer of the nearby and deferred contracts
+\begin{itemize}
+     \item Learn something about the effect of spread trading and high frequency trade on futures markets 
+    \item ... But we will not be able to identify these effects separately\\ 
+    \begin{itemize}
+    \item Compare quoting frequency in futures with the quoting frequency reported in equities to get some sense of whether correlations are driven by spread trading or hft
+    \end{itemize}
+
+  
+\end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Motivation}
+Large literature developing in finance on the effects of hft on equity markets
+\begin{itemize}
+  \item These papers almost unanimously conclude that hft improves markets: information transmission, liquidity, volatility
+  \item But they all suffer similar criticism from thier critics
+  \begin{itemize}
+    \item (1) Use datasets that do not identify hft trades, (2) only include trades routed to one exchange, or both\\ \pause
+  \end{itemize}
+  
+\end{itemize}
+
+A trader identified dataset does not exist, but we do benefit from having centralized markets. \pause We see ALL trades in a given commodity for ALL the contracts in the forward curve
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Contributions}
+\begin{enumerate}
+\item Provide evidence on the presence of 'quote stuffing' by comparing the frequency of of quoting in futures with the frequency of quoting in equities, where it is known to occur.\\
+
+\item Measure the correlation between nearby and deferred contracts, which is suggestive of efficiency in the transfer of information.
+\item Explore whether either of these outcomes are different on USDA report days.
+\end{enumerate}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+\frametitle{Methods}
+Data Preparation
+- Create 'Top of the Book" for the nearby contract and the one, two, and three contracts deferred
+- Aggregate to the second
+  + Since data not time stamped to the ms the only other option is to simulate the ms time stamp and Hasbrouck and Wang did.  
+  + But, since we are examining relationships across markets, one would hope your simulated time stamps would preserve the order in which quotes arrived accross different markets. Impossible
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
+
+
+Proposed Paper Outline
+========================================================
+
+Objectives
+========================================================
+What we would like to study: Whether predatory hft exists in corn futures markets
+- Obstacles with the BBO data: 
+  + No ms timestamp 
+  + Traders not identified: Hasbrouck's 'Strategic Runs' not possible
+
+Objectives
+========================================================
+- Instead we look for what evidence we can find of hft
+  + Keep data as dissaggregated as possible
+  + Means any kind of regression analysis is impossible
+
+Motivation
+========================================================
+- Criticism of hft papers on equities markets is that papers often use data from only one exchange
+- Given that U.S. equity markets are highly fragmented, examining trade on only one exchange is bound to give a biased or, at least, incomplete picture. 
+- Commodity futures markets are centralized, so we can examine quoting patterns and relationships along the forward curve to get a sense of the prevalence of hft.
+
+Methods
+=========================================================
+Data Preparation
+- Create 'Top of the Book" for the nearby contract and the one, two, and three contracts deferred
+- Aggregate to the second
+  + Since data not time stamped to the ms the only other option is to simulate the ms time stamp and Hasbrouck and Wang did.  
+  + But, since we are examining relationships across markets, one would hope your simulated time stamps would preserve the order in which quotes arrived accross different markets. Impossible
+   
+Methods
+=========================================================
+Analysis
+- Compute simple correlations between the nearby contract and the one, two, and three month deferred contracts in ten minute time bins
+ + Since data are aggregated to the second, one would expect the presence of hft to imply significant contemporaneous correlation between the nearby and the deferred contracts
+ + Additionally, since the time intervals of importance to hft are so short, one would expect the correlation between the nearby and deferred contracts lagged even one second to be small
+ 
+Methods
+===========================================================
+Analysis
+- Consider various special cases such as USDA announcement days
+- Monthy?
+- Day of week?
+ 
+ 
+
+
+
+
