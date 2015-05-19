@@ -4,12 +4,72 @@ author: "Mindy Mallory, Phillip Garcia, and Teresa Serra"
 date:  '`r format(Sys.time(), "%B %d, %Y")`'
 output: 
   word_document:
+    fig_caption: true
     reference_docx: template.docx
+bibliography: BBOBibliography.bib
 ---
 
 
 ```{r, echo=FALSE}
-setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
+#setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
+setwd("C:/Users/mallorym/Documents/BBOBAS")
 ```
 
 
+# Introduction
+
+# Literature Review
+
+# Data
+
+
+# Analysis
+
+# Results
+
+## Contemporaneous Correlation
+
+
+![](Bid_plot.png)
+
+![Figure 1. Contemporaneous Correlation with Nearby - Keep Zeros](OFR_plot.png)
+
+![](Bid_plot_no0s.png)
+
+![Figure 2. Contemporaneous Correlation with Nearby - No Zeros](OFR_plot_no0s.png)
+
+
+## Contemporaneous Correlation on USDA Report Days
+
+
+![](Bid_plot_report.png)
+
+![Figure 3. Contemporaneous Correlation with Nearby on USDA Report Days - Keep Zeros](OFR_plot_report.png)
+
+![](Bid_plot_no0s_report.png)
+
+![Figure 4. Contemporaneous Correlation with Nearby on USDA Report Days - No Zeros](OFR_plot_no0s_report.png)
+
+
+## Contemporaneous and Time-lagged Correlations
+
+![](Bid_plot_timelag.png)
+
+![Figure 5. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract](OFR_plot_timelag.png)
+
+## Contemporaneous and Time-lagged Correlations on USDA Report Days
+
+![](Bid_plot_timelag_report.png)
+
+![Figure 6. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract on USDA Report Days](OFR_plot_timelag_report.png)
+
+## Spread Traders?
+
+![](BIDOFR_plot.png)
+
+![Figure 7. Contemporaneous Correlations with Nearby Bid-to-Ask and Ask-to-Bid - Keep Zeros](OFRBID_plot.png)
+
+
+
+
+# Conclusions
