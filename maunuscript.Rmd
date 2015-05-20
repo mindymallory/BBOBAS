@@ -6,17 +6,19 @@ output:
   word_document:
     fig_caption: true
     reference_docx: template.docx
-bibliography: BBOBibliography.bib
+bibliography: bbobas.bib
+csl: american-journal-of-agricultural-economics.csl.txt
 ---
 
 
 ```{r, echo=FALSE}
-#setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
-setwd("C:/Users/mallorym/Documents/BBOBAS")
+setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
+#setwd("C:/Users/mallorym/Documents/BBOBAS")
 ```
 
 
 # Introduction
+Can we make the citations and biliography work [@hasbrouck2006empirical;@easley2011microstructure]?
 
 # Literature Review
 
@@ -70,6 +72,6 @@ setwd("C:/Users/mallorym/Documents/BBOBAS")
 ![Figure 7. Contemporaneous Correlations with Nearby Bid-to-Ask and Ask-to-Bid - Keep Zeros](OFRBID_plot.png)
 
 
-
-
 # Conclusions
+
+# References
