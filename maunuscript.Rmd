@@ -41,7 +41,9 @@ Our analysis simply considers the correlation of nearby contract bids (offers) w
 
 We divide the trading day into ten minute intervals and calculate correlations between the nearby and the deferred contract bids (offers) for each ten minute interval with one day's worth of data. This allows us to detect if there are any patterns to these correlations accross the trading day, and since we one correlation per day per ten minute interval, we recover a distribution of correlations for each interval.  
 
-We also separate out days on which major USDA reports are released and calculate the same correlations on these days whick often confer significnat information to the markets that results in significant price moves. During our sample period, the USDA reports we include were released at 8:30 am CST, before the day trading session began. 
+We also separate out days on which major USDA reports are released and calculate the same correlations on these days whick often confer significnat information to the markets that results in significant price moves. During our sample period, the USDA reports we include were released at 8:30 am CST, before the day trading session began.
+
+testing out dillinger's integration with github
 
 # Results
 
