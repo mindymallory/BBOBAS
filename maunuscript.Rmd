@@ -44,8 +44,6 @@ Since the corn futures contract experiences non-uniform trading volume throughou
 ## USDA Announcement Days
 On USDA report announcement days there is often a significant amount of information that market participants receive at the same time, causing large price fluctuations and larger than usual trading volumes. Therefore, in our analysis we also separate out days on which major USDA reports are released and calculate the same correlations described above. During our sample period, the USDA reports we include were released at 8:30 am CST, before the day trading session began.
 
-testing out dillinger's integration with github
-
 # Results
 
 
