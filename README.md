@@ -9,3 +9,6 @@ This repository contains
 As the project progresses it will contain
 - code for the advanced analysis
 - working paper and presentation slides
+
+Project Page is at 
+http://mindymallory.github.io/BBOBAS/ 
