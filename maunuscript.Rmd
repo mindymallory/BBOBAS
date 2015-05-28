@@ -63,9 +63,17 @@ If this intuition is correct, it is informative to consider only time-stamps for
 # Results
 In this section we present a series of charts that display the calculations described in the preceding section. First we present all the correlation charts calculated contemporaneously: full sample, liquidity activity only, USDA report days only. Then we present correlation charts calculated at one and ten second time lags of the nearby contract for the full sample, liquidity activity only, and USDA report days only. 
 
+For each set of figures panel A is produced with bid-to-bid correlations and panel B is produced with offer-to-offer correlations of the nearby and deferred maturity contracts. Correlations are calculated over ten minute intervals starting at 9:30am Central Standard Time, the beginning of the daytime trading session for CBOT corn futures. One correlation is is calculated per day per ten minute bin, so for every ten minute bin we recover a distribution of correlations. The dots represent the mean of the distribution and the bars represent one standard deviation.  
+
 ## Contemporaneous Correlation
+In figure 1 contemporaneous correlation between the nearby and one, two, and three deferred maturity contracts are calculated. Correlations between both the nearby bid and deferred bids in panel A and nearby offers and deferred offers in panel B seem to have fairly stable means beginning around 0.6 at the start of the trading day and falling slightly to around 0.5 as trading progresses. Both means and one standard deviation error bars seem to exhibit a fairly constant and stable relationship over the trading day; there is no trend up or downward in the mean correlations as trading progresses. 
 
 
+
+In panel B, we see a very similar panel after calculating the correlations for offers between the nearby and deferred maturities. 
+
+## Contemporaneous Correlation - Information-Based Activity Only
+In figure 2 we see a very different pattern of correlation when we perform the calculations based only on time-stamps where both the nearby and deferred maturity 
 
 ## Contemporaneous Correlation on USDA Report Days
 
@@ -78,6 +86,8 @@ In this section we present a series of charts that display the calculations desc
 ## Contemporaneous and Time-lagged Correlations on USDA Report Days
 
 
+# Discussion
+Spread traders? High frequency trade?
 
 ## Spread Traders?
 
