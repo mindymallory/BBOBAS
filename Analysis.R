@@ -41,9 +41,9 @@ setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') # Office PC
 # Build the file names to be imported
 # Define the dates to loop over
 yearstart <- 2010
-yearend <- 2011
+yearend <- 2010
 dates <- timeSequence(from = paste(yearstart, "-01-04", sep = ""), 
-                      to = paste(yearend, "-11-04", sep = ""))
+                      to = paste(yearend, "-01-04", sep = ""))
 
 
 
