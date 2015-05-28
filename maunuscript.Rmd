@@ -54,7 +54,11 @@ We mentioned above that it is common to have multiple revisions to the order boo
 
 To fix ideas consider the case where we intend to calculate the contemporaneous correlation between the nearby and the deferred contracts. There are four possibilities for the presence of zeros. On any time stamp one of four situations may be operative: 1) neither the nearby nor the deferred has a zero log change in the bid (offer), 2) either the nearby or the deferred has a zero log change in the bid (offer), but not both, or 3) both the nearby and the deferred have a zero log change in the bid (offer).    
 
-Based on the definition of liquidity-based activity and information-based activity in the conceptual framework from above, we present a case for interpreting (1) as indicating information-based activity is present, (2) liquidity-based activity is present, and (3) neither liquidity based activity nor information-based activity is present.    
+Based on the definition of liquidity-based activity and information-based activity in the conceptual framework from above, we present a case for interpreting (1) as information-based activity, (2) liquidity-based activity, and (3) neither liquidity based activity nor information-based activity.    
+
+The intuition is that if both the nearby and deferred contracts experience a revision in the same direction, they are likely responding to the the arrival of information to the marketplace, and best bids (offers) adjusted accordingly. This in contrast to the case where one of the two contracts experienced a revision and the other contract had no change.  If one contract experienced a revision in the best bid (offer) and the other did not, it is likely that the revision resulted from someone making a liquidity based order in an effort to exit their position.  
+
+If this intuition is correct, it is informative to consider only time-stamps for which both contracts experienced a revision. In the next section we will present results based on all data in our sample and the sub-sample where only the time-stamps for which both contracts experienced a non-zero revision to the top of the book are included as separate cases.  
 
 # Results
 
