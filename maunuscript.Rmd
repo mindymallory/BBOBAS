@@ -61,7 +61,7 @@ The intuition is that if both the nearby and deferred contracts experience a rev
 If this intuition is correct, it is informative to consider only time-stamps for which both contracts experienced a revision. In the next section we will present results based on all data in our sample and the sub-sample where only the time-stamps for which both contracts experienced a non-zero revision to the top of the book are included as separate cases.  
 
 # Results
-
+In this section we present a series of charts that display the calculations described in the preceding section. First we present all the correlation charts calculated contemporaneously: full sample, liquidity activity only, USDA report days only. Then we present correlation charts calculated at one and ten second time lags of the nearby contract for the full sample, liquidity activity only, and USDA report days only. 
 
 ## Contemporaneous Correlation
 
