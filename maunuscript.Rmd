@@ -24,7 +24,7 @@ setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
 Can we make the citations and biliography work [@hasbrouck2006empirical;@easley2011microstructure]?
 
 # Background
-The literature of information affects liquidity in securities markets is long and rich. @o1995market provides an excellent summary of this evolution.
+The literature on how information affects liquidity in securities markets is long and rich. @bagehot1971only is regarded as the first to demonstrate that the BAS arises even if inventory and transactions costs are assumed to be zero when asymmetric information is present. @copeland1983information formalized Bagehot's model; the assumed that the proportion of informed traders in the market was $\pi$.  @o1995market provides an excellent summary of this evolution. 
 
 # Conceptual Framework
 The role of liquidity trades verses information based trades.
