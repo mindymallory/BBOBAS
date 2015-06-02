@@ -24,7 +24,7 @@ setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
 Can we make the citations and biliography work [@hasbrouck2006empirical;@easley2011microstructure]?
 
 # Background
-The literature of information affects liquidity in securities markets is long and rich. O'Hara provides an excellent summary of this evolution [-@o1995market].
+The literature of information affects liquidity in securities markets is long and rich. @o1995market provides an excellent summary of this evolution.
 
 # Conceptual Framework
 The role of liquidity trades verses information based trades.
