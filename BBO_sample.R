@@ -14,8 +14,8 @@ library(xtable)
 library(highfrequency)
 j=1 # This is a lame hack to fix the fact that I didn't rewrite the naming code for the csv files. 
 
-setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
-#setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') #Office PC
+#setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') #Dropbox
+setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') #Office PC
 ptm <- proc.time()
 
 
@@ -44,10 +44,10 @@ ConvertCornFuturesQuotes <- function(x) {
 #********************************************************************************************************
 #********************************************************************************************************
 # Define the dates to loop over
-yearstart <- 2011
-yearend   <- 2011
-dates     <- timeSequence(from = paste(yearstart, "-11-04", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
-                          to = paste(yearend, "-12-31", sep = ""))
+yearstart <- 2010
+yearend   <- 2010
+dates     <- timeSequence(from = paste(yearstart, "-01-29", sep = ""), # Had a bug in the BADPRICES if statement. Restart the loop
+                          to = paste(yearend, "-01-29", sep = ""))
 # Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
 # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the 
 # file was 12 times larger than the typical size and it was taking too long to process. Would make an interesting case
@@ -202,15 +202,15 @@ proc.time() - ptm
   # First, have to use the 'merge' function because some of the highfreqency 
   # functions crash if you try to pass an xts object with multiple
   # rows with the same timestamp
-  q_20100126_1003 <- mergeQuotesSameTimestamp(q_20100126_1003)
-  t_20100126_1003 <- mergeTradesSameTimestamp(t_20100126_1003)
+  q_20100129_1003 <- mergeQuotesSameTimestamp(q_20100129_1003)
+  t_20100129_1003 <- mergeTradesSameTimestamp(t_20100129_1003)
 
   # Aggregation over time
-  agg_q <- aggregateQuotes(q_20100126_1003, on='minutes', k=5)
-  agg_t <- aggregateTrades(t_20100126_1003, on='minutes', k=5)
+  agg_q <- aggregateQuotes(q_20100129_1003, on='minutes', k=5)
+  agg_t <- aggregateTrades(t_20100129_1003, on='minutes', k=5)
 
   # Matching trades and quotes
-  mtq   <- matchTradesQuotes(t_20100126_1003,q_20100126_1003)
+  mtq   <- matchTradesQuotes(t_20100129_1003,q_20100129_1003)
 
   # Get trade direction (useful for caculating PIN, e.g.,)
   gtd   <- getTradeDirection(mtq)
