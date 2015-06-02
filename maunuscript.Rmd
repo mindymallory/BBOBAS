@@ -97,7 +97,7 @@ There are two possible explanations for this. First, it is possible that there i
 
 This would also occur if linkages between the nearby and deferred contracts were immediately enforced by spread traders. Surely the spread trade is an important component that keeps nearby and deferred contracts linked in economically meaningful ways. Spread trading does not really explain this phenomenon, however, because a spread trade is entered as a bid (offer) in the nearby and a offer (bid) in the deferred contract. Until now, we have been measuring correlations bib-to-bid and offer-to-offer between the nearby and deferred contracts.
 
-In figure 6   
+In figure 6 we generate a figure analogous to figure 1 in that it calculates the contemporaneous correlations between the nearby and deferred revisions to the top of the book. Figure 6, however, calculates the correlation between revisions to the nearby by bid with the deferred offer in panel A, and nearby offer with deferred bid in panel B. Here, as in figure 1 we see correlations hovering between 0.5 and 0.6. Perhaps the only distingishable characteristic of this figure compared to figure 1 is that the unexpected ordering of correlations highest to lowest as 2, 1, and 3 deferred that is present in figure 1 is no longer evident. The correlations of the nearby with the different deferred maturities is noticeably tighter in the bid-to-offer and offer-to-bid correlations.     
 
 
 
