@@ -4,11 +4,11 @@ title: 'Nearby and deferred quotes: What they tell us about linkages and adjustm
 author: "Mindy Mallory, Phillip Garcia, and Teresa Serra"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output:
+  html_document: default
+  pdf_document: default
   word_document:
     fig_caption: yes
     reference_docx: template.docx
-  pdf_document: default
-  html_document: default
 csl: american-journal-of-agricultural-economics.csl.txt
 bibliography: bbobas.bib
 ---
