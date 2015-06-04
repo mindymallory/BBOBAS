@@ -4,11 +4,11 @@ title: 'Nearby and deferred quotes: What they tell us about linkages and adjustm
 author: "Mindy Mallory, Phillip Garcia, and Teresa Serra"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output:
+  html_document: default
+  pdf_document: default
   word_document:
     fig_caption: yes
     reference_docx: template.docx
-  pdf_document: default
-  html_document: default
 csl: american-journal-of-agricultural-economics.csl.txt
 bibliography: bbobas.bib
 ---
@@ -28,7 +28,7 @@ The literature on how information affects liquidity in securities markets is lon
 
 @easley1987price and @easley1992time incorporate trade size and its effect to a model similar to Glosten and Milgrom. An informed trader chooses between small and large size trading blocks. The informed trader understands that a large size trading block essentially tips their hand to the market maker and the other uninformed traders, causing the market maker to revise bids and offers in accordance with the revealed information. This results in a trade off for the informed trader. Transact at 'good' price with one large lot, or transact with several small lots at 'good', but worsening, prices as the market maker learns slowly from the informed traders order flow. 
 
-@hasbrouck2006empirical provides and excellent overview of how @easley2002information and @easley1997one use the Easley and O'Hara models of informed trading to develop a measure of the probability of informed trading (PIN). This measure, though, is estimated solely based on the distribution of order arrivals, where a trade is labeled as a buy, or buyer initiated if the trade occurs above the midpoint of the quoted spread and a sell if the trade occurs below the midpoint of the quoted spread. Numerous studies have documented that there may be problems with downward bias in the estimated PIN [@Yan2012454; Vega2006103; Boehmer200726] and estimating information based trading in this way ignores some aspects of futures markets that are not present in securities markets. 
+@hasbrouck2006empirical provides and excellent overview of how @easley2002information and @easley1997one use the Easley and O'Hara models of informed trading to develop a measure of the probability of informed trading (PIN). This measure, though, is estimated solely based on the distribution of order arrivals, where a trade is labeled as a buy, or buyer initiated if the trade occurs above the midpoint of the quoted spread and a sell if the trade occurs below the midpoint of the quoted spread. Numerous studies have documented that there may be problems with downward bias in the estimated PIN [@Yan2012454; @Vega2006103; @Boehmer200726] and estimating information based trading in this way ignores some aspects of futures markets that are not present in securities markets. 
 
 For example, in commodities futures markets several contracts with different maturities trade in the marketplace, each reacting in a correlated but non-synchronous way to information and liquidity based shocks. They react differently to information based shocks because there is a cost to store the physical commodity through time. Therefore, an information based shock that is most pertinent to the nearby contract may have large effect on the nearby futures contract, but a dampened effect in more distant maturing contracts. Information about shortages and surpluses in the near-term are mitigated in distant contracts by the assumption that high (low) prices today will ration (encourage) consumption and therefore mitigate price effects. Further, each contract maturity attracts different levels of liquidity. Generally liquidity decreases as more distant contracts are considered except in the case of commodities produced once per year - corn, for example, is harvested in the fall of each year and the 'new crop contract' with a December maturity will routinely attract more volume than the May or July contract even when the May or July contract expire sooner. For these reasons we do not adopt the PIN measure of information based trading in the marketplace
  
