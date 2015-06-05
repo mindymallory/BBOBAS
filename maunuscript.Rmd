@@ -4,11 +4,11 @@ title: 'Nearby and deferred quotes: What they tell us about linkages and adjustm
 author: "Mindy Mallory, Phillip Garcia, and Teresa Serra"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output:
+  html_document: default
+  pdf_document: default
   word_document:
     fig_caption: yes
     reference_docx: template.docx
-  pdf_document: default
-  html_document: default
 csl: american-journal-of-agricultural-economics.csl.txt
 bibliography: bbobas.bib
 ---
@@ -54,7 +54,7 @@ This should induce a high degree of correlation between bid and offer revisions 
 # Data
 The data used in this analysis comes from the CME Group's Top of Book (BBO) database for corn futures contracts from 1/4/2010-11/4/2011. The data contains the best bid, bid volume, best offer, offer volume, last trade price, and last trade volume of the order book for each active futures contract, time-stamped to the second. For those familiar with the CME Group's Time & Sales database, the BBO contains the Time & Sales data as well as information about the best bids and offers on the top of the limit order book.  
 
-The data are time-stamped to the second, but trades and updates to the top of the book routinely occur more rapidly than once per second. This results in several updates to the top of the book displaying the same time stamp. This requires us to either aggregate to the second, or to simulate sub-second time stamps (cite Wang and Easley). Since we calculate correlations between updates to the top-of-the book for several contract maturities, simulation would need to preserve (at least) the order in which updates arrived to each respective contract to be useful. Since preserving the order in which updates to the top of the book is impossible, we aggregate to the second instead.   
+The data are time-stamped to the second, but trades and updates to the top of the book routinely occur more rapidly than once per second. This results in several updates to the top of the book displaying the same time stamp. This requires us to either aggregate to the second, or to simulate sub-second time stamps [@WangPhd14;@hasbrouck2015]. Since we calculate correlations between updates to the top-of-the book for several contract maturities, simulation would need to preserve (at least) the order in which updates arrived to each respective contract to be useful. Since preserving the order in which updates to the top of the book is impossible, we aggregate to the second instead.   
 
 Further, we exclude days on which there was a limit price move in any of the contracts, since when prices are locked at the limit, calculating correlations is impossible (Dates deleted due to limit price moves are as follows: 1/12/2010, revision to a Crop Production report; 3/31/2011, Prospective Plantings report; 6/30/2011, Planted Acres report; 10/8/2010, World Agricultural Supply and Demand Estimates (WASDE); and 12/9/2010, WASDE). Also, we exclude 4/5/2010, because there was an unusually high number of revisions to the best bid and best offer. Since we were not able to process all of the data for this day in a reasonable amount of computing time, we drop this day from our sample. Additionally, 7/5/2011 was an unusually light trading day after the Fourth of July holiday and resulted in no data for the third to mature contract.
 
