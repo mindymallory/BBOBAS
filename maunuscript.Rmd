@@ -1,7 +1,7 @@
 ---
 title: 'Nearby and deferred quotes: What they tell us about linkages and adjustments
   to information '
-author: "Mindy Mallory, Phillip Garcia, and Teresa Serra"
+author: "Mindy Mallory, Philip Garcia, and Teresa Serra"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output:
   word_document:
