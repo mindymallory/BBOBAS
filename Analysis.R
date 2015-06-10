@@ -30,7 +30,7 @@ library(ggplot2)
 library(gridExtra)
 
 #setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') # Dropbox
-setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') # Office PC
+setwd('C:/Users/mallorym/BBOCORNDATA/ProcessedData') # Office PC
 
 # File naming convention for xts objects written to disk
 # Transactions - t_%y%m%d_contract.rda E.g., t_100106_1003 contains trasactions for the March 2010 contract on Jan 6, 2010
@@ -40,10 +40,10 @@ setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') # Office PC
 
 # Build the file names to be imported
 # Define the dates to loop over
-yearstart <- 2010
-yearend <- 2010
-dates <- timeSequence(from = paste(yearstart, "-01-04", sep = ""), 
-                      to = paste(yearend, "-01-04", sep = ""))
+yearstart <- 2008
+yearend <- 2011
+dates <- timeSequence(from = paste(yearstart, "-01-14", sep = ""), 
+                      to = paste(yearend, "-11-04", sep = ""))
 
 
 
@@ -64,7 +64,19 @@ dates <- subset(dates, dates != c('110331')) # Prospective Plantings report (Not
 dates <- subset(dates, dates != c('110630')) # Planted Acres report 
 dates <- subset(dates, dates != c('110705')) # Light trade after the 4th holiday. No trades or quotes for '3 deferred' which
                                              # would have been the March 2012 contract.
-
+dates <- subset(dates, dates != c('80707')) # After 4th holiday, Informa came out with larger than WASDE forecast yeild. \
+dates <- subset(dates, dates != c('90102')) 
+dates <- subset(dates, dates != c('90103'))
+dates <- subset(dates, dates != c('90104'))
+dates <- subset(dates, dates != c('90105'))
+dates <- subset(dates, dates != c('90106'))
+dates <- subset(dates, dates != c('90107'))
+dates <- subset(dates, dates != c('90108'))
+dates <- subset(dates, dates != c('90109'))
+dates <- subset(dates, dates != c('90110'))
+dates <- subset(dates, dates != c('90111'))
+dates <- subset(dates, dates != c('90112'))
+dates <- subset(dates, dates != c('90113')) # No clue why but these dates are missing from the dataset. 
 # Initializes data frames where analysis is stored
 #########################################################
 CUMULCORREL1_BID      <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
@@ -558,7 +570,8 @@ CUMULCORREL3_OFRBID_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL3_OFRBID_r
 
 
 #########################################################
-
+# Fix the missing '0' in the files names for 08 and 09
+dates[1:488] <- paste0('0',dates[1:497])
 
 for(i in 1:length(dates)){
     #This is already named 'DeliveryDates' upon loading. It must remember the name of the xts object it was saved from
@@ -1469,7 +1482,7 @@ CUMULCORREL3_OFRBID_rets_no0s <- merge(CUMULCORREL3_OFRBID_rets_no0s, correl3_re
     geom_errorbar(size=1, position=pd) +
     geom_point(size=4, position=pd) + 
     geom_line(size=0.25, position=pd) +
-    ggtitle('Contemporanious Correleation with Nearby in Bids - keep zeros') +
+    ggtitle('Contemporaneous Correlation with Nearby in Bids') +
     theme_bw() +
     theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1508,7 +1521,7 @@ OFR_plot <- ggplot(CUMULCORREL_OFR_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS,
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in OFRs - keep zeros') +
+  ggtitle('Contemporaneous Correlation with Nearby in OFRs') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1547,7 +1560,7 @@ Bid_plot_no0s <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = M
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in Bids - No zeros') +
+  ggtitle('Contemporaneous Correlation with Nearby in Bids - Information-Based') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1584,7 +1597,7 @@ OFR_plot_no0s <- ggplot(CUMULCORREL_OFR_rets_no0s, aes(TimeBins, MEANS, ymin = M
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in OFRs - No zeros') +
+  ggtitle('Contemporaneous Correlation with Nearby in OFRs - Information-Based') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1630,7 +1643,7 @@ Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ym
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, Bid') +
+  ggtitle('Nearby and 1 Deferred Correlation, Bid') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1712,7 +1725,7 @@ BIDOFR_plot <- ggplot(CUMULCORREL_BIDOFR_rets, aes(TimeBins, MEANS, ymin = MEANS
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in BID to OFRs - keep zeros') +
+  ggtitle('Contemporaneous Correlation with Nearby in BID to OFRs') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1750,7 +1763,7 @@ OFRBID_plot <- ggplot(CUMULCORREL_OFRBID_rets, aes(TimeBins, MEANS, ymin = MEANS
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in OFRs to Bids - keep zeros') +
+  ggtitle('Contemporaneous Correlation with Nearby in OFRs to Bids') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1792,7 +1805,7 @@ BIDOFR_plot_no0s <- ggplot(CUMULCORREL_BIDOFR_rets_no0s, aes(TimeBins, MEANS, ym
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in BID to OFRs - No zeros') +
+  ggtitle('Contemporaneous Correlation with Nearby in BID to OFRs - Information-Based') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
