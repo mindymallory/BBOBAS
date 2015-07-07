@@ -19,7 +19,7 @@ bibliography: bbobas.bib
 setwd("C:/Users/mallorym/Documents/BBOBAS")
 ```
 
-hello
+
 
 # Introduction
 There has been recent concern about whether and how the 'Financialization of Commodity Markets' has impacted market efficiency (futures markets as unbiased predictors of future spot prices) and efficacy in the traditional roles of risk mitigation, coordinating production, and coordinating consumption through time [@Irwin01032011; @NBERw19642; @Irwin2012256; @Henderson01052015]. Further, the recent increase in the production of biofuel from food commodities and volatile crude oil prices have created or changed the relationship between food and energy commodities [@Serra2013141;@Mallory20122157; @Gardebroek2013119;  @Vacha2013233; @Avalos2014253; @trujillo2012volatility]. Additionally, climate change, rising demand for agricultural commodities, and volatile inventories and exchange rates have imposed structural changes in commodity markets [@balcombe2011nature; @gilbert2010food; @prakash2011rising]. 
