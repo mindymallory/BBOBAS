@@ -4,11 +4,11 @@ title: 'Nearby and deferred quotes: What they tell us about linkages and adjustm
 author: "Mindy Mallory, Philip Garcia, and Teresa Serra"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output:
-  html_document: default
-  pdf_document: default
   word_document:
     fig_caption: yes
     reference_docx: template.docx
+  pdf_document: default
+  html_document: default
 csl: american-journal-of-agricultural-economics.csl.txt
 bibliography: bbobas.bib
 ---
@@ -160,32 +160,52 @@ These results indicate that we can probably learn much from trades and quotes da
 : Table 1: First ten entries in our data set.
 
 # Figures
-
+Panel A
 ![](Bid_plot.png)
+
+Panel B
 
 ![Figure 1. Contemporaneous Correlation with Nearby - Keep Zeros](OFR_plot.png)
 
+Panel A
 ![](Bid_plot_no0s.png)
+
+Panel B
 
 ![Figure 2. Contemporaneous Correlation with Nearby - No Zeros](OFR_plot_no0s.png)
 
+Panel A
 ![](Bid_plot_report.png)
+
+Panel B
 
 ![Figure 3. Contemporaneous Correlation with Nearby on USDA Report Days - Keep Zeros](OFR_plot_report.png)
 
+Panel A
 ![](Bid_plot_no0s_report.png)
+
+Panel B
 
 ![Figure 4. Contemporaneous Correlation with Nearby on USDA Report Days - No Zeros](OFR_plot_no0s_report.png)
 
+Panel A
 ![](Bid_plot_timelag.png)
+
+Panel B
 
 ![Figure 5. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract](OFR_plot_timelag.png)
 
+Panel A
 ![](Bid_plot_timelag_report.png)
+
+Panel B
 
 ![Figure 6. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract on USDA Report Days](OFR_plot_timelag_report.png)
 
+Panel A
 ![](BIDOFR_plot.png)
+
+Panel B
 
 ![Figure 7. Contemporaneous Correlations with Nearby Bid-to-Ask and Ask-to-Bid - Keep Zeros](OFRBID_plot.png)
 
