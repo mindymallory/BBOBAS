@@ -1,3 +1,9 @@
-# Respondig to Teresa's comments on initial draft
+# Respondig to Teresa's Comments on Initial Draft
 
-1. 
+I incorportated most of your comments and suggestions. The major one was the reorganization of the lit review and background, and refocusing the emphasis on market events rather than theory literature. I agree, but there are two considerations that make me want to wait. 1. I think we can more carefully hone these ideas as we are in final preparation for submission to a particular journal. Targeted journal will set the tone. 2. A more practical concern is that we need to get a draft up on the nccc 134 proceedings website. I think this is good enoug as a conference paper, and we can modify as planned for journal submission. I want to go ahead and get it on the nccc134 website because I need to just switch gears and prep my new class I'm teaching in the fall. I'm pasting your specific comments that are not address here mostly so I'll remember when we finish it later. 
+
+1. Page 2, Shall we focus on the implications of Bagehot (1971) and the other papers revised here for the correlations we aim to asses? Since our paperis mainly empirical, I am not sure if the background should be focused on the structural models literature or on empirical studies, or both. 
+2. Page 4: Shall we combine this and the previous section?
+3. As noted, I am not sure if I would make emphasis on the theoretical models or on recent market events to stress relevance of our analysis. Are we attempting to test the validity of these models, or show how markets behave after recent changes? In the latter case I would pay more attention to describe the economic scenario, as well as recent research findings regarding the impacts of the late changes to agricultural commodity markets. 
+4. Page 9. I am probably not understanding what you mean here, but even if they incorporate the information several minutes before the market opens, shouldn't they conduct larger adjustments relative to a non report day? 
+   + This is not true because the changes in bids/offers that we record and analyze, do not cross the information event. I.e., we don't include any bids or offers prior to information release. We only include bids and offers made after the information is already public. 
