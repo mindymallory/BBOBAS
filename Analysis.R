@@ -28,6 +28,7 @@ library(xtable)
 library(highfrequency)
 library(ggplot2)
 library(gridExtra)
+options(scipen = 999)  # Scientific notation is no good in tables for reading p_values
 
 #setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') # Dropbox
 setwd('C:/Users/mallorym/BBOCORNDATA/ProcessedData') # Office PC
@@ -1913,3 +1914,43 @@ dev.off()
 png(filename="p3secs_to_update_OFR_rets.png")
 p1ofr <- hist(as.numeric(p3secs_to_update_OFR_rets), 200, main = "3 Deferred Offer", xlab="Number of Seconds")
 dev.off()
+
+##############################################################################
+# Check if means are equal in figure 1
+
+p_values              <- matrix(data = NA, nrow = dim(subset(CUMULCORREL_BID_rets, contract == c('1Deferred')))[1], ncol = 3)
+
+for (i in 2:dim(subset(CUMULCORREL_BID_rets, contract == c('1Deferred')))[1]) {
+        tresult       <- t.test(as.numeric(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) & contract == c('1Deferred'))), 
+                                as.numeric(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) & contract == c('2Deferred'))),
+                                mu = 0, paired = FALSE, var.equal = FALSE, na.action = na.exclude)
+        p_values[i,1] <- tresult$p.value
+}
+
+for (i in 2:dim(subset(CUMULCORREL_BID_rets, contract == c('1Deferred')))[1]) {
+        tresult       <- t.test(as.numeric(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) & contract == c('1Deferred'))), 
+                                as.numeric(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) & contract == c('3Deferred'))),
+                                mu = 0, paired = FALSE, var.equal = FALSE, na.action = na.exclude)
+        p_values[i,2] <- tresult$p.value
+  
+  
+}
+
+for (i in 2:dim(subset(CUMULCORREL_BID_rets, contract == c('1Deferred')))[1]) {
+        tresult       <- t.test(as.numeric(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) & contract == c('2Deferred'))), 
+                                as.numeric(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) & contract == c('3Deferred'))),
+                                mu = 0, paired = FALSE, var.equal = FALSE, na.action = na.exclude)
+        p_values[i,3] <- tresult$p.value
+}
+
+p_values              <- round(p_values, digits = 2)
+row.names(p_values)   <- subset(CUMULCORREL_BID_rets, contract == c('1Deferred'))$TimeBins
+colnames(p_values)    <- c('Nearby and 1 Deferred - Nearby and 2 Deferred', 'Nearby and 1 Deferred - Nearby and 3 Deferred','Nearby and 2 Deferred - Nearby and 3 Deferred' )
+p_values              <- p_values[-1,]
+save(p_values, file = 'p_values.Rda')   
+rm(p_values)
+load('p_values.Rda')
+
+########################################################################################
+# Look at historgrams of correlations
+CUMULCORREL_BID_rets

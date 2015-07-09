@@ -15,8 +15,9 @@ bibliography: bbobas.bib
 
 
 ```{r, echo=FALSE}
-#setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
-setwd("C:/Users/mallorym/Documents/BBOBAS")
+setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
+#setwd("C:/Users/mallorym/Documents/BBOBAS")
+load('p_values.Rda')
 ```
 
 
@@ -161,6 +162,13 @@ These results indicate that we can probably learn much from trades and quotes da
 
 ID = CME's trade sequence number, Symbol = Contract expiration year (2010) and month (March), OFRSIZ = Number of contracts at the best offered price, OFR = Best price offered (cents per bushel), BIDSIZ = Number of contracts at the best bid price, BID = Best price bid (cents per bushel).
 
+
+```{r, echo=FALSE}
+library(knitr)
+kable(p_values, format = 'markdown')
+```
+
+: Table 2: P-Values from a Welch two sample t-test on differences in correlation means 
 
 # Figures
 Panel A

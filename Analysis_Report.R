@@ -33,7 +33,7 @@ library(ggplot2)
 library(gridExtra)
 
 #setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') # Dropbox
-setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') # Office PC
+setwd('C:/Users/mallorym/BBOCORNDATA/ProcessedData') # Office PC
 
 # File naming convention for xts objects written to disk
 # Transactions - t_%y%m%d_contract.rda E.g., t_100106_1003 contains trasactions for the March 2010 contract on Jan 6, 2010
@@ -48,7 +48,7 @@ setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') # Office PC
   dates <- read.csv('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt/USDA_Announcements.csv', header=FALSE, colClasses="character")
   dates <- dates$V1
 # Modify this subset to restrict the years. 
-  dates <- subset(dates, substr(dates, 1, 2) == "10"  | substr(dates, 1, 2) == "11")
+#  dates <- subset(dates, substr(dates, 1, 2) == "10"  | substr(dates, 1, 2) == "11")
   dates <- subset(dates, dates != 100405)
 # Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
 # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the
@@ -61,6 +61,19 @@ setwd('C:/Users/mallorym/BBOCORNDATA/2010Feb-2011Dec_txt') # Office PC
   dates <- subset(dates, dates != c('111209'))
   dates <- subset(dates, dates != c('110331'))
   dates <- subset(dates, dates != c('110630')) # Planted Acres and Grain Stocks report 
+  dates <- subset(dates, dates != c('80707')) # After 4th holiday, Informa came out with larger than WASDE forecast yeild. \
+  dates <- subset(dates, dates != c('90102')) 
+  dates <- subset(dates, dates != c('90103'))
+  dates <- subset(dates, dates != c('90104'))
+  dates <- subset(dates, dates != c('90105'))
+  dates <- subset(dates, dates != c('90106'))
+  dates <- subset(dates, dates != c('90107'))
+  dates <- subset(dates, dates != c('90108'))
+  dates <- subset(dates, dates != c('90109'))
+  dates <- subset(dates, dates != c('90110'))
+  dates <- subset(dates, dates != c('90111'))
+  dates <- subset(dates, dates != c('90112'))
+  dates <- subset(dates, dates != c('90113')) # No clue why but these dates are missing from the dataset. 
 
 dates <- subset(dates, dates != c('111109')) # Good data for 2011 only goes to 11/4. CME changed the data format after 11/4, but a 
                                              # big change comes on 1/1/2012 so coding up Nov and Dec 2011 is not a high priority. 
