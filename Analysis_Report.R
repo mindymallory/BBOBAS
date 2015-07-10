@@ -1196,8 +1196,25 @@ for(i in 2:24){
   
   hist(as.numeric(subset(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) 
                                 & contract == c('1Deferred')), select = -c(TimeBins, MEANS, sdS, contract))), 
-       main = paste(as.character(CUMULCORREL_BID_rets$TimeBins[i]), ', Correlations of Nearby and 1 Deferred', ', Report Days'), xlab = "Correlation")
+       main = paste(as.character(CUMULCORREL_BID_rets$TimeBins[i]), ', Correl of Near and 1 Def', ', Report Days'), xlab = "Correlation")
   dev.copy(png, paste('1Deferred', as.character(i), 'report.png'))
   dev.off()
 }
 
+for(i in 2:24){
+  
+  hist(as.numeric(subset(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) 
+                                & contract == c('2Deferred')), select = -c(TimeBins, MEANS, sdS, contract))), 
+       main = paste(as.character(CUMULCORREL_BID_rets$TimeBins[i]), ', Correl of Near and 2 Def', ', Report Days'), xlab = "Correlation")
+  dev.copy(png, paste('2Deferred', as.character(i), 'report.png'))
+  dev.off()
+}
+
+for(i in 2:24){
+  
+  hist(as.numeric(subset(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) 
+                                & contract == c('3Deferred')), select = -c(TimeBins, MEANS, sdS, contract))), 
+       main = paste(as.character(CUMULCORREL_BID_rets$TimeBins[i]), ', Correl of Near and 3 Def', ', Report Days'), xlab = "Correlation")
+  dev.copy(png, paste('3Deferred', as.character(i), 'report.png'))
+  dev.off()
+}
