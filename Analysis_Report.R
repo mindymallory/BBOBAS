@@ -1185,3 +1185,19 @@ dev.off()
 png(filename="p3secs_to_update_OFR_rets_report.png")
 p1ofr <- hist(as.numeric(p3secs_to_update_OFR_rets), 200, main = "3 Deferred Offer", xlab="Number of Seconds")
 dev.off()
+
+
+
+########################################################################################
+# Look at historgrams of correlations
+CUMULCORREL_BID_rets
+
+for(i in 2:24){
+  
+  hist(as.numeric(subset(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) 
+                                & contract == c('1Deferred')), select = -c(TimeBins, MEANS, sdS, contract))), 
+       main = paste(as.character(CUMULCORREL_BID_rets$TimeBins[i]), ', Correlations of Nearby and 1 Deferred', ', Report Days'), xlab = "Correlation")
+  dev.copy(png, paste('1Deferred', as.character(i), 'report.png'))
+  dev.off()
+}
+

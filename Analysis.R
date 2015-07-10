@@ -1954,3 +1954,13 @@ load('p_values.Rda')
 ########################################################################################
 # Look at historgrams of correlations
 CUMULCORREL_BID_rets
+
+for(i in 2:24){
+
+  hist(as.numeric(subset(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) 
+                                    & contract == c('1Deferred')), select = -c(TimeBins, MEANS, sdS, contract))), 
+                                    main = paste(as.character(CUMULCORREL_BID_rets$TimeBins[i]), ', Correlations of Nearby and 1 Deferred'), xlab = "Correlation")
+dev.copy(png, paste('1Deferred', as.character(i), '.png'))
+dev.off()
+}
+
