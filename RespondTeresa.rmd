@@ -1,5 +1,5 @@
 ---
-output: word_document
+output: html_document
 ---
 # Respondig to Teresa's Comments on Initial Draft
 
