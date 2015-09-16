@@ -61,23 +61,24 @@ setwd('C:/Users/mallorym/BBOCORNDATA/ProcessedData') # Office PC
   dates <- subset(dates, dates != c('111209'))
   dates <- subset(dates, dates != c('110331'))
   dates <- subset(dates, dates != c('110630')) # Planted Acres and Grain Stocks report 
-  dates <- subset(dates, dates != c('80707')) # After 4th holiday, Informa came out with larger than WASDE forecast yeild. \
-  dates <- subset(dates, dates != c('90102')) 
-  dates <- subset(dates, dates != c('90103'))
-  dates <- subset(dates, dates != c('90104'))
-  dates <- subset(dates, dates != c('90105'))
-  dates <- subset(dates, dates != c('90106'))
-  dates <- subset(dates, dates != c('90107'))
-  dates <- subset(dates, dates != c('90108'))
-  dates <- subset(dates, dates != c('90109'))
-  dates <- subset(dates, dates != c('90110'))
-  dates <- subset(dates, dates != c('90111'))
-  dates <- subset(dates, dates != c('90112'))
-  dates <- subset(dates, dates != c('90113')) # No clue why but these dates are missing from the dataset. 
+  dates <- subset(dates, dates != c('080707')) # After 4th holiday, Informa came out with larger than WASDE forecast yeild. \
+  dates <- subset(dates, dates != c('080111'))
+  dates <- subset(dates, dates != c('090102')) 
+  dates <- subset(dates, dates != c('090103'))
+  dates <- subset(dates, dates != c('090104'))
+  dates <- subset(dates, dates != c('090105'))
+  dates <- subset(dates, dates != c('090106'))
+  dates <- subset(dates, dates != c('090107'))
+  dates <- subset(dates, dates != c('090108'))
+  dates <- subset(dates, dates != c('090109'))
+  dates <- subset(dates, dates != c('090110'))
+  dates <- subset(dates, dates != c('090111'))
+  dates <- subset(dates, dates != c('090112'))
+  dates <- subset(dates, dates != c('090113')) # No clue why but these dates are missing from the dataset. 
 
 dates <- subset(dates, dates != c('111109')) # Good data for 2011 only goes to 11/4. CME changed the data format after 11/4, but a 
                                              # big change comes on 1/1/2012 so coding up Nov and Dec 2011 is not a high priority. 
-
+dates <- dates[1:42]                         # Haven't processed 2012 data yet so I am cutting off the end of the csv file at 2012.
 
 # Initializes data frames where analysis is stored
 #########################################################
@@ -1122,7 +1123,7 @@ OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ym
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, Offer') +
+  ggtitle('Nearby and 1 Deferred Correlations, OFRs') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 

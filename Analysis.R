@@ -1688,7 +1688,7 @@ OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ym
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, Offer') +
+  ggtitle('Nearby and 1 Deferred Correlations, OFRs') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
