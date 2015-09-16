@@ -15,7 +15,7 @@ bibliography: bbobas.bib
 
 
 ```{r, echo=FALSE}
-setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
+#setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
 #setwd("C:/Users/mallorym/Documents/BBOBAS")
 load('p_values.Rda')
 ```
@@ -203,6 +203,8 @@ Panel B
 
 Panel A
 ![](Bid_plot_timelag.png)
+
+
 
 Panel B
 

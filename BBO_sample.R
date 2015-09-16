@@ -101,7 +101,7 @@ for(i in 1:length(dates)) {
   
   
   begin(data)
-  NROWS          <- 50000  # Manage memory by setting manageable block sizes
+  NROWS          <- 10000  # Manage memory by setting manageable block sizes
   DATA           <- next_block(data, nrows = NROWS, columns= c(1,2,3,7,8,11,13))
   CUMULDATA      <- as.data.frame(t(as.numeric(matrix(0,1,8))))
   CUMULTRANS     <- as.data.frame(t(as.numeric(matrix(0,6))))
