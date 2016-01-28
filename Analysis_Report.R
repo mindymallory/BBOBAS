@@ -31,6 +31,7 @@ library(xtable)
 library(highfrequency)
 library(ggplot2)
 library(gridExtra)
+library(magrittr)
 
 #setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') # Dropbox
 setwd('C:/Users/mallorym/BBOCORNDATA/ProcessedData') # Office PC
@@ -330,11 +331,28 @@ CUMULCORREL3_OFR_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL3_OFR_rets_no
 
 
 for(i in 1:length(dates)){
+#i=1 # For testing
+
   #This is already named 'DeliveryDates' upon loading. It must remember the name of the xts object it was saved from
   load(paste0('Contracts', as.character(dates[i]) ,".rda")) 
   
   #Load all the contracts on a single day
   for(j in 1:(length(DeliveryDates)-1)){
+    
+    # This if statement takes care of the issue created by the fact that 08 and 09 are expressed without a 0 in front.
+    if( nchar(DeliveryDates[j]) == 3 && substr(DeliveryDates[j], 3, 3) == 9){
+      
+      DeliveryDates <- DeliveryDates[-j]                                             # Deletes September in years 2008 and 2009
+      
+    } else if( nchar(DeliveryDates[j]) == 4 && substr(DeliveryDates[j], 4, 4) == 9){
+      
+      DeliveryDates <- DeliveryDates[-j]                                             # Deletes September
+      
+    } 
+  }
+  
+  for(j in 1:(length(DeliveryDates)-1)){                                            # Since deleting Sept changes length(DeliveryDates) 
+    
     #Quotes
     load(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j]), ".rda"))
     temp <- temp["T09:30:00/T13:15:00"] # Focus on the daytime session 9:30am - 1:15pm
@@ -358,12 +376,12 @@ for(i in 1:length(dates)){
     qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
     qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4])))
     qplus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5]))) 
-    qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
-    qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
-    qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
-    qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
-    qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
-    qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[11])))
+    #qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
+    #qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
+    #qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
+    #qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
+    #qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
+    #qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[11])))
     
     #   tnearby <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
     #   tplus1  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
@@ -383,12 +401,12 @@ for(i in 1:length(dates)){
     qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
     qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
     qplus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
-    qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
-    qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
-    qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
-    qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
-    qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
-    qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
+    #qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
+    #qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
+    #qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
+    #qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
+    #qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
+    #qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
     
     #   tnearby <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
     #   tplus1  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
@@ -412,10 +430,31 @@ for(i in 1:length(dates)){
   nearby_BID_rets   <- diff.xts(nearby_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
   non_zeros         <- index(nearby_BID_rets)[which(nearby_BID_rets != 0)]
   nsecs_to_update_BID_rets   <- difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
-  nearby_BID_rets_no0s<- subset(nearby_BID_rets, BID != 0)
+ # nearby_BID_rets_no0s<- subset(nearby_BID_rets, BID != 0)
   nearby_BID_rets_1sec<- lag.xts(nearby_BID_rets, k=-1)
   nearby_BID_rets_10sec<- lag.xts(nearby_BID_rets, k=-10)
   
+  # Learning to Use Pipes
+  nearby_BID_rets_no0s <- 
+    qnearby$BID %>%
+    to.period(period = 'seconds', k = 1, OHLC = FALSE) %>%
+    diff.xts(lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE) %>%
+    subset(BID != 0)
+  
+  nearby_BID_rets_no0s_1sec <-  #Time Lag (lag.xts) lags 10 places, not ten seconds, so it need to lag then filter !=0 to get true 1 secs
+    qnearby$BID %>%
+    to.period(period = 'seconds', k = 1, OHLC = FALSE) %>%
+    diff.xts(lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE) %>%
+    lag.xts(k=-1) %>%
+    subset(BID != 0)
+ 
+  nearby_BID_rets_no0s_10sec <-  #Time Lag (lag.xts) lags 10 places, not ten seconds, so it need to lag then filter !=0 to get true 10 secs
+    qnearby$BID %>%
+    to.period(period = 'seconds', k = 1, OHLC = FALSE) %>%
+    diff.xts(lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE) %>%
+    lag.xts(k=-10) %>%
+    subset(BID != 0)   
+
   plus1_BID         <- to.period(qplus1$BID, period = 'seconds', k = 1, OHLC = FALSE)
   plus1_BID_rets    <- diff.xts(plus1_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
   non_zeros         <- index(plus1_BID_rets)[which(plus1_BID_rets != 0)]
@@ -453,10 +492,10 @@ for(i in 1:length(dates)){
   near_plus1_BID_rets   <- merge(nearby_BID_rets, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
                                  retside = TRUE, retclass = "xts")                
   near_plus1_BID_rets.df<- as.data.frame(near_plus1_BID_rets)
-  near_plus1_BID_rets_1sec   <- merge(nearby_BID_rets_1sec, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
+  near_plus1_BID_rets_1sec   <- merge(nearby_BID_rets_no0s_1sec, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
                                       retside = TRUE, retclass = "xts")                
   near_plus1_BID_rets_1sec.df<- as.data.frame(near_plus1_BID_rets_1sec)
-  near_plus1_BID_rets_10sec   <- merge(nearby_BID_rets_10sec, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
+  near_plus1_BID_rets_10sec   <- merge(nearby_BID_rets_no0s_10sec, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
                                        retside = TRUE, retclass = "xts")                
   near_plus1_BID_rets_10sec.df<- as.data.frame(near_plus1_BID_rets_10sec)
   
@@ -975,6 +1014,7 @@ ggsave(file="OFR_plot_report.png", path='C:/Users/mallorym/Documents/GitHub/BBOB
 CUMULCORREL1_BID_rets_no0s$MEANS <- apply(CUMULCORREL1_BID_rets_no0s[,2:dim(CUMULCORREL1_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_BID_rets_no0s$sdS <- apply(CUMULCORREL1_BID_rets_no0s[,2:dim(CUMULCORREL1_BID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL1_BID_rets_no0s$contract <- factor("1Deferred")  
+CUMULCORREL1_BID_rets_no0s$lag <- factor("None")
 
 # Bids Contemporaneous Plus2
 CUMULCORREL2_BID_rets_no0s$MEANS <- apply(CUMULCORREL2_BID_rets_no0s[,2:dim(CUMULCORREL2_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
@@ -1069,7 +1109,7 @@ CUMULCORREL3_BID_rets_1sec$sdS <- apply(CUMULCORREL3_BID_rets_1sec[,2:dim(CUMULC
 CUMULCORREL3_BID_rets_1sec$contract <- factor("3Deferred")
 
 CUMULCORREL1_BID_rets$lag <- factor("Contemporaneous")
-CUMULCORREL_BID_rets_timelag <- rbind(CUMULCORREL1_BID_rets, CUMULCORREL1_BID_rets_1sec, CUMULCORREL1_BID_rets_10sec)
+CUMULCORREL_BID_rets_timelag <- rbind(CUMULCORREL1_BID_rets_no0s, CUMULCORREL1_BID_rets_1sec, CUMULCORREL1_BID_rets_10sec)
 
 pd <- position_dodge(0.4)
 MAXES <- min(CUMULCORREL_BID_rets_timelag$MEANS - CUMULCORREL_BID_rets_timelag$sdS,1)

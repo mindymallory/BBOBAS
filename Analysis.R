@@ -28,6 +28,8 @@ library(xtable)
 library(highfrequency)
 library(ggplot2)
 library(gridExtra)
+library(magrittr)
+
 options(scipen = 999)  # Scientific notation is no good in tables for reading p_values
 
 #setwd('C:/Users/mallorym/Dropbox/Market Microstructure Soybean Futures/BBO_sample') # Dropbox
@@ -578,8 +580,25 @@ for(i in 1:length(dates)){
     #This is already named 'DeliveryDates' upon loading. It must remember the name of the xts object it was saved from
     load(paste0('Contracts', as.character(dates[i]) ,".rda")) 
 
+  
+  
   #Load all the contracts on a single day
   for(j in 1:(length(DeliveryDates)-1)){
+    
+    # This if statement takes care of the issue created by the fact that 08 and 09 are expressed without a 0 in front.
+    if( nchar(DeliveryDates[j]) == 3 && substr(DeliveryDates[j], 3, 3) == 9){
+      
+      DeliveryDates <- DeliveryDates[-j]                                             # Deletes September in years 2008 and 2009
+      
+    } else if( nchar(DeliveryDates[j]) == 4 && substr(DeliveryDates[j], 4, 4) == 9){
+      
+      DeliveryDates <- DeliveryDates[-j]                                             # Deletes September
+      
+    } 
+  }
+  
+  for(j in 1:(length(DeliveryDates)-1)){                                            # Since deleting Sept changes length(DeliveryDates) 
+
         #Quotes
         load(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[j]), ".rda"))
         temp <- temp["T09:30:00/T13:15:00"] # Focus on the daytime session 9:30am - 1:15pm
@@ -603,12 +622,12 @@ rm(temp)
     qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
     qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4])))
     qplus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5]))) 
-    qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
-    qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
-    qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
-    qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
-    qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
-    qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[11])))
+    # qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
+    # qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
+    # qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
+    # qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
+    # qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
+    # qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[11])))
     
     #   tnearby <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
     #   tplus1  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
@@ -628,12 +647,12 @@ rm(temp)
     qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
     qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
     qplus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
-    qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
-    qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
-    qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
-    qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
-    qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
-    qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
+    # qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
+    # qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
+    # qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
+    # qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
+    # qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
+    # qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
     
     #   tnearby <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
     #   tplus1  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
