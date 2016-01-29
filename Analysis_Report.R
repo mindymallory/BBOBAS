@@ -431,8 +431,8 @@ for(i in 1:length(dates)){
   non_zeros         <- index(nearby_BID_rets)[which(nearby_BID_rets != 0)]
   nsecs_to_update_BID_rets   <- difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
  # nearby_BID_rets_no0s<- subset(nearby_BID_rets, BID != 0)
-  nearby_BID_rets_1sec<- lag.xts(nearby_BID_rets, k=-1)
-  nearby_BID_rets_10sec<- lag.xts(nearby_BID_rets, k=-10)
+ # nearby_BID_rets_1sec<- lag.xts(nearby_BID_rets, k=-1)
+ # nearby_BID_rets_10sec<- lag.xts(nearby_BID_rets, k=-10)
   
   # Learning to Use Pipes
   nearby_BID_rets_no0s <- 
@@ -468,9 +468,31 @@ for(i in 1:length(dates)){
   nearby_OFR_rets   <- diff.xts(nearby_OFR, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
   non_zeros         <- index(nearby_OFR_rets)[which(nearby_OFR_rets != 0)]
   nsecs_to_update_OFR_rets   <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
-  nearby_OFR_rets_no0s<- subset(nearby_OFR_rets, OFR != 0)
-  nearby_OFR_rets_1sec<- lag.xts(nearby_OFR_rets, k=-1)
-  nearby_OFR_rets_10sec<- lag.xts(nearby_OFR_rets, k=-10)
+ # nearby_OFR_rets_no0s<- subset(nearby_OFR_rets, OFR != 0)
+ # nearby_OFR_rets_1sec<- lag.xts(nearby_OFR_rets, k=-1)
+ # nearby_OFR_rets_10sec<- lag.xts(nearby_OFR_rets, k=-10)
+  
+  # Learning to Use Pipes
+  nearby_OFR_rets_no0s <- 
+    qnearby$OFR %>%
+    to.period(period = 'seconds', k = 1, OHLC = FALSE) %>%
+    diff.xts(lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE) %>%
+    subset(OFR != 0)
+  
+  nearby_OFR_rets_no0s_1sec <-  #Time Lag (lag.xts) lags 10 places, not ten seconds, so it need to lag then filter !=0 to get true 1 secs
+    qnearby$OFR %>%
+    to.period(period = 'seconds', k = 1, OHLC = FALSE) %>%
+    diff.xts(lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE) %>%
+    lag.xts(k=-1) %>%
+    subset(OFR != 0)
+  
+  nearby_OFR_rets_no0s_10sec <-  #Time Lag (lag.xts) lags 10 places, not ten seconds, so it need to lag then filter !=0 to get true 10 secs
+    qnearby$OFR %>%
+    to.period(period = 'seconds', k = 1, OHLC = FALSE) %>%
+    diff.xts(lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE) %>%
+    lag.xts(k=-10) %>%
+    subset(OFR != 0)   
+  
   
   plus1_OFR         <- to.period(qplus1$OFR, period = 'seconds', k = 1, OHLC = FALSE)
   plus1_OFR_rets    <- diff.xts(plus1_OFR, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
@@ -492,17 +514,19 @@ for(i in 1:length(dates)){
   near_plus1_BID_rets   <- merge(nearby_BID_rets, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
                                  retside = TRUE, retclass = "xts")                
   near_plus1_BID_rets.df<- as.data.frame(near_plus1_BID_rets)
-  near_plus1_BID_rets_1sec   <- merge(nearby_BID_rets_no0s_1sec, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
-                                      retside = TRUE, retclass = "xts")                
-  near_plus1_BID_rets_1sec.df<- as.data.frame(near_plus1_BID_rets_1sec)
-  near_plus1_BID_rets_10sec   <- merge(nearby_BID_rets_no0s_10sec, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
-                                       retside = TRUE, retclass = "xts")                
-  near_plus1_BID_rets_10sec.df<- as.data.frame(near_plus1_BID_rets_10sec)
-  
+    
   # No zeros
   near_plus1_BID_rets_no0s   <- merge(nearby_BID_rets_no0s, plus1_BID_rets_no0s, all = TRUE, fill = NA, join = "outer", 
                                       retside = TRUE, retclass = "xts")                
   near_plus1_BID_rets_no0s.df<- as.data.frame(near_plus1_BID_rets_no0s)
+  
+  near_plus1_BID_rets_1sec   <- merge(nearby_BID_rets_no0s_1sec, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
+                                      retside = TRUE, retclass = "xts")                
+  near_plus1_BID_rets_1sec.df<- as.data.frame(near_plus1_BID_rets_1sec)
+  
+  near_plus1_BID_rets_10sec   <- merge(nearby_BID_rets_no0s_10sec, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
+                                       retside = TRUE, retclass = "xts")                
+  near_plus1_BID_rets_10sec.df<- as.data.frame(near_plus1_BID_rets_10sec)
   
   # OFR, Levels
   near_plus1_OFR        <- merge(nearby_OFR, plus1_OFR, all = TRUE, fill = NA, join = "outer", retside = TRUE, 
@@ -514,10 +538,10 @@ for(i in 1:length(dates)){
   near_plus1_OFR_rets   <- merge(nearby_OFR_rets, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
                                  retside = TRUE, retclass = "xts")                
   near_plus1_OFR_rets.df<- as.data.frame(near_plus1_OFR_rets)
-  near_plus1_OFR_rets_1sec   <- merge(nearby_OFR_rets_1sec, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+  near_plus1_OFR_rets_1sec   <- merge(nearby_OFR_rets_no0s_1sec, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
                                       retside = TRUE, retclass = "xts")                
   near_plus1_OFR_rets_1sec.df<- as.data.frame(near_plus1_OFR_rets_1sec)
-  near_plus1_OFR_rets_10sec   <- merge(nearby_OFR_rets_10sec, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+  near_plus1_OFR_rets_10sec   <- merge(nearby_OFR_rets_no0s_10sec, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
                                        retside = TRUE, retclass = "xts")                
   near_plus1_OFR_rets_10sec.df<- as.data.frame(near_plus1_OFR_rets_10sec)
   
@@ -957,7 +981,7 @@ Bid_plot <- ggplot(CUMULCORREL_BID_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS,
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in Bids - keep zeros') +
+  ggtitle('Contemporanious Correleation with Nearby in BIDs - keep zeros') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1014,17 +1038,19 @@ ggsave(file="OFR_plot_report.png", path='C:/Users/mallorym/Documents/GitHub/BBOB
 CUMULCORREL1_BID_rets_no0s$MEANS <- apply(CUMULCORREL1_BID_rets_no0s[,2:dim(CUMULCORREL1_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_BID_rets_no0s$sdS <- apply(CUMULCORREL1_BID_rets_no0s[,2:dim(CUMULCORREL1_BID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL1_BID_rets_no0s$contract <- factor("1Deferred")  
-CUMULCORREL1_BID_rets_no0s$lag <- factor("None")
+CUMULCORREL1_BID_rets_no0s$lag <- factor("Contemporaneous")
 
 # Bids Contemporaneous Plus2
 CUMULCORREL2_BID_rets_no0s$MEANS <- apply(CUMULCORREL2_BID_rets_no0s[,2:dim(CUMULCORREL2_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL2_BID_rets_no0s$sdS <- apply(CUMULCORREL2_BID_rets_no0s[,2:dim(CUMULCORREL2_BID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL2_BID_rets_no0s$contract <- factor("2Deferred")
+CUMULCORREL2_BID_rets_no0s$lag <- factor("Contemporaneous")
 
 # Bids Contemporaneous Plus3
 CUMULCORREL3_BID_rets_no0s$MEANS <- apply(CUMULCORREL3_BID_rets_no0s[,2:dim(CUMULCORREL3_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL3_BID_rets_no0s$sdS <- apply(CUMULCORREL3_BID_rets_no0s[,2:dim(CUMULCORREL3_BID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL3_BID_rets_no0s$contract <- factor("3Deferred")
+CUMULCORREL3_BID_rets_no0s$lag <- factor("Contemporaneous")
 
 CUMULCORREL_BID_rets_no0s <- rbind(CUMULCORREL1_BID_rets_no0s, CUMULCORREL2_BID_rets_no0s, CUMULCORREL3_BID_rets_no0s)
 
@@ -1036,7 +1062,7 @@ Bid_plot_no0s <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = M
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in Bids - No zeros') +
+  ggtitle('Contemporanious Correleation with Nearby in BIDs - Information-Based') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1052,16 +1078,19 @@ ggsave(file="Bid_plot_no0s_report.png", path='C:/Users/mallorym/Documents/GitHub
 CUMULCORREL1_OFR_rets_no0s$MEANS <- apply(CUMULCORREL1_OFR_rets_no0s[,2:dim(CUMULCORREL1_OFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_OFR_rets_no0s$sdS <- apply(CUMULCORREL1_OFR_rets_no0s[,2:dim(CUMULCORREL1_OFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL1_OFR_rets_no0s$contract <- factor("1Deferred")  
+CUMULCORREL1_OFR_rets_no0s$lag <- factor("Contemporaneous")
 
 # OFRs Contemporaneous Plus2
 CUMULCORREL2_OFR_rets_no0s$MEANS <- apply(CUMULCORREL2_OFR_rets_no0s[,2:dim(CUMULCORREL2_OFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL2_OFR_rets_no0s$sdS <- apply(CUMULCORREL2_OFR_rets_no0s[,2:dim(CUMULCORREL2_OFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL2_OFR_rets_no0s$contract <- factor("2Deferred")
+CUMULCORREL2_OFR_rets_no0s$lag <- factor("Contemporaneous")
 
 # OFRs Contemporaneous Plus3
 CUMULCORREL3_OFR_rets_no0s$MEANS <- apply(CUMULCORREL3_OFR_rets_no0s[,2:dim(CUMULCORREL3_OFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL3_OFR_rets_no0s$sdS <- apply(CUMULCORREL3_OFR_rets_no0s[,2:dim(CUMULCORREL3_OFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL3_OFR_rets_no0s$contract <- factor("3Deferred")
+CUMULCORREL3_OFR_rets_no0s$lag <- factor("Contemporaneous")
 
 CUMULCORREL_OFR_rets_no0s <- rbind(CUMULCORREL1_OFR_rets_no0s, CUMULCORREL2_OFR_rets_no0s, CUMULCORREL3_OFR_rets_no0s)
 
@@ -1073,7 +1102,7 @@ OFR_plot_no0s <- ggplot(CUMULCORREL_OFR_rets_no0s, aes(TimeBins, MEANS, ymin = M
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in OFRs - No zeros') +
+  ggtitle('Contemporanious Correleation with Nearby in OFRs - Information-Based') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1086,7 +1115,7 @@ ggsave(file="OFR_plot_no0s_report.png", path='C:/Users/mallorym/Documents/GitHub
 
 #########################################################################
 #######################################
-# Plotting summaries - Time Lags keep zeros
+# Plotting summaries - Time Lags no zeros nearby
 # Bids Plus1
 CUMULCORREL1_BID_rets_1sec$MEANS <- apply(CUMULCORREL1_BID_rets_1sec[,2:dim(CUMULCORREL1_BID_rets_1sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_BID_rets_1sec$sdS <- apply(CUMULCORREL1_BID_rets_1sec[,2:dim(CUMULCORREL1_BID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
@@ -1119,7 +1148,7 @@ Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ym
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, Bid') +
+  ggtitle('Nearby and 1 Deferred Correlations, BID') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1153,7 +1182,7 @@ CUMULCORREL3_OFR_rets_1sec$sdS <- apply(CUMULCORREL3_OFR_rets_1sec[,2:dim(CUMULC
 CUMULCORREL3_OFR_rets_1sec$contract <- factor("3Deferred")
 
 CUMULCORREL1_OFR_rets$lag <- factor("Contemporaneous")
-CUMULCORREL_OFR_rets_timelag <- rbind(CUMULCORREL1_OFR_rets, CUMULCORREL1_OFR_rets_1sec, CUMULCORREL1_OFR_rets_10sec)
+CUMULCORREL_OFR_rets_timelag <- rbind(CUMULCORREL1_OFR_rets_no0s, CUMULCORREL1_OFR_rets_1sec, CUMULCORREL1_OFR_rets_10sec)
 
 pd <- position_dodge(0.4)
 MAXES <- min(CUMULCORREL_OFR_rets_timelag$MEANS - CUMULCORREL_OFR_rets_timelag$sdS,1)
@@ -1163,7 +1192,7 @@ OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ym
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, OFRs') +
+  ggtitle('Nearby and 1 Deferred Correlations, OFR') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 

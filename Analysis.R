@@ -1502,7 +1502,7 @@ CUMULCORREL3_OFRBID_rets_no0s <- merge(CUMULCORREL3_OFRBID_rets_no0s, correl3_re
     geom_errorbar(size=1, position=pd) +
     geom_point(size=4, position=pd) + 
     geom_line(size=0.25, position=pd) +
-    ggtitle('Contemporaneous Correlation with Nearby in Bids') +
+    ggtitle('Contemporaneous Correlation with Nearby in BIDs') +
     theme_bw() +
     theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1580,7 +1580,7 @@ Bid_plot_no0s <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = M
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporaneous Correlation with Nearby in Bids - Information-Based') +
+  ggtitle('Contemporaneous Correlation with Nearby in BIDs - Information-Based') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1663,7 +1663,7 @@ Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ym
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlation, Bid') +
+  ggtitle('Nearby and 1 Deferred Correlation, BID') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1707,7 +1707,7 @@ OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ym
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, OFRs') +
+  ggtitle('Nearby and 1 Deferred Correlations, OFR') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
@@ -1745,7 +1745,7 @@ BIDOFR_plot <- ggplot(CUMULCORREL_BIDOFR_rets, aes(TimeBins, MEANS, ymin = MEANS
   geom_errorbar(size=1, position=pd) +
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporaneous Correlation with Nearby in BID to OFRs') +
+  ggtitle('Contemporaneous Correlation with Nearby in BIDs to OFRs') +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 

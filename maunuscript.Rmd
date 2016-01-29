@@ -182,54 +182,40 @@ kable(p_values, format = 'markdown')
 Notes: H0: Equal means, H1: Unequal means
 
 # Figures
-Panel A
+
 ![](Bid_plot.png)
+![](OFR_plot.png)
+Figure 1. Contemporaneous Correlation with Nearby - Keep Zeros
 
-Panel B
 
-![Figure 1. Contemporaneous Correlation with Nearby - Keep Zeros](OFR_plot.png)
-
-Panel A
 ![](Bid_plot_no0s.png)
+![](OFR_plot_no0s.png)
+Figure 2. Contemporaneous Correlation with Nearby - No Zeros
 
-Panel B
 
-![Figure 2. Contemporaneous Correlation with Nearby - No Zeros](OFR_plot_no0s.png)
-
-Panel A
 ![](Bid_plot_report.png)
+![](OFR_plot_report.png)
+Figure 3. Contemporaneous Correlation with Nearby on USDA Report Days - Keep Zeros
 
-Panel B
 
-![Figure 3. Contemporaneous Correlation with Nearby on USDA Report Days - Keep Zeros](OFR_plot_report.png)
-
-Panel A
 ![](Bid_plot_no0s_report.png)
+![](OFR_plot_no0s_report.png)
+Figure 4. Contemporaneous Correlation with Nearby on USDA Report Days - No Zeros
 
-Panel B
 
-![Figure 4. Contemporaneous Correlation with Nearby on USDA Report Days - No Zeros](OFR_plot_no0s_report.png)
-
-Panel A
 ![](Bid_plot_timelag.png)
+![](OFR_plot_timelag.png)
+Figure 5. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract
 
-Panel B
 
-![Figure 5. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract](OFR_plot_timelag.png)
-
-Panel A
 ![](Bid_plot_timelag_report.png)
+![](OFR_plot_timelag_report.png)
+Figure 6. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract on USDA Report Days
 
-Panel B
 
-![Figure 6. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract on USDA Report Days](OFR_plot_timelag_report.png)
-
-Panel A
 ![](BIDOFR_plot.png)
-
-Panel B
-
-![Figure 7. Contemporaneous Correlations with Nearby Bid-to-Ask and Ask-to-Bid - Keep Zeros](OFRBID_plot.png)
+![](OFRBID_plot.png)
+Figure 7. Contemporaneous Correlations with Nearby Bid-to-Ask and Ask-to-Bid - Keep Zeros
 
 
 # References
