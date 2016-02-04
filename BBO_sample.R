@@ -2,7 +2,6 @@
 # every timestamp has a bid, bid size, offer, offersize, and spread. Raw data puts 
 # ask and bid at same moment on different lines. Then xts objects are created for 
 # trades and quotes and written to file for futher analysis later
-# BBO  contains electronic trades only and no spreads.
 # Copyright [2015] [Mindy L. Mallory]
 
 library(LaF)

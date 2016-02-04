@@ -859,6 +859,8 @@ for(i in 1:length(dates)){
                                       retside = TRUE, retclass = "xts")                
   near_plus3_OFR_rets_no0s.df<- as.data.frame(near_plus3_OFR_rets_no0s)
   
+  
+  
   # In time bins - ten minutes
   # Date in the CUMULCORREL1_BID timestamp is irrelevant. We are creating 10 minute bins, in which we place 
   # correlations from each day in columns. Last time stamp says 13:19:50, but really it is 13:15:50

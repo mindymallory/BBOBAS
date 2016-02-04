@@ -152,6 +152,8 @@ To measure the speed of information transfer from nearby to deferred maturities,
 
 These results indicate that we can probably learn much from trades and quotes data about how many informed traders there are in a marketplace, but it is clear that much additional work in this area is needed. We borrowed from the sequential trading in securities literature, but future research is needed to develop sequential trading models specific to commodity futures markets. Such a model would provide richer insights into tarding and behavior of markets.
 
+\clearpage
+
 # Tables
 
 |                    |  ID  |SYMBOL|	OFRSIZ|	OFR   |	BIDSIZ|	BID   |
@@ -171,6 +173,7 @@ These results indicate that we can probably learn much from trades and quotes da
 
 Notes: ID = CME's trade sequence number, Symbol = Contract expiration year (2010) and month (March), OFRSIZ = Number of contracts at the best offered price, OFR = Best price offered (cents per bushel), BIDSIZ = Number of contracts at the best bid price, BID = Best price bid (cents per bushel).
 
+\clearpage
 
 ```{r, echo=FALSE}
 library(knitr)
@@ -179,7 +182,9 @@ kable(p_values, format = 'markdown')
 
 : Table 2: P-Values from Welch two-sample t-tests on differences in correlation means displayed in figure 1 
 
-Notes: H0: Equal means, H1: Unequal means
+Notes: H0: Equal means, H1: Unequal means. 'Near & 1' stands for the correlations between returns of the nearby quotes and returns of the first deferred quotes, 'Near & 2' stands for the correlations between returns of the nearby quotes and returns of the second deferred quotes, and 'Near & 3' stands for the correlations between returns of the nearby quotes and returns of the third deferred quotes. The columns labeled with the convention Near & 1 - Near & 2 contain p-values of a Welch two-sample t-test on differences in the means displayed in figure 1. 
+
+\clearpage
 
 # Figures
 
@@ -207,15 +212,22 @@ Figure 4. Contemporaneous Correlation with Nearby on USDA Report Days - No Zeros
 ![](OFR_plot_timelag.png)
 Figure 5. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract
 
-
 ![](Bid_plot_timelag_report.png)
 ![](OFR_plot_timelag_report.png)
 Figure 6. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract on USDA Report Days
 
+![](Bid_plot_timelag1N.png)
+![](OFR_plot_timelag1N.png)
+Figure 7. Contemporaneous and Time-lagged Correlations between the One-deferred Contract and Nearby (Price discovery in the distant) 
 
 ![](BIDOFR_plot.png)
 ![](OFRBID_plot.png)
-Figure 7. Contemporaneous Correlations with Nearby Bid-to-Ask and Ask-to-Bid - Keep Zeros
+Figure 8. Contemporaneous Correlations with Nearby Bid-to-Ask and Ask-to-Bid - Keep Zeros
 
+![](BIDOFR_plot_timelag.png)
+![](OFRBID_plot_timelag.png)
+Figure 9. Contemporaneous and Time-lagged Correlations with Nearby Bid-to-Ask and Ask-to-Bid - No Zeros
+
+\clearpage
 
 # References
