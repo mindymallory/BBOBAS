@@ -12,8 +12,22 @@ output:
   word_document:
     fig_caption: yes
     reference_docx: template.docx
+header-includes:
+  \usepackage{setspace}
+  \doublespacing
+geometry: margin=1.25in
 csl: american-journal-of-agricultural-economics.csl.txt
 bibliography: bbobas.bib
+abstract: |
+  Recently, the 'Financialization' of commodity futures markets, biofuel production, climate change, and rising demand potentially have imposed profound 
+  shifts in the way commodity futures markets operate. This article examines the commodity markets quote-by-quote to develop metrics on liquidity and 
+  transmission of information. The metrics are based on insights we combined from sequential trading models on single securities, index futures on a 
+  basket of securities, and special features of commodity futures markets. Correlation between quote revisions in nearby and deferred contracts 
+  measure information-based activity, and correlations between revisions of the time lagged nearby and deferred maturity measure the speed at which 
+  information is transmitted among the different futures maturities. Information based trading results in near perfect correlation between revisions 
+  to bids and offers in nearby and deferred contracts. Within one second information has been fully transmitted from nearby to deferred contracts.
+  
+  **Keywords**: market, microstructure, futures, bid-ask-spread, corn
 ---
 
 
@@ -24,10 +38,7 @@ load('p_values.Rda')
 ```
 
 
-# Abstract
-Recently, the ‘Financialization’ of commodity futures markets, biofuel production, climate change and rising demand potentially have imposed profound shifts in the way commodity futures markets operate. This article examines commodity markets tick-by-tick and quote-by-quote to develop metrics on liquidity and transformation of information. The metrics are based on insights we combined from the sequential trading models on single securities, index futures based on a basket of securities, and special features of commodity futures markets. Correlation between quote revisions in nearby and deferred contracts measure information-based activity, and correlations between revisions of the time lagged nearby and deferred maturity measure the speed at which information is transmitted among the different futures maturities. Information based trading results in near perfect correlation between revisions to bids and offers in nearby and deferred contracts. Within one second information has been fully transmitted from nearby to deferred contracts.
-
-**Keywords**: market, microstructure, futures, bid-ask-spread, corn
+\newpage
 
 # Introduction
 There has been recent concern about whether and how the 'Financialization of Commodity Markets' has impacted market efficiency and efficacy in the traditional roles of risk mitigation, coordinating production, and coordinating consumption through time [@Irwin01032011; @NBERw19642; @Irwin2012256; @Henderson01052015]. Further, the recent increase in the production of biofuel from food commodities and volatile crude oil prices has changed the relationship between food and energy commodities [@Serra2013141;@Mallory20122157; @Gardebroek2013119;  @Vacha2013233; @Avalos2014253; @trujillo2012volatility]. Additionally, climate change, rising demand for agricultural commodities, and volatile inventories and exchange rates have imposed structural changes in commodity markets [@balcombe2011nature; @gilbert2010food; @prakash2011rising].
@@ -153,6 +164,7 @@ To measure the speed of information transfer from nearby to deferred maturities,
 These results indicate that we can probably learn much from trades and quotes data about how many informed traders there are in a marketplace, but it is clear that much additional work in this area is needed. We borrowed from the sequential trading in securities literature, but future research is needed to develop sequential trading models specific to commodity futures markets. Such a model would provide richer insights into tarding and behavior of markets.
 
 \clearpage
+\singlespace
 
 # Tables
 
@@ -169,7 +181,7 @@ These results indicate that we can probably learn much from trades and quotes da
 |	2010-01-04 09:30:00|	98870|	1003|	  1510|	423.75|	  1233|	423.75|
 |	2010-01-04 09:30:00|	98880|	1003|	  1520|	423.75|	  1234|	423.75|
 
-: Table 1: First ten entries in our data set.
+: First ten entries in our data set.
 
 Notes: ID = CME's trade sequence number, Symbol = Contract expiration year (2010) and month (March), OFRSIZ = Number of contracts at the best offered price, OFR = Best price offered (cents per bushel), BIDSIZ = Number of contracts at the best bid price, BID = Best price bid (cents per bushel).
 
