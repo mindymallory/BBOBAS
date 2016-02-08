@@ -61,22 +61,8 @@ for(i in 1:length(dates)) {
 #                                        "/","XCBT_C_FUT_","0", dates[i], ".txt")))
 #   DATASET <- rbind(DATASET,temp)
   
-  temp <- as.data.table(read_fwf(paste0('C:/Users/mallorym/BBOCORNDATA/', '2008Jan-2010Jan_txt',
-                                       "/","XCBT_C_FUT_","0", dates[i], ".txt"), fwf_positions(start, end, col_names = c("TradeDate", "TradeTime", "TradeSeqNum",
-                                                                                                                          "DeliveryDate", "TrQuantity", "TrPrice",
-                                                                                                                          "ASKBID", "EntryDate")),
-                        col_types = cols(
-                           TradeDate = col_character(),
-                           TradeTime = col_character(),
-                           TradeSeqNum = col_integer(),
-                           DeliveryDate = col_character(),
-                           TrQuantity = col_integer(),
-                           TrPrice = col_character(),
-                           ASKBID = col_character(),
-                           EntryDate = col_character()
-## Put this back into function bboread                           
-                           
-                           )))
+  temp <- as.data.table(bboread(paste0('C:/Users/mallorym/BBOCORNDATA/', '2008Jan-2010Jan_txt',
+                                       "/","XCBT_C_FUT_","0", dates[i], ".txt")))
   
   DATASET <- rbind(DATASET,temp)
 }
@@ -94,6 +80,6 @@ Times <- as.ITime(timeSequence(from = "2010-01-04 00:00:00", to = "2010-01-04 23
 hour(Times)
 
 
-DATASET$TD <- as.timeDate(paste0(DATASET$TradeDate, DATASET$TradeTime), format = "%Y%m%d%H%M%S")
+# This works!!!!
 timeDate(paste0(as.character(DATASET$TradeDate), as.character(DATASET$TradeTime), format = "%Y%m%d%H%M%S"))
 
