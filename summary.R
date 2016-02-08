@@ -7,6 +7,7 @@
 # library(readr)
 # install_github("<ProfMalloryResearch>/<BBOToolkit>", auth_token = Sys.getenv("GITHUB_PAT"))   # My repository under development
 # library(BBOTools)
+#library(magrittr)
 
 # 'C:/Users/mallorym/BBOCORNDATA/' # Path to data files on my local computer.
 
@@ -81,5 +82,19 @@ hour(Times)
 
 
 # This works!!!!
-timeDate(paste0(as.character(DATASET$TradeDate), as.character(DATASET$TradeTime), format = "%Y%m%d%H%M%S"))
+datatimes <- timeDate(paste0(as.character(DATASET$TradeDate), as.character(DATASET$TradeTime), format = "%Y%m%d%H%M%S"))
+datetimes <- 
+  paste0(as.character(DATASET$TradeDate), as.character(DATASET$TradeTime)) %>%
+  timeDate(format = "%Y%m%d%H%M%S")
+
+tttttt<- as.POSIXlt(datetimes)
+tttttt$min    # Can use this to build ten minute bin factors
+
+dates <- 
+  paste0(as.character(DATASET$TradeDate), as.character(DATASET$TradeTime)) %>%
+  timeDate(format = "%Y%m%d%H%M%S") %>%    
+  as.IDate()
+
+
+
 
