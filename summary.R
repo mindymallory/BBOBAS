@@ -81,14 +81,35 @@ Times <- as.ITime(timeSequence(from = "2010-01-04 00:00:00", to = "2010-01-04 23
 hour(Times)
 
 
-# This works!!!!
+# This works!!!!  # Might be faster to manipulate the string to 2001-02-03 format and convert directly to 
+# posixlt format so that we only do one conversion and not two
 datatimes <- timeDate(paste0(as.character(DATASET$TradeDate), as.character(DATASET$TradeTime), format = "%Y%m%d%H%M%S"))
 datetimes <- 
   paste0(as.character(DATASET$TradeDate), as.character(DATASET$TradeTime)) %>%
-  timeDate(format = "%Y%m%d%H%M%S")
+  timeDate(format = "%Y%m%d%H%M%S") %>%
+  as.data.table()
 
 tttttt<- as.POSIXlt(datetimes)
 tttttt$min    # Can use this to build ten minute bin factors
+bins <- round(tttttt$min/10)*10
+# Now subset for 9:13 hour and paste tttttt$hour and bins together.
+
+makebins <- function(x) {    # contribute to the IDateTime package rather than make this wrapper. 
+          datetimes <- paste0(as.character(x$TradeDate), as.character(x$TradeTime)) %>%
+          timeDate(format = "%Y%m%d%H%M%S") %>%
+          as.POSIXlt()
+  
+  bins <- round(datetimes$min/10)*10 
+  
+  bins <- paste0(datetimes$hour, ":", bins)    # Use data.table features to subset hour[ i = 9 through 13 ] quickly. 
+  
+    return(bins)
+  
+}
+
+# Write function to manipulate character string 'TradeDate' to an unambiguous time format. Need a function so 
+# that operation can be vectorized on the large dataset.
+
 
 dates <- 
   paste0(as.character(DATASET$TradeDate), as.character(DATASET$TradeTime)) %>%
