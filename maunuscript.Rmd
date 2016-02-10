@@ -284,5 +284,6 @@ Figure 7. Contemporaneous and Time-lagged Correlations with Nearby Bid-to-Ask an
 
 \clearpage
 
+
 # References
 
