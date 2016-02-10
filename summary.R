@@ -117,5 +117,9 @@ dates <-
   as.IDate()
 
 
+# Manipulate Date string into Unambiguous format. 
+
+
+DATA[, datemanip(DATA[, 1:2, with=FALSE])]  # Just edit to do assignment
 
 
