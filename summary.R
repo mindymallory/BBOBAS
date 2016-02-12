@@ -8,35 +8,52 @@ library(readr)
 #install_github("<ProfMalloryResearch>/<BBOToolkit>", auth_token = Sys.getenv("GITHUB_PAT"))   # My repository under development
 library(BBOTools)
 library(magrittr)
+library(gridExtra)
+library(tidyr)
+library(ggplot2)
 
 # 'C:/Users/mallorym/BBOCORNDATA/' # Path to data files on my local computer.
 
+################################################################
 # Defines the dates of this paper's sample, and removes the required dates.
 yearstart <- 2008
-yearend <- 2011
-#yearend <-  2008
+#yearend <- 2009
+yearend <-  2008
 dates <- timeSequence(from = paste(yearstart, "-01-14", sep = ""), 
-                      to = paste(yearend, "-12-30", sep = ""))
-                      #to = paste(yearend, "-01-20", sep = ""))
+                      #to = paste(yearend, "-12-30", sep = ""))
+                      to = paste(yearend, "-01-20", sep = ""))
 
+# Easier to define two dates indices than to deal with the issue of the missing leading zero in the 2008 and 2009 
+# representation of dates. 
+yearstart1 <- 2010
+#yearend1 <- 2011
+yearend1 <-  2010
+dates1 <- timeSequence(from = paste(yearstart1, "-01-04", sep = ""), 
+                      #to = paste(yearend1, "-12-30", sep = ""))
+                      to = paste(yearend1, "-01-20", sep = ""))
 
 
 # Code below requires dates to be integers, here we change the format
 dates <- dates[isBizday(dates,holidayNYSE(yearstart:yearend))]
 dates <- as.numeric(format(dates, format = "%y%m%d"))
-dates <- subset(dates, dates != 100405)
+
+
+dates1 <- dates1[isBizday(dates1,holidayNYSE(yearstart1:yearend1))]
+dates1 <- as.numeric(format(dates1, format = "%y%m%d"))
+dates1 <- subset(dates1, dates1 != 100405)
 # Skipped April 5, 2010. There was some kind of quote spoofing algorithm generating a lot of quotes, posting
 # and canceling offers at the best offer. Also it appears that trading was halted. Really I skipped it because the
 # file was 12 times larger than the typical size and it was taking too long to process. Would make an interesting case
 # study to go back and investigate.
 
 # Delete Limit days when there were no quote revisions. Couldn't make all delitions in one line; not sure why not.
-dates <- subset(dates, dates != c('100112'))# Revision to Crop Production report
-dates <- subset(dates, dates != c('101008'))
-dates <- subset(dates, dates != c('111209'))
-dates <- subset(dates, dates != c('110331')) # Prospective Plantings report (Not included in our report days)
-dates <- subset(dates, dates != c('110630')) # Planted Acres report 
-dates <- subset(dates, dates != c('110705')) # Light trade after the 4th holiday. No trades or quotes for '3 deferred' which
+dates1 <- subset(dates1, dates1 != c('100112'))# Revision to Crop Production report
+
+dates1 <- subset(dates1, dates1 != c('101008'))
+dates1 <- subset(dates1, dates1 != c('111209'))
+dates1 <- subset(dates1, dates1 != c('110331')) # Prospective Plantings report (Not included in our report days)
+dates1 <- subset(dates1, dates1 != c('110630')) # Planted Acres report 
+dates1 <- subset(dates1, dates1 != c('110705')) # Light trade after the 4th holiday. No trades or quotes for '3 deferred' which
 # would have been the March 2012 contract.
 dates <- subset(dates, dates != c('80707')) # After 4th holiday, Informa came out with larger than WASDE forecast yeild. \
 #dates <- subset(dates, dates != c('90102')) 
@@ -52,19 +69,110 @@ dates <- subset(dates, dates != c('90111'))
 #dates <- subset(dates, dates != c('90112'))
 #dates <- subset(dates, dates != c('90113')) # No clue why but these dates are missing from the dataset. 
 
+
+################################################################
+# Loop loads the daily datafiles, does initial processing of prices, and then stores in a list, accum
 ptm <- proc.time()
 accum <- as.list(NULL)
-
 for(i in 1:length(dates)) {
 
- DATASET <- as.data.table(bboread(paste0('C:/Users/mallorym/BBOCORNDATA/', '2008Jan-2011Dec_txt',
-                                       "/","XCBT_C_FUT_","0", dates[i], ".txt")))
+ DATASET <- as.data.table(bboread(paste0('C:/Users/mallorym/BBOCORNDATA/', 
+                                         '2008Jan-2011Dec_txt',"/",
+                                         "XCBT_C_FUT_","0", dates[i], ".txt")))
  
- #DATASET[, c("TradeDate", "TradeTime") := .(datemanip(DATASET[, 1, with=FALSE]), timemanip(DATASET[, 2, with=FALSE]))]
- accum[[i]] <- DATASET[, .N , by = .(TradeDate, ASKBID)]
- #rm(DATASET)
+ DATASET[, Price := decimalprices(TrPrice)]                          # Convert Price to decimal
+ accum[[i]] <- DATASET[, .(Price = mean(Price), .N),                 # Ave daily price, number of ask/bids
+                       by = .(TradeDate, DeliveryDate, ASKBID)]
+}
+len <- length(accum)
+for(i in 1:length(dates1)) {
+  DATASET <- as.data.table(bboread(paste0('C:/Users/mallorym/BBOCORNDATA/',
+                                          '2008Jan-2011Dec_txt',"/",
+                                          "XCBT_C_FUT_", dates1[i], ".txt")))
+  DATASET[, Price := decimalprices(TrPrice)]                         # Convert Price to decimal
+  accum[[len + i]] <- DATASET[, .(Price = mean(Price), .N),          # Ave daily price, number of ask/bids
+                      by = .(TradeDate, DeliveryDate, ASKBID)]
+  
 }
 proc.time() - ptm
+################################################################
+# Remove September Contracts
+accum <- lapply(accum, separate, DeliveryDate, into=c("Year",        # Separate DeliveryDate 
+                                              "Month"), sep = 2) 
+accum <- lapply(accum, function(x) x[which(x$Month != "09")])        # Edit this to remove september in the list
+accum <- lapply(accum, unite, DeliveryDate, c(2, 3), sep = "",       # Unite DelivryDate
+                remove=TRUE)
+accum <- lapply(accum, function(x) x[1:9,])                          # Keep only first three contracts
+################################################################
+# Tidy up the data.table in preparation for the ggplot2
 
-data.table::rbindlist(accum)
+DT   <- data.table::rbindlist(accum)                                 # Binds elements of the list into one data table 
+DT[, TradeDate := datemanip(DT[, 1, with = FALSE])]                  # Convert date to proper date format
+
+namedefs <- function(x) {                                            # Helper function to name the deferreds 
+               y <- data.table(Deferreds = c("Nearby", "1st Deferred", "2nd Deferred"))
+               return(y)
+}
+
+                                                                     
+DT   <- dcast.data.table(DT, TradeDate + DeliveryDate ~ ASKBID,      # Cast DT and give useful names for ggplot2 groups
+                         value.var = c("N", "Price")) %>%
+        setnames(c("N_A", "N_B", "N_NA", "Price_A", "Price_B",       # Replace with more useful names
+                   "Price_NA"), c("NumberofAsks", "NumberofBids",
+                   "NumberofTransactions", "PriceAsk", "PriceBid",
+                   "PriceTransaction") ) 
+
+DT[, Deferreds := namedefs(), by = TradeDate]
+
+
+DT[, c("NumberofAsks", "NumberofBids") := .(round(NumberofAsks/2 - NumberofTransactions/2),          # This is an estimate because BBO data duplicates the 
+                            round(NumberofBids/2 - NumberofTransactions/2))]         # ask(bid) that was not revised on the same trseqnum prior to 2012
+
+DT   <- data.table::melt(DT, id.vars = c("TradeDate",                # Final melt before ggplot2 
+                      "DeliveryDate", "Deferreds"))
+
+
+numasksplot <- ggplot(DT[variable %in% c("NumberofAsks")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
+  geom_point() +
+  geom_smooth() +
+  scale_size_area() +
+  ylab("Number of Ask Quotes") +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "grey")) 
+
+
+numbidsplot <- ggplot(DT[variable %in% c("NumberofBids")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
+  geom_point() +
+  geom_smooth() +
+  scale_size_area() +
+  ylab("Number of Bid Quotes") +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "grey")) 
+
+numtransplot <- ggplot(DT[variable %in% c("NumberofTransactions")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
+  geom_point() +
+  geom_smooth() +
+  scale_size_area() +
+  ylab("Number of Transactions") +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "grey")) 
+
+dailyaveprice <- ggplot(DT[variable %in% c("PriceTransaction")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
+  geom_point() +
+  geom_smooth() +
+  scale_size_area() +
+  ylab("Price (cents/bu") +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "grey")) 
+#png("Number-Quotes-Trans.png", width = 8, height = 4, units = "in")
+grid.arrange(dailyaveprice, numasksplot, numbidsplot, numtransplot, ncol=1)
+#dev.off()
 
