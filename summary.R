@@ -17,20 +17,20 @@ library(ggplot2)
 ################################################################
 # Defines the dates of this paper's sample, and removes the required dates.
 yearstart <- 2008
-yearend <- 2009
-#yearend <-  2008
+#yearend <- 2009
+yearend <-  2008
 dates <- timeSequence(from = paste(yearstart, "-01-14", sep = ""), 
-                      to = paste(yearend, "-12-30", sep = ""))
-                      #to = paste(yearend, "-01-20", sep = ""))
+                      #to = paste(yearend, "-12-30", sep = ""))
+                      to = paste(yearend, "-01-20", sep = ""))
 
 # Easier to define two dates indices than to deal with the issue of the missing leading zero in the 2008 and 2009 
 # representation of dates. 
 yearstart1 <- 2010
-yearend1 <- 2011
-#yearend1 <-  2010
+#yearend1 <- 2011
+yearend1 <-  2010
 dates1 <- timeSequence(from = paste(yearstart1, "-01-04", sep = ""), 
-                      to = paste(yearend1, "-12-30", sep = ""))
-                      #to = paste(yearend1, "-01-20", sep = ""))
+                      #to = paste(yearend1, "-12-30", sep = ""))
+                      to = paste(yearend1, "-01-20", sep = ""))
 
 
 # Code below requires dates to be integers, here we change the format
@@ -97,6 +97,7 @@ for(i in 1:length(dates1)) {
 proc.time() - ptm
 ################################################################
 # Remove September Contracts
+# accum <- lapply(accum, datemanip)  # Doesn't return the data.table back, only the dates
 accum <- lapply(accum, separate, DeliveryDate, into=c("Year",        # Separate DeliveryDate 
                                               "Month"), sep = 2) 
 accum <- lapply(accum, function(x) x[which(x$Month != "09")])        # Edit this to remove september in the list
