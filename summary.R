@@ -131,10 +131,11 @@ DT[, c("NumberofAsks", "NumberofBids") := .(round(NumberofAsks/2 - NumberofTrans
 DT   <- data.table::melt(DT, id.vars = c("TradeDate",                # Final melt before ggplot2 
                       "DeliveryDate", "Deferreds"))
 
+save(DT, file = 'SummaryDT.Rda')
 
 numasksplot <- ggplot(DT[variable %in% c("NumberofAsks")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
   geom_point() +
-  geom_smooth() +
+  #geom_smooth() +
   scale_size_area() +
   ylab("Number of Ask Quotes") +
   theme_bw() +
@@ -145,7 +146,7 @@ numasksplot <- ggplot(DT[variable %in% c("NumberofAsks")], aes(TradeDate, value,
 
 numbidsplot <- ggplot(DT[variable %in% c("NumberofBids")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
   geom_point() +
-  geom_smooth() +
+  #geom_smooth() +
   scale_size_area() +
   ylab("Number of Bid Quotes") +
   theme_bw() +
@@ -155,7 +156,7 @@ numbidsplot <- ggplot(DT[variable %in% c("NumberofBids")], aes(TradeDate, value,
 
 numtransplot <- ggplot(DT[variable %in% c("NumberofTransactions")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
   geom_point() +
-  geom_smooth() +
+  #geom_smooth() +
   scale_size_area() +
   ylab("Number of Transactions") +
   theme_bw() +
@@ -165,14 +166,14 @@ numtransplot <- ggplot(DT[variable %in% c("NumberofTransactions")], aes(TradeDat
 
 dailyaveprice <- ggplot(DT[variable %in% c("PriceTransaction")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
   geom_point() +
-  geom_smooth() +
+  #geom_smooth() +
   scale_size_area() +
   ylab("Price (cents/bu") +
   theme_bw() +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) 
-#png("Number-Quotes-Trans.png", width = 8, height = 4, units = "in")
+
 grid.arrange(dailyaveprice, numasksplot, numbidsplot, numtransplot, ncol=1)
-#dev.off()
+
 
