@@ -21,7 +21,7 @@ yearstart <- 2008
 yearend <-  2008
 dates <- timeSequence(from = paste(yearstart, "-01-14", sep = ""), 
                       #to = paste(yearend, "-12-30", sep = ""))
-                      to = paste(yearend, "-01-20", sep = ""))
+                      to = paste(yearend, "-03-05", sep = ""))
 
 # Easier to define two dates indices than to deal with the issue of the missing leading zero in the 2008 and 2009 
 # representation of dates. 
@@ -97,13 +97,19 @@ for(i in 1:length(dates1)) {
 proc.time() - ptm
 ################################################################
 # Remove September Contracts
-# accum <- lapply(accum, datemanip)  # Doesn't return the data.table back, only the dates
+# This section has to be done with lapply() calls because I couldn't figure out how to 
+# take the first 9 rows after binding the list together in one data table
+ accum <- lapply(accum, datemanip) 
 accum <- lapply(accum, separate, DeliveryDate, into=c("Year",        # Separate DeliveryDate 
                                               "Month"), sep = 2) 
 accum <- lapply(accum, function(x) x[which(x$Month != "09")])        # Edit this to remove september in the list
+accum <- lapply(accum, function(x) x[which(x$Month != month(x$TradeDate))])
 accum <- lapply(accum, unite, DeliveryDate, c(2, 3), sep = "",       # Unite DelivryDate
                 remove=TRUE)
 accum <- lapply(accum, function(x) x[1:9,])                          # Keep only first three contracts
+
+trimdeferreds(x)
+
 ################################################################
 # Tidy up the data.table in preparation for the ggplot2
 
