@@ -102,6 +102,8 @@ Table 1 shows the first ten entries to our data after manipulating the raw BBO d
 
 For each date in our sample, we define the first to mature (nearby), one, two, and three contracts deferred. To avoid undesirable delivery month effects, we roll these definitions at the end of the month prior to contract maturity (For example, on March 1st the May futures contract is considered the nearby as opposed to the March futures contract, and so forth).
 
+*Describe new figure 1*
+
 # Analysis
 Our analysis considers the correlation of revisions to nearby contract bids (offers) with one, two, and three deferred contract bids (offers), respectively. We described in the Conceptual Framework section that when information arrives to the market, it usually will affect the entire forward curve in the same direction. In other words, information that raises the best bid (offer) in the nearby contract, should usually raise the best bid (offer) in the deferred contracts as well. Linkages between the nearby and deferred contracts can be measured with simple correlations without making the distributional assumptions required by a more intricate econometric model. One of the key methodological issues when it comes to assessing high frequency data is the non-normality of price data that complicates proper modeling and requires the use of appropriate methodologies for appropriate analysis [@ait2005often; @andersen2001distribution; @easley2012volume; @hasbrouck2013high; @lee2008jumps; @lehecka2014gone].
 
@@ -135,19 +137,18 @@ In this section we present a series of charts that display the calculations desc
 
 
 ## Contemporaneous Correlation - Information-Based Activity Only
-In figure 1 contemporaneous correlation between the nearby and one, two, and three deferred maturity contracts are displayed. Calculations are made based on time-stamps where both the nearby and deferred maturity experience non-zero revisions to the best bid (top panel) or offer (bottom panel). The contemporaneous correlations between each nearby and deferred contract pairs are very close to one for both best bids (top panel) and best offers (bottom panel). The exception being that there is a slight dip in correlations at the beginning and end of the trading day.
+In figure 2 contemporaneous correlation between the nearby and one, two, and three deferred maturity contracts are displayed. Calculations are made based on time-stamps where both the nearby and deferred maturity experience non-zero revisions to the best bid (top panel) or offer (bottom panel). The contemporaneous correlations between each nearby and deferred contract pairs are very close to one for both best bids (top panel) and best offers (bottom panel). The exception being that there is a slight dip in correlations at the beginning and end of the trading day.
 
 This implies that in the event both contracts experience revisions to their respective limit order books, they are revised in lockstep. While some of this correlation is artificially induced due to the tick structure of price changes in this market (prices move in 0.25 cent increments.), not all of it can be attributed to that. Additionally, since our data is only time-stamped to the second, we may be missing nuance that would be captured with data time stamped to the millisecond. Regardless, the result is surprisingly strong and supports interpreting this activity as information based.
 
-It is interesting that the distribution of correlations between the nearby and deferred contract bids are at such similar levels, hovering very close to one. Also, the correlation between nearby and two contracts deferred is highest, nearby and three contracts deferred is next highest, and the nearby and one contract deferred is lowest, across all ten minute intervals. Since initially this ordering seems puzzling, we ran a Welch's two-sample *t*-test with unequal variances to see if the means were significantly different from one another. The p-values from these results are shown in table 2. Comparing the mean of the correlations of the nearby and one deferred with the correlations of the nearby and two deferred, we reject the hypothesis of equal means in most of the time bins. In columns two and three we see less evidence of unequal means toward the midday and close of trading, but there is still evidence of a difference in means (rejecting the null hypothesis) for time bins earlier in the trading day.  We are not sure what is causing this particular ordering of the means of the correlations. We expected either a random ranking among correlations with the different deferreds or that the highest correlations would result from the nearest to mature contracts.  
+It is interesting that the distribution of correlations between the nearby and deferred contract bids are at such similar levels, hovering very close to one. Also, the correlation between nearby and two contracts deferred is highest, nearby and three contracts deferred is next highest, and the nearby and one contract deferred is lowest, across all ten minute intervals. Since initially this ordering seems puzzling, we ran a Welch's two-sample *t*-test with unequal variances to see if the means were significantly different from one another. The p-values from these results are shown in table 2. Comparing the mean of the correlations of the nearby and one deferred with the correlations of the nearby and two deferred, we reject the hypothesis of equal means in most of the time bins. In columns two and three we see less evidence of unequal means toward the midday and close of trading, but there is still evidence of a difference in means (rejecting the null hypothesis) for time bins earlier in the trading day. We are not sure what is causing this particular ordering of the means of the correlations. We expected either a random ranking among correlations with the different deferreds or that the highest correlations would result from the nearest to mature contracts.  
 
-*Need to do this test on the new figure 1 for information based activity only. The table one appeaing in this draft was calculated based on a t-test when zeros were included*
 
 *We removed all but the 'information based activity' for brevity, but another question is if we remove the figures where we include all bid revisions (the old figure 1 where means are around 0.5 to 0.6 for example) do we lose the impressiveness that this current figure one using 'information based activity' only is so close to one?*
 
 
 ## Contemporaneous Correlation on USDA Report Days
-Figure 2, is exactly analogous to figure 1 except that it focuses on USDA report days. We see a remarkably similar depiction compared to figure 1, in that the correlations hover near one throughout the trading day. If there had been a difference in the pattern of correlations on USDA report days, one would expect the first ten minutes of trading to display the largest effect. There is visibly more variation in the means of these distributions, resulting from the small sample of report days we average over, especially for time bins 09:30:00 and 09:50:00am. These have error bars that are much wider than the rest reflecting the influence of a small number of large moves in the opening minutes of trading for a few USDA report days. 
+Figure 2, is exactly analogous to figure 1 except that it focuses on USDA report days. We see a remarkably similar depiction compared to figure 2, in that the correlations hover near one throughout the trading day. If there had been a difference in the pattern of correlations on USDA report days, one would expect the first ten minutes of trading to display the largest effect. There is visibly more variation in the means of these distributions, resulting from the small sample of report days we average over, especially for time bins 09:30:00 and 09:50:00am. These have error bars that are much wider than the rest reflecting the influence of a small number of large moves in the opening minutes of trading for a few USDA report days. 
 
 We suspect two primary reasons that the full sample and USDA report day results are so similar: 1) Since we removed days where the report release corresponded to limit price moves, we systematically removed report days where the most important information was conferred on the market. It is possible that the remaining days corresponded to USDA reports that contained relatively less relevant market information, or they contained information market participants widely expected beforehand. 2) Since USDA reports were released prior to the market open during this time period, the information may have already been fully incorporated by market participants by the time the market opened, resulting in no discernible difference in the pattern of correlations in the first (and subsequent) time bins. 
 
@@ -156,7 +157,7 @@ We suspect two primary reasons that the full sample and USDA report day results 
 
 An important contribution of this analysis is to provide insights on the speed at which information is transmitted from the nearby to the deferred contracts. To measure this, we lag the nearby series of log changes in the bid (offer) and calculate the correlation with the deferred bids (offers). This allows us to determine the length of time it takes for information to be fully transmitted to the deferred contracts. The assumption here is that the length of time it takes for the revisions to the top of the nearby limit order book to become uncorrelated with revisions to the top of the deferred limit order books is the length of time it takes for information to be transmitted between the two markets.
 
-Figure 3 contains the correlations between the nearby and one deferred contracts. The graph shows the contemporaneous correlation from figure 1 as a reference, and correlations generated by lagging the nearby by one second and ten seconds respectively. Here we expected to see a clear pattern of decreased correlation as we increased the length of the time lag in the nearby - reflecting that information is transmitted from nearby to deferred contracts over a number of seconds. However, we see that the correlation drops to zero with a lag of one second, which in this data set is the shortest time lag possible. We generated this figure for USDA report days only in figure 4. Similar to our result before, it is basically the same as figure 3 with more variation due to the small sample.
+Figure 4 contains the correlations between the nearby and one deferred contracts. The graph shows the contemporaneous correlation from figure 2 as a reference, and correlations generated by lagging the nearby by one second and ten seconds respectively. Here we expected to see a clear pattern of decreased correlation as we increased the length of the time lag in the nearby - reflecting that information is transmitted from nearby to deferred contracts over a number of seconds. However, we see that the correlation drops to zero with a lag of one second, which in this data set is the shortest time lag possible. We generated this figure for USDA report days only in figure 4. Similar to our result before, it is basically the same as figure 3 with more variation due to the small sample.
 
 There are three  possible explanations for this. First, it is possible that there is in fact a clear and decreasing correlation between lags of the nearby and the deferreds, but it can only be observed on mili- or micro-second time stamps. Then, when aggregating to the nearest second, we only observe contemporaneous correlation, but zero correlation even at the shortest possible time delay. Second, we have been explicitly assuming that price discovery happens in the nearby contract when we lagged the nearby contract instead of the deferred contract. If price discovery happens in the deferred contract, and takes time to fully to be incorporated into the nearby contract, then we would observe non-zero correlation between nearby quote revisions and lagged deferred quote revisions. This is presented in figure 5. Third, this would also occur if linkages between the nearby and deferred contracts were immediately enforced by spread traders. Surely the spread trade is an important component that keeps nearby and deferred contracts linked in economically meaningful ways. However, a spread trade is entered as a buy (sell) in the nearby and an sell (buy) in the deferred contract. Until now, we have been measuring correlations bib-to-bid and offer-to-offer between the nearby and deferred contracts. In figure 6, we will explore the nearby bid-deferred offer and nearby offer-deferred bid correlations to more directly measure the effect of spread traders in transmitting information up the forward curve. 
 
@@ -208,27 +209,26 @@ library(knitr)
 library(xtable)
 #kTable(p_values, format = 'markdown')
 #kTable(p_values)
-t <- xtable(p_values)
-print.xtable(t, comment=FALSE )
+t <- xtable(p_values, caption = "P-Values from Welch two-sample t-tests on differences in correlation means displayed in figure 1")
+print.xtable(t, caption.placement = 'top', comment=FALSE )
 ```
 
-Table 2: P-Values from Welch two-sample t-tests on differences in correlation means displayed in figure 1 
-
-Notes: H0: Equal means, H1: Unequal means. 'Near & 1' stands for the correlations between returns of the nearby quotes and returns of the first deferred quotes, 'Near & 2' stands for the correlations between returns of the nearby quotes and returns of the second deferred quotes, and 'Near & 3' stands for the correlations between returns of the nearby quotes and returns of the third deferred quotes. The columns labeled with the convention Near & 1 - Near & 2 contain p-values of a Welch two-sample t-test on differences in the means displayed in figure 1. 
+Notes: H0: Equal means, H1: Unequal means. 'Near & 1' stands for the correlations between returns of the nearby quotes and returns of the first deferred quotes, 'Near & 2' stands for the correlations between returns of the nearby quotes and returns of the second deferred quotes, and 'Near & 3' stands for the correlations between returns of the nearby quotes and returns of the third deferred quotes. The columns labeled with the convention Near & 1 - Near & 2 contain p-values of a Welch two-sample t-test on differences in the means displayed in figure 2. 
 
 \clearpage
 
 # Figures
 
 
-```{r, echo=FALSE, warning=FALSE, fig.height= 6, fig.width=6}
+```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5}
 library(ggplot2)
 library(gridExtra)
 library(data.table)
 load('~/GitHub/BBOBAS/SummaryDT.Rda')
 
 numasksplot <- ggplot(DT[variable %in% c("NumberofAsks")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
-  geom_point(size = .5) +
+  geom_point(size =  .5, pch = 21) +
+  scale_colour_grey(start = .9, end = .25) +
   #geom_smooth() +
   scale_size_area() +
   ylab("Number of Ask Quotes") +
@@ -239,7 +239,8 @@ numasksplot <- ggplot(DT[variable %in% c("NumberofAsks")], aes(TradeDate, value,
 
 
 numbidsplot <- ggplot(DT[variable %in% c("NumberofBids")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
-  geom_point(size = .5) +
+  geom_point(size =  .5, pch = 21) +
+  scale_colour_grey(start = .9, end = .25) +
   #geom_smooth() +
   scale_size_area() +
   ylab("Number of Bid Quotes") +
@@ -249,17 +250,19 @@ numbidsplot <- ggplot(DT[variable %in% c("NumberofBids")], aes(TradeDate, value,
         panel.grid.major = element_line(colour = "grey")) 
 
 numtransplot <- ggplot(DT[variable %in% c("NumberofTransactions")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
-  geom_point(size = .5) +
+  geom_point(size = .5, pch = 21) +
+  scale_colour_grey(start = .9, end = .25) +
   #geom_smooth() +
   scale_size_area() +
   ylab("Number of Transactions") +
-  theme_bw(base_size = 10) +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) 
 
 dailyaveprice <- ggplot(DT[variable %in% c("PriceTransaction")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
-  geom_point(size = .5) +
+  geom_point(size =  .5, pch = 21) +
+  scale_colour_grey(start = .9, end = .25) +
   #geom_smooth() +
   scale_size_area() +
   ylab("Price (cents/bu") +
@@ -272,7 +275,7 @@ grid.arrange(dailyaveprice, numasksplot, numbidsplot, numtransplot, ncol=1)
 
 ```
 
-Figure X: Price Levels, Number of Ask Quotes, Number of Bid Quotes, and Number of Transactions
+Figure 1: Price Levels, Number of Ask Quotes, Number of Bid Quotes, and Number of Transactions
 
 Figure displays data for the corn futures market from 1/14/2008 to 12/31/2011 for the nearby, first deferred, and second deferred contracts. The September contract is excluded due to the possibility of 'old crop' and 'new crop' both being delivered on this contract. Nearby, 1 Deferred, and 2 Deferred contracts are rolled to the next contract prior to entering the delivery month. 
 
@@ -286,7 +289,7 @@ Figure 1. Contemporaneous Correlation with Nearby - Keep Zeros
 
 ![](Bid_plot_no0s.png)
 ![](OFR_plot_no0s.png)
-Figure 1. Contemporaneous Correlation with Nearby - No Zeros
+Figure 2. Contemporaneous Correlation with Nearby - No Zeros
 
 <!--
 ![](Bid_plot_report.png)
@@ -296,30 +299,30 @@ Figure 3. Contemporaneous Correlation with Nearby on USDA Report Days - Keep Zer
 
 ![](Bid_plot_no0s_report.png)
 ![](OFR_plot_no0s_report.png)
-Figure 2. Contemporaneous Correlation with Nearby on USDA Report Days - No Zeros
+Figure 3. Contemporaneous Correlation with Nearby on USDA Report Days - No Zeros
 
 
 ![](Bid_plot_timelag.png)
 ![](OFR_plot_timelag.png)
-Figure 3. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract
+Figure 4. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract
 
 ![](Bid_plot_timelag_report.png)
 ![](OFR_plot_timelag_report.png)
-Figure 4. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract on USDA Report Days
+Figure 5. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract on USDA Report Days
 
 ![](Bid_plot_timelag1N.png)
 ![](OFR_plot_timelag1N.png)
-Figure 5. Contemporaneous and Time-lagged Correlations between the One-deferred Contract and Nearby (Price discovery in the distant) 
+Figure 6. Contemporaneous and Time-lagged Correlations between the One-deferred Contract and Nearby (Price discovery in the distant) 
 
-![](BIDOFR_plot.png)
-![](OFRBID_plot.png)
-Figure 6. Contemporaneous Correlations with Nearby Bid-to-Ask and Ask-to-Bid - Keep Zeros
+<!--![](BIDOFR_plot.png)-->
+![](BIDOFR_plot_no0s.png)
+![](OFRBID_plot_no0s.png)
+Figure 7. Contemporaneous Correlations with Nearby Bid-to-Ask and Ask-to-Bid - Keep Zeros
 
-*This figure should be replaced with no-zeros ask-to-bid and bid-to-ask*
 
 ![](BIDOFR_plot_timelag.png)
 ![](OFRBID_plot_timelag.png)
-Figure 7. Contemporaneous and Time-lagged Correlations with Nearby Bid-to-Ask and Ask-to-Bid - No Zeros
+Figure 8. Contemporaneous and Time-lagged Correlations with Nearby Bid-to-Ask and Ask-to-Bid - No Zeros
 
 \clearpage
 

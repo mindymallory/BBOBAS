@@ -2051,6 +2051,44 @@ BIDOFR_plot_no0s <- ggplot(CUMULCORREL_BIDOFR_rets_no0s, aes(TimeBins, MEANS, ym
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="BIDOFR_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+
+#######################################
+# Plotting summaries - No zeros
+# Bids Contemporaneous Plus1
+CUMULCORREL1_OFRBID_rets_no0s$MEANS <- apply(CUMULCORREL1_OFRBID_rets_no0s[,2:dim(CUMULCORREL1_OFRBID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_OFRBID_rets_no0s$sdS <- apply(CUMULCORREL1_OFRBID_rets_no0s[,2:dim(CUMULCORREL1_OFRBID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1_OFRBID_rets_no0s$contract <- factor("1Deferred")  
+
+# OFRBIDs Contemporaneous Plus2
+CUMULCORREL2_OFRBID_rets_no0s$MEANS <- apply(CUMULCORREL2_OFRBID_rets_no0s[,2:dim(CUMULCORREL2_OFRBID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL2_OFRBID_rets_no0s$sdS <- apply(CUMULCORREL2_OFRBID_rets_no0s[,2:dim(CUMULCORREL2_OFRBID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL2_OFRBID_rets_no0s$contract <- factor("2Deferred")
+
+# OFRBIDs Contemporaneous Plus3
+CUMULCORREL3_OFRBID_rets_no0s$MEANS <- apply(CUMULCORREL3_OFRBID_rets_no0s[,2:dim(CUMULCORREL3_OFRBID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL3_OFRBID_rets_no0s$sdS <- apply(CUMULCORREL3_OFRBID_rets_no0s[,2:dim(CUMULCORREL3_OFRBID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL3_OFRBID_rets_no0s$contract <- factor("3Deferred")
+
+CUMULCORREL_OFRBID_rets_no0s <- rbind(CUMULCORREL1_OFRBID_rets_no0s, CUMULCORREL2_OFRBID_rets_no0s, CUMULCORREL3_OFRBID_rets_no0s)
+
+pd <- position_dodge(0.4)
+MAXES <- min(CUMULCORREL_OFRBID_rets_no0s$MEANS - CUMULCORREL_OFRBID_rets_no0s$sdS,1)
+MINS <- max(CUMULCORREL_OFRBID_rets_no0s$MEANS - CUMULCORREL_OFRBID_rets_no0s$sdS,0)
+OFRBID_plot_no0s <- ggplot(CUMULCORREL_OFRBID_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+                                                             ymax = MEANS+sdS, colour=contract, group=contract) ) + 
+  geom_errorbar(size=1, position=pd) +
+  geom_point(size=4, position=pd) + 
+  geom_line(size=0.25, position=pd) +
+  ggtitle('Contemporaneous Correlation with Nearby in OFR to BIDs - Information-Based') +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "grey")) +
+  #scale_colour_grey() + 
+  ylab("Correlation") +
+  coord_cartesian(ylim = c(-.2, 1.2))+
+  scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
+ggsave(file="OFRBID_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 #########################################################################
 #######################################
 # Plotting summaries - Time Lags keep zeros
@@ -2203,7 +2241,7 @@ dev.off()
 ##############################################################################
 # Check if means are equal in figure 1
 
-p_values              <- matrix(data = NA, nrow = dim(subset(CUMULCORREL_BID_rets, contract == c('1Deferred')))[1], ncol = 3)
+p_values              <- matrix(data = NA, nrow = dim(subset(CUMULCORREL_BID_rets_no0s, contract == c('1Deferred')))[1], ncol = 3)
 
 for (i in 2:dim(subset(CUMULCORREL_BID_rets, contract == c('1Deferred')))[1]) {
         tresult       <- t.test(as.numeric(subset(CUMULCORREL_BID_rets, TimeBins == c(as.character(CUMULCORREL_BID_rets$TimeBins[i])) & contract == c('1Deferred'))), 
