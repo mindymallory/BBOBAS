@@ -220,66 +220,80 @@ Notes: H0: Equal means, H1: Unequal means. 'Near & 1' stands for the correlation
 # Figures
 
 
-```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5}
+```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Price Levels, Number of Ask Quotes, Number of Bid Quotes, and Number of Transactions"}
 library(ggplot2)
 library(gridExtra)
 library(data.table)
+library(grid)
 load('~/GitHub/BBOBAS/SummaryDT.Rda')
+#DT[Deferreds %in% "Nearby"]
 
-numasksplot <- ggplot(DT[variable %in% c("NumberofAsks")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
-  geom_point(size =  .5, pch = 21) +
-  scale_colour_grey(start = .9, end = .25) +
+numasksplot <- ggplot(DT[Deferreds == "Nearby" & variable == "NumberofAsks"], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
+  geom_point(size =  1, aes(shape = Deferreds)) +
+  scale_colour_grey() +
   #geom_smooth() +
   scale_size_area() +
   ylab("Number of Ask Quotes") +
   theme_bw(base_size = 8) +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(),
+        plot.margin = unit(c(0,1,0,1), "lines"),
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) 
+        panel.grid.major = element_line(colour = 'white'),
+        panel.grid.minor = element_line(colour = 'white'),
+        legend.position = "none") 
 
 
-numbidsplot <- ggplot(DT[variable %in% c("NumberofBids")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
-  geom_point(size =  .5, pch = 21) +
-  scale_colour_grey(start = .9, end = .25) +
+numbidsplot <- ggplot(DT[Deferreds == "Nearby" & variable == "NumberofBids"], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
+  geom_point(size =  1, aes(shape = Deferreds)) +
+  scale_colour_grey() +
   #geom_smooth() +
   scale_size_area() +
   ylab("Number of Bid Quotes") +
   theme_bw(base_size = 8) +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(), 
+        plot.margin = unit(c(0, 1, 0, 1), "lines"),
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) 
+        panel.grid.major = element_line(colour = 'white'),
+        panel.grid.minor = element_line(colour = 'white'),
+        legend.position = "none") 
 
-numtransplot <- ggplot(DT[variable %in% c("NumberofTransactions")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
-  geom_point(size = .5, pch = 21) +
-  scale_colour_grey(start = .9, end = .25) +
+numtransplot <- ggplot(DT[Deferreds == "Nearby" & variable == "NumberofTransactions"], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
+  geom_point(size =  1, aes(shape = Deferreds)) +
+  scale_colour_grey() +
   #geom_smooth() +
   scale_size_area() +
   ylab("Number of Transactions") +
   theme_bw(base_size = 8) +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  theme(axis.text.x=element_text(), axis.title.x=element_blank(),
+        plot.margin = unit(c(0, 1, 0, 1), "lines"),
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) 
+        panel.grid.major = element_line(colour = 'white'),
+        panel.grid.minor = element_line(colour = 'white'),
+        legend.position = "none") 
 
-dailyaveprice <- ggplot(DT[variable %in% c("PriceTransaction")], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
-  geom_point(size =  .5, pch = 21) +
-  scale_colour_grey(start = .9, end = .25) +
+dailyaveprice <- ggplot(DT[Deferreds == "Nearby" & variable == "PriceTransaction"], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +
+  geom_point(size =  1, aes(shape = Deferreds)) +
+  scale_colour_grey() +
   #geom_smooth() +
   scale_size_area() +
   ylab("Price (cents/bu") +
   theme_bw(base_size = 8) +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(),
+        plot.margin = unit(c(0, 1, 0, 1), "lines"),
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) 
+        panel.grid.major = element_line(colour = 'white'),
+        panel.grid.minor = element_line(colour = 'white'),
+        legend.position = "none") 
 
-grid.arrange(dailyaveprice, numasksplot, numbidsplot, numtransplot, ncol=1)
+grid.arrange(dailyaveprice, numasksplot, numbidsplot, numtransplot, ncol=1, heights=c(2.6,2.6,2.6,2.7), widths=6.5)
 
 ```
 
-Figure 1: Price Levels, Number of Ask Quotes, Number of Bid Quotes, and Number of Transactions
-
-Figure displays data for the corn futures market from 1/14/2008 to 12/31/2011 for the nearby, first deferred, and second deferred contracts. The September contract is excluded due to the possibility of 'old crop' and 'new crop' both being delivered on this contract. Nearby, 1 Deferred, and 2 Deferred contracts are rolled to the next contract prior to entering the delivery month. 
+Figure displays data for the corn futures market from 1/14/2008 to 12/31/2011 for the nearby contract. The September contract is excluded due to the possibility of 'old crop' and 'new crop' both being delivered on this contract. To form the continuous nearby series contracts are rolled to the next contract prior to entering the delivery month. 
 
 *Figure numbers have not been updated to reflect the addition of the figure above. Nor has a discussion of the figure above been added to the manuscript yet.*
+
+![Testing out how this works out](test.png)
 
 <!--
 ![](Bid_plot.png)

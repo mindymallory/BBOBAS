@@ -1765,7 +1765,7 @@ Bid_plot_no0s <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = M
   geom_point(size=4, position=pd) + 
   geom_line(size=0.25, position=pd) +
   ggtitle('Contemporaneous Correlation with Nearby in BIDs - Information-Based') +
-  theme_bw() +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) +
@@ -2138,9 +2138,9 @@ ggsave(file="BIDOFR_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/
 #######################################
 # Plotting summaries - Time Lags keep zeros
 # OFRBids Plus1
-CUMULCORREL1_OFRBID_rets_no0s$MEANS <- apply(CUMULCORREL1_OFRBID_rets_no0s[,2:dim(CUMULCORREL1_OFRBID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
-CUMULCORREL1_OFRBID_rets_no0s$sdS <- apply(CUMULCORREL1_OFRBID_rets_no0s[,2:dim(CUMULCORREL1_OFRBID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
-CUMULCORREL1_OFRBID_rets_no0s$contract <- factor("1Deferred")
+#CUMULCORREL1_OFRBID_rets_no0s$MEANS <- apply(CUMULCORREL1_OFRBID_rets_no0s[,2:dim(CUMULCORREL1_OFRBID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+#CUMULCORREL1_OFRBID_rets_no0s$sdS <- apply(CUMULCORREL1_OFRBID_rets_no0s[,2:dim(CUMULCORREL1_OFRBID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+#CUMULCORREL1_OFRBID_rets_no0s$contract <- factor("1Deferred")
 
 CUMULCORREL1_OFRBID_rets_1sec$MEANS <- apply(CUMULCORREL1_OFRBID_rets_1sec[,2:dim(CUMULCORREL1_OFRBID_rets_1sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_OFRBID_rets_1sec$sdS <- apply(CUMULCORREL1_OFRBID_rets_1sec[,2:dim(CUMULCORREL1_OFRBID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
@@ -2170,11 +2170,11 @@ MAXES <- min(CUMULCORREL1_OFRBID_rets_timelag$MEANS - CUMULCORREL1_OFRBID_rets_t
 MINS <- max(CUMULCORREL1_OFRBID_rets_timelag$MEANS - CUMULCORREL1_OFRBID_rets_timelag$sdS,0)
 OFRBID_plot_timelag <- ggplot(CUMULCORREL1_OFRBID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                                    ymax = MEANS+sdS, colour=lag, group=lag) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=1, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
   ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
-  theme_bw() +
+  theme_bw(aspect.ratio=1) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) +
@@ -2185,6 +2185,12 @@ OFRBID_plot_timelag <- ggplot(CUMULCORREL1_OFRBID_rets_timelag, aes(TimeBins, ME
 ggsave(file="OFRBID_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 
+#png("~/GitHub/BBOBAS/test.png")
+#grid.arrange(Bid_plot, OFR_plot, Bid_plot_no0s, OFRBID_plot_timelag , ncol=1)
+#dev.off()
+png("~/GitHub/BBOBAS/test.png")
+multiplot(Bid_plot, OFR_plot, Bid_plot_no0s, OFRBID_plot_timelag , ncol=1)
+dev.off()
 ###############################
 # Bid_plot
 # OFR_plot
