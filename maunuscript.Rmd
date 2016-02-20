@@ -293,7 +293,57 @@ Figure displays data for the corn futures market from 1/14/2008 to 12/31/2011 fo
 
 *Figure numbers have not been updated to reflect the addition of the figure above. Nor has a discussion of the figure above been added to the manuscript yet.*
 
-![Testing out how this works out](test.png)
+\clearpage
+
+```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Contemporaneous Correlation between Revisions to Quotes in Nearby and Deferred Contracts"}
+library(ggplot2)
+library(gridExtra)
+library(data.table)
+library(grid)
+load('~/GitHub/BBOBAS/figs_list_full.Rda')
+load('~/GitHub/BBOBAS/figs_list_Report.Rda')
+
+grid.arrange(figs_list_full[[1]], figs_list_full[[2]], figs_list_Report[[1]], figs_list_Report[[2]], ncol=1, heights=c(3,3,3,3.2), widths=6.5)
+
+```
+
+Mean correlations and one standard deviation error bars over all days in the top two plots. Mean correlations and one standard deviation error bars in the bottom two plots. 
+
+\clearpage
+
+```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Time-Lagged Correlation between Revisions to Quotes in Nearby and 1 Deferred Contracts"}
+library(ggplot2)
+library(gridExtra)
+library(data.table)
+library(grid)
+load('~/GitHub/BBOBAS/figs_list_full.Rda')
+load('~/GitHub/BBOBAS/figs_list_Report.Rda')
+
+grid.arrange(figs_list_full[[3]], figs_list_full[[4]], figs_list_Report[[3]], figs_list_Report[[4]], ncol=1, heights=c(2.6,2.6,2.6,2.7), widths=6.5)
+
+```
+
+Mean correlations and one standard deviation error bars over all days in the top two plots. Mean correlations and one standard deviation error bars in the bottom two plots. 
+
+
+\clearpage
+
+
+```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Time-Lagged Correlation between Revisions to Quotes (Bid-to-Ask & Ask-to-Bid) in Nearby and 1 Deferred Contracts"}
+library(ggplot2)
+library(gridExtra)
+library(data.table)
+library(grid)
+load('~/GitHub/BBOBAS/figs_list_full.Rda')
+load('~/GitHub/BBOBAS/figs_list_Report.Rda')
+
+grid.arrange(figs_list_full[[5]], figs_list_full[[6]], figs_list_Report[[5]], figs_list_Report[[6]], ncol=1, heights=c(2.6,2.6,2.6,2.7), widths=6.5)
+
+```
+
+Mean correlations and one standard deviation error bars over all days in the top two plots. Mean correlations and one standard deviation error bars in the bottom two plots. Bid-to-Offer means revisions to the lagged nearby bid were correlated with the first deferred revisions to the offer, and Offer-to-Bid means revisions to the lagged nearby offer were correlated with the first deferred revisions to the bid. 
+
+
 
 <!--
 ![](Bid_plot.png)
@@ -301,9 +351,11 @@ Figure displays data for the corn futures market from 1/14/2008 to 12/31/2011 fo
 Figure 1. Contemporaneous Correlation with Nearby - Keep Zeros
 -->
 
+<!--
 ![](Bid_plot_no0s.png)
 ![](OFR_plot_no0s.png)
 Figure 2. Contemporaneous Correlation with Nearby - No Zeros
+-->
 
 <!--
 ![](Bid_plot_report.png)
@@ -311,32 +363,41 @@ Figure 2. Contemporaneous Correlation with Nearby - No Zeros
 Figure 3. Contemporaneous Correlation with Nearby on USDA Report Days - Keep Zeros
 -->
 
+<!--
 ![](Bid_plot_no0s_report.png)
 ![](OFR_plot_no0s_report.png)
 Figure 3. Contemporaneous Correlation with Nearby on USDA Report Days - No Zeros
+-->
 
-
+<!--
 ![](Bid_plot_timelag.png)
 ![](OFR_plot_timelag.png)
 Figure 4. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract
+-->
 
+<!--
 ![](Bid_plot_timelag_report.png)
 ![](OFR_plot_timelag_report.png)
 Figure 5. Contemporaneous and Time-lagged Correlations between the Nearby and One-deferred Contract on USDA Report Days
+-->
 
+
+<!--
 ![](Bid_plot_timelag1N.png)
 ![](OFR_plot_timelag1N.png)
 Figure 6. Contemporaneous and Time-lagged Correlations between the One-deferred Contract and Nearby (Price discovery in the distant) 
-
+-->
 <!--![](BIDOFR_plot.png)-->
-![](BIDOFR_plot_no0s.png)
+<!--![](BIDOFR_plot_no0s.png)
 ![](OFRBID_plot_no0s.png)
 Figure 7. Contemporaneous Correlations with Nearby Bid-to-Ask and Ask-to-Bid - Keep Zeros
-
-
+-->
+<!--
 ![](BIDOFR_plot_timelag.png)
 ![](OFRBID_plot_timelag.png)
 Figure 8. Contemporaneous and Time-lagged Correlations with Nearby Bid-to-Ask and Ask-to-Bid - No Zeros
+
+-->
 
 \clearpage
 

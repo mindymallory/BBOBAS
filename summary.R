@@ -17,20 +17,20 @@ library(ggplot2)
 ################################################################
 # Defines the dates of this paper's sample, and removes the required dates.
 yearstart <- 2008
-yearend <- 2009
-#yearend <-  2008
+#yearend <- 2009
+yearend <-  2008
 dates <- timeSequence(from = paste(yearstart, "-01-14", sep = ""), 
-                      to = paste(yearend, "-12-30", sep = ""))
-                      #to = paste(yearend, "-03-05", sep = ""))
+                      #to = paste(yearend, "-12-30", sep = ""))
+                      to = paste(yearend, "-02-05", sep = ""))
 
 # Easier to define two dates indices than to deal with the issue of the missing leading zero in the 2008 and 2009 
 # representation of dates. 
 yearstart1 <- 2010
-yearend1 <- 2011
-#yearend1 <-  2010
+#yearend1 <- 2011
+yearend1 <-  2010
 dates1 <- timeSequence(from = paste(yearstart1, "-01-04", sep = ""), 
-                      to = paste(yearend1, "-12-30", sep = ""))
-                      #to = paste(yearend1, "-01-20", sep = ""))
+                      #to = paste(yearend1, "-12-30", sep = ""))
+                      to = paste(yearend1, "-01-20", sep = ""))
 
 
 # Code below requires dates to be integers, here we change the format
@@ -82,8 +82,10 @@ for(i in 1:length(dates)) {
  
  DATASET[, Price := decimalprices(TrPrice)]                          # Convert Price to decimal
  accum[[i]] <- DATASET[, .(Price = mean(Price), .N),                 # Ave daily price, number of ask/bids
-                       by = .(TradeDate, DeliveryDate, ASKBID)]
-}
+                        by = .(TradeDate, DeliveryDate, ASKBID)]
+  # accum[[i]] <- DATASET                                             # If you want to keep all the trades and quotes and not
+                                                                     # just get average and counts per day
+ }
 len <- length(accum)
 for(i in 1:length(dates1)) {
   DATASET <- as.data.table(bboread(paste0('C:/Users/mallorym/BBOCORNDATA/',
@@ -92,27 +94,19 @@ for(i in 1:length(dates1)) {
   DATASET[, Price := decimalprices(TrPrice)]                         # Convert Price to decimal
   accum[[len + i]] <- DATASET[, .(Price = mean(Price), .N),          # Ave daily price, number of ask/bids
                       by = .(TradeDate, DeliveryDate, ASKBID)]
-  
+  # accum[[i]] <- DATASET                                             # If you want to keep all the trades and quotes and not
+                                                                      # just get average and counts per day
 }
 proc.time() - ptm
 ################################################################
-# Remove September Contracts
+# Remove September Contracts and Roll Continuous Series
 # This section has to be done with lapply() calls because I couldn't figure out how to 
 # take the first 9 rows after binding the list together in one data table
- 
-accum <- lapply(accum, separate, DeliveryDate, into=c("Year",        # Separate DeliveryDate 
-                                "Month"), sep = 2) 
-accum <- lapply(accum, function(x) x[which(x$Month != "09")])        # Edit this to remove september in the list
-accum <- lapply(accum, 
-                function(x) x[which(x$Month != substr(x$TradeDate,   # Throw out contracts trading in expiration month
-                              5, 6))])
-accum <- lapply(accum, unite, DeliveryDate, c(2, 3), sep = "",       # Unite DelivryDate
-                remove=TRUE)
-accum <- lapply(accum, function(x) x[1:9,])                          # Keep only first three contracts
 
-#trimdeferreds <- function(x) {
-# Should wrap this routine in a singe function
-#}
+RollDate <- 20                                                         # Day in the Month prior to Delivery when we roll contracts
+
+accum <- RollContracts(accum, r = RollDate)
+
 
 ################################################################
 # Tidy up the data.table in preparation for the ggplot2
@@ -133,7 +127,6 @@ DT   <- dcast.data.table(DT, TradeDate + DeliveryDate ~ ASKBID,      # Cast DT a
                    "NumberofTransactions", "PriceAsk", "PriceBid",
                    "PriceTransaction") ) 
 
-DT[, Deferreds := namedefs(), by = TradeDate]
 
 
 DT[, c("NumberofAsks", "NumberofBids") := .(round(NumberofAsks/2 - NumberofTransactions/2),          # This is an estimate because BBO data duplicates the 

@@ -104,6 +104,8 @@ CUMULCORREL3_BID_rets_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:
 CUMULCORREL1_BID_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
 CUMULCORREL2_BID_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
 CUMULCORREL3_BID_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1N_BID_rets_1sec     <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1N_BID_rets_10sec     <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
 
 # Clean up first column 
 colnames(CUMULCORREL1_BID) <- "TimeBins"
@@ -190,6 +192,15 @@ colnames(CUMULCORREL3_BID_rets_no0s_10sec) <- "TimeBins"
 temp <- apply(as.data.frame(CUMULCORREL3_BID_rets_no0s_10sec), 2, substr, 12, 19)
 row.names(CUMULCORREL3_BID_rets_no0s_10sec) <- temp 
 
+colnames(CUMULCORREL1N_BID_rets_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1N_BID_rets_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1N_BID_rets_1sec) <- temp
+
+colnames(CUMULCORREL1N_BID_rets_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1N_BID_rets_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1N_BID_rets_10sec) <- temp
+
+
 CUMULCORREL1_OFR      <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
 CUMULCORREL2_OFR      <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
 CUMULCORREL3_OFR      <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
@@ -211,6 +222,9 @@ CUMULCORREL3_OFR_rets_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:
 CUMULCORREL1_OFR_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
 CUMULCORREL2_OFR_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
 CUMULCORREL3_OFR_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1N_OFR_rets_1sec     <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1N_OFR_rets_10sec     <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+
 
 # Clean up first column 
 colnames(CUMULCORREL1_OFR) <- "TimeBins"
@@ -297,16 +311,245 @@ colnames(CUMULCORREL3_OFR_rets_no0s_10sec) <- "TimeBins"
 temp <- apply(as.data.frame(CUMULCORREL3_OFR_rets_no0s_10sec), 2, substr, 12, 19)
 row.names(CUMULCORREL3_OFR_rets_no0s_10sec) <- temp 
 
+colnames(CUMULCORREL1N_OFR_rets_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1N_OFR_rets_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1N_OFR_rets_1sec) <- temp
+
+colnames(CUMULCORREL1N_OFR_rets_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1N_OFR_rets_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1N_OFR_rets_10sec) <- temp
+
+
+CUMULCORREL1_BIDOFR      <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_BIDOFR      <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_BIDOFR      <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_BIDOFR_rets <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_BIDOFR_rets <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_BIDOFR_rets <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_BIDOFR_rets_no0s <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_BIDOFR_rets_no0s <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_BIDOFR_rets_no0s <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_BIDOFR_rets_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_BIDOFR_rets_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_BIDOFR_rets_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_BIDOFR_rets_no0s_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_BIDOFR_rets_no0s_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_BIDOFR_rets_no0s_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_BIDOFR_rets_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_BIDOFR_rets_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_BIDOFR_rets_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_BIDOFR_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_BIDOFR_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_BIDOFR_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+
+# Clean up first column 
+colnames(CUMULCORREL1_BIDOFR) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_BIDOFR$TimeBins), 2, substr, 12, 19)
+row.names(CUMULCORREL1_BIDOFR) <- temp
+
+colnames(CUMULCORREL2_BIDOFR) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_BIDOFR$TimeBins), 2, substr, 12, 19)
+row.names(CUMULCORREL2_BIDOFR) <- temp
+
+colnames(CUMULCORREL3_BIDOFR) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_BIDOFR$TimeBins), 2, substr, 12, 19)
+row.names(CUMULCORREL3_BIDOFR) <- temp
+
+colnames(CUMULCORREL1_BIDOFR_rets) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_BIDOFR_rets), 2, substr, 12, 19)
+row.names(CUMULCORREL1_BIDOFR_rets) <- temp
+
+colnames(CUMULCORREL2_BIDOFR_rets) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_BIDOFR_rets), 2, substr, 12, 19)
+row.names(CUMULCORREL2_BIDOFR_rets) <- temp
+
+colnames(CUMULCORREL3_BIDOFR_rets) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_BIDOFR_rets), 2, substr, 12, 19)
+row.names(CUMULCORREL3_BIDOFR_rets) <- temp 
+
+colnames(CUMULCORREL1_BIDOFR_rets_no0s) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_BIDOFR_rets_no0s), 2, substr, 12, 19)
+row.names(CUMULCORREL1_BIDOFR_rets_no0s) <- temp
+
+colnames(CUMULCORREL2_BIDOFR_rets_no0s) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_BIDOFR_rets_no0s), 2, substr, 12, 19)
+row.names(CUMULCORREL2_BIDOFR_rets_no0s) <- temp
+
+colnames(CUMULCORREL3_BIDOFR_rets_no0s) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_BIDOFR_rets_no0s), 2, substr, 12, 19)
+row.names(CUMULCORREL3_BIDOFR_rets_no0s) <- temp 
+
+colnames(CUMULCORREL1_BIDOFR_rets_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_BIDOFR_rets_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1_BIDOFR_rets_1sec) <- temp
+
+colnames(CUMULCORREL2_BIDOFR_rets_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_BIDOFR_rets_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL2_BIDOFR_rets_1sec) <- temp
+
+colnames(CUMULCORREL3_BIDOFR_rets_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_BIDOFR_rets_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL3_BIDOFR_rets_1sec) <- temp 
+
+colnames(CUMULCORREL1_BIDOFR_rets_no0s_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_BIDOFR_rets_no0s_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1_BIDOFR_rets_no0s_1sec) <- temp
+
+colnames(CUMULCORREL2_BIDOFR_rets_no0s_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_BIDOFR_rets_no0s_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL2_BIDOFR_rets_no0s_1sec) <- temp
+
+colnames(CUMULCORREL3_BIDOFR_rets_no0s_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_BIDOFR_rets_no0s_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL3_BIDOFR_rets_no0s_1sec) <- temp 
+
+colnames(CUMULCORREL1_BIDOFR_rets_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_BIDOFR_rets_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1_BIDOFR_rets_10sec) <- temp
+
+colnames(CUMULCORREL2_BIDOFR_rets_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_BIDOFR_rets_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL2_BIDOFR_rets_10sec) <- temp
+
+colnames(CUMULCORREL3_BIDOFR_rets_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_BIDOFR_rets_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL3_BIDOFR_rets_10sec) <- temp 
+
+colnames(CUMULCORREL1_BIDOFR_rets_no0s_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_BIDOFR_rets_no0s_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1_BIDOFR_rets_no0s_10sec) <- temp
+
+colnames(CUMULCORREL2_BIDOFR_rets_no0s_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_BIDOFR_rets_no0s_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL2_BIDOFR_rets_no0s_10sec) <- temp
+
+colnames(CUMULCORREL3_BIDOFR_rets_no0s_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_BIDOFR_rets_no0s_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL3_BIDOFR_rets_no0s_10sec) <- temp 
+
+CUMULCORREL1_OFRBID      <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_OFRBID      <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_OFRBID      <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_OFRBID_rets <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_OFRBID_rets <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_OFRBID_rets <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_OFRBID_rets_no0s <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_OFRBID_rets_no0s <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_OFRBID_rets_no0s <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_OFRBID_rets_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_OFRBID_rets_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_OFRBID_rets_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_OFRBID_rets_no0s_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_OFRBID_rets_no0s_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_OFRBID_rets_no0s_1sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_OFRBID_rets_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_OFRBID_rets_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_OFRBID_rets_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL1_OFRBID_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL2_OFRBID_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+CUMULCORREL3_OFRBID_rets_no0s_10sec <- as.data.frame(timeSequence(from = "2010-01-04 09:30:00", to = "2010-01-04 13:20:00", by = '10 min'))
+
+# Clean up first column 
+colnames(CUMULCORREL1_OFRBID) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_OFRBID$TimeBins), 2, substr, 12, 19)
+row.names(CUMULCORREL1_OFRBID) <- temp
+
+colnames(CUMULCORREL2_OFRBID) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_OFRBID$TimeBins), 2, substr, 12, 19)
+row.names(CUMULCORREL2_OFRBID) <- temp
+
+colnames(CUMULCORREL3_OFRBID) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_OFRBID$TimeBins), 2, substr, 12, 19)
+row.names(CUMULCORREL3_OFRBID) <- temp
+
+colnames(CUMULCORREL1_OFRBID_rets) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_OFRBID_rets), 2, substr, 12, 19)
+row.names(CUMULCORREL1_OFRBID_rets) <- temp
+
+colnames(CUMULCORREL2_OFRBID_rets) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_OFRBID_rets), 2, substr, 12, 19)
+row.names(CUMULCORREL2_OFRBID_rets) <- temp
+
+colnames(CUMULCORREL3_OFRBID_rets) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_OFRBID_rets), 2, substr, 12, 19)
+row.names(CUMULCORREL3_OFRBID_rets) <- temp 
+
+colnames(CUMULCORREL1_OFRBID_rets_no0s) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_OFRBID_rets_no0s), 2, substr, 12, 19)
+row.names(CUMULCORREL1_OFRBID_rets_no0s) <- temp
+
+colnames(CUMULCORREL2_OFRBID_rets_no0s) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_OFRBID_rets_no0s), 2, substr, 12, 19)
+row.names(CUMULCORREL2_OFRBID_rets_no0s) <- temp
+
+colnames(CUMULCORREL3_OFRBID_rets_no0s) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_OFRBID_rets_no0s), 2, substr, 12, 19)
+row.names(CUMULCORREL3_OFRBID_rets_no0s) <- temp 
+
+colnames(CUMULCORREL1_OFRBID_rets_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_OFRBID_rets_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1_OFRBID_rets_1sec) <- temp
+
+colnames(CUMULCORREL2_OFRBID_rets_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_OFRBID_rets_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL2_OFRBID_rets_1sec) <- temp
+
+colnames(CUMULCORREL3_OFRBID_rets_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_OFRBID_rets_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL3_OFRBID_rets_1sec) <- temp 
+
+colnames(CUMULCORREL1_OFRBID_rets_no0s_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_OFRBID_rets_no0s_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1_OFRBID_rets_no0s_1sec) <- temp
+
+colnames(CUMULCORREL2_OFRBID_rets_no0s_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_OFRBID_rets_no0s_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL2_OFRBID_rets_no0s_1sec) <- temp
+
+colnames(CUMULCORREL3_OFRBID_rets_no0s_1sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_OFRBID_rets_no0s_1sec), 2, substr, 12, 19)
+row.names(CUMULCORREL3_OFRBID_rets_no0s_1sec) <- temp 
+
+colnames(CUMULCORREL1_OFRBID_rets_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_OFRBID_rets_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1_OFRBID_rets_10sec) <- temp
+
+colnames(CUMULCORREL2_OFRBID_rets_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_OFRBID_rets_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL2_OFRBID_rets_10sec) <- temp
+
+colnames(CUMULCORREL3_OFRBID_rets_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_OFRBID_rets_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL3_OFRBID_rets_10sec) <- temp 
+
+colnames(CUMULCORREL1_OFRBID_rets_no0s_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL1_OFRBID_rets_no0s_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL1_OFRBID_rets_no0s_10sec) <- temp
+
+colnames(CUMULCORREL2_OFRBID_rets_no0s_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL2_OFRBID_rets_no0s_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL2_OFRBID_rets_no0s_10sec) <- temp
+
+colnames(CUMULCORREL3_OFRBID_rets_no0s_10sec) <- "TimeBins"
+temp <- apply(as.data.frame(CUMULCORREL3_OFRBID_rets_no0s_10sec), 2, substr, 12, 19)
+row.names(CUMULCORREL3_OFRBID_rets_no0s_10sec) <- temp 
+
 # Create TimeBins as factor allows for merging over days easily
 CUMULCORREL1_BID_rets$TimeBins <- factor(row.names(CUMULCORREL1_BID_rets))
 CUMULCORREL1_BID_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL1_BID_rets_1sec))
 CUMULCORREL1_BID_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL1_BID_rets_10sec))
 CUMULCORREL1_BID_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL1_BID_rets_no0s))
+CUMULCORREL1N_BID_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL1N_BID_rets_1sec))
+CUMULCORREL1N_BID_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL1N_BID_rets_10sec))
+
 
 CUMULCORREL1_OFR_rets$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets))
 CUMULCORREL1_OFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets_1sec))
 CUMULCORREL1_OFR_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets_10sec))
 CUMULCORREL1_OFR_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL1_OFR_rets_no0s))
+CUMULCORREL1N_OFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL1N_OFR_rets_1sec))
+CUMULCORREL1N_OFR_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL1N_OFR_rets_10sec))
+
 
 CUMULCORREL2_BID_rets$TimeBins <- factor(row.names(CUMULCORREL2_BID_rets))
 CUMULCORREL2_BID_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL2_BID_rets_1sec))
@@ -327,18 +570,51 @@ CUMULCORREL3_OFR_rets$TimeBins <- factor(row.names(CUMULCORREL3_OFR_rets))
 CUMULCORREL3_OFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL3_OFR_rets_1sec))
 CUMULCORREL3_OFR_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL3_OFR_rets_10sec))
 CUMULCORREL3_OFR_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL3_OFR_rets_no0s))
-#########################################################
 
+CUMULCORREL1_BIDOFR_rets$TimeBins <- factor(row.names(CUMULCORREL1_BIDOFR_rets))
+CUMULCORREL1_BIDOFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL1_BIDOFR_rets_1sec))
+CUMULCORREL1_BIDOFR_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL1_BIDOFR_rets_10sec))
+CUMULCORREL1_BIDOFR_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL1_BIDOFR_rets_no0s))
+
+CUMULCORREL2_BIDOFR_rets$TimeBins <- factor(row.names(CUMULCORREL2_BIDOFR_rets))
+CUMULCORREL2_BIDOFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL2_BIDOFR_rets_1sec))
+CUMULCORREL2_BIDOFR_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL2_BIDOFR_rets_10sec))
+CUMULCORREL2_BIDOFR_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL2_BIDOFR_rets_no0s))
+
+CUMULCORREL3_BIDOFR_rets$TimeBins <- factor(row.names(CUMULCORREL3_BIDOFR_rets))
+CUMULCORREL3_BIDOFR_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL3_BIDOFR_rets_1sec))
+CUMULCORREL3_BIDOFR_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL3_BIDOFR_rets_10sec))
+CUMULCORREL3_BIDOFR_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL3_BIDOFR_rets_no0s))
+
+CUMULCORREL1_OFRBID_rets$TimeBins <- factor(row.names(CUMULCORREL1_OFRBID_rets))
+CUMULCORREL1_OFRBID_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL1_OFRBID_rets_1sec))
+CUMULCORREL1_OFRBID_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL1_OFRBID_rets_10sec))
+CUMULCORREL1_OFRBID_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL1_OFRBID_rets_no0s))
+
+CUMULCORREL2_OFRBID_rets$TimeBins <- factor(row.names(CUMULCORREL2_OFRBID_rets))
+CUMULCORREL2_OFRBID_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL2_OFRBID_rets_1sec))
+CUMULCORREL2_OFRBID_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL2_OFRBID_rets_10sec))
+CUMULCORREL2_OFRBID_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL2_OFRBID_rets_no0s))
+
+CUMULCORREL3_OFRBID_rets$TimeBins <- factor(row.names(CUMULCORREL3_OFRBID_rets))
+CUMULCORREL3_OFRBID_rets_1sec$TimeBins <- factor(row.names(CUMULCORREL3_OFRBID_rets_1sec))
+CUMULCORREL3_OFRBID_rets_10sec$TimeBins <- factor(row.names(CUMULCORREL3_OFRBID_rets_10sec))
+CUMULCORREL3_OFRBID_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL3_OFRBID_rets_no0s))
+
+
+#########################################################
+# Fix the missing '0' in the files names for 08 and 09
+#dates[1:488] <- paste0('0',dates[1:497])
 
 for(i in 1:length(dates)){
-#i=1 # For testing
-
   #This is already named 'DeliveryDates' upon loading. It must remember the name of the xts object it was saved from
   load(paste0('Contracts', as.character(dates[i]) ,".rda")) 
   
+  
+  
   #Load all the contracts on a single day
   for(j in 1:(length(DeliveryDates)-1)){
-    
+  
     # This if statement takes care of the issue created by the fact that 08 and 09 are expressed without a 0 in front.
     if( nchar(DeliveryDates[j]) == 3 && substr(DeliveryDates[j], 3, 3) == 9){
       
@@ -376,12 +652,12 @@ for(i in 1:length(dates)){
     qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
     qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4])))
     qplus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5]))) 
-    #qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
-    #qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
-    #qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
-    #qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
-    #qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
-    #qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[11])))
+    # qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
+    # qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
+    # qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
+    # qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
+    # qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
+    # qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[11])))
     
     #   tnearby <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
     #   tplus1  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
@@ -401,12 +677,12 @@ for(i in 1:length(dates)){
     qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
     qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
     qplus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4]))) 
-    #qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
-    #qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
-    #qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
-    #qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
-    #qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
-    #qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
+    # qplus4  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5])))
+    # qplus5  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[6])))
+    # qplus6  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[7])))
+    # qplus7  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[8])))
+    # qplus8  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[9])))
+    # qplus9  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[10])))
     
     #   tnearby <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
     #   tplus1  <- get(paste0('t', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
@@ -430,9 +706,9 @@ for(i in 1:length(dates)){
   nearby_BID_rets   <- diff.xts(nearby_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
   non_zeros         <- index(nearby_BID_rets)[which(nearby_BID_rets != 0)]
   nsecs_to_update_BID_rets   <- difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
- # nearby_BID_rets_no0s<- subset(nearby_BID_rets, BID != 0)
- # nearby_BID_rets_1sec<- lag.xts(nearby_BID_rets, k=-1)
- # nearby_BID_rets_10sec<- lag.xts(nearby_BID_rets, k=-10)
+  # nearby_BID_rets_no0s<- subset(nearby_BID_rets, BID != 0)
+  # nearby_BID_rets_1sec<- lag.xts(nearby_BID_rets, k=-1)
+  # nearby_BID_rets_10sec<- lag.xts(nearby_BID_rets, k=-10)
   
   # Learning to Use Pipes
   nearby_BID_rets_no0s <- 
@@ -447,14 +723,14 @@ for(i in 1:length(dates)){
     diff.xts(lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE) %>%
     lag.xts(k=-1) %>%
     subset(BID != 0)
- 
+  
   nearby_BID_rets_no0s_10sec <-  #Time Lag (lag.xts) lags 10 places, not ten seconds, so it need to lag then filter !=0 to get true 10 secs
     qnearby$BID %>%
     to.period(period = 'seconds', k = 1, OHLC = FALSE) %>%
     diff.xts(lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE) %>%
     lag.xts(k=-10) %>%
     subset(BID != 0)   
-
+  
   plus1_BID         <- to.period(qplus1$BID, period = 'seconds', k = 1, OHLC = FALSE)
   plus1_BID_rets    <- diff.xts(plus1_BID, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
   non_zeros         <- index(plus1_BID_rets)[which(plus1_BID_rets != 0)]
@@ -462,15 +738,17 @@ for(i in 1:length(dates)){
   plus1_BID_rets_no0s<- subset(plus1_BID_rets, BID !=0)
   plus1_BID_rets_1sec<- lag.xts(plus1_BID_rets, k=-1)
   plus1_BID_rets_10sec<- lag.xts(plus1_BID_rets, k=-10)
+  plus1_BID_rets_no0s_1sec<- subset(plus1_BID_rets_1sec, BID !=0)
+  plus1_BID_rets_no0s_10sec<- subset(plus1_BID_rets_10sec, BID !=0)
   
   
   nearby_OFR        <- to.period(qnearby$OFR, period = 'seconds', k = 1, OHLC = FALSE)
   nearby_OFR_rets   <- diff.xts(nearby_OFR, lag = 1, differences = 1, arithmetic = TRUE, log = TRUE, na.pad = TRUE)
   non_zeros         <- index(nearby_OFR_rets)[which(nearby_OFR_rets != 0)]
   nsecs_to_update_OFR_rets   <-difftime(non_zeros[1:(length(non_zeros)-1)], non_zeros[2:length(non_zeros)], unit='secs')
- # nearby_OFR_rets_no0s<- subset(nearby_OFR_rets, OFR != 0)
- # nearby_OFR_rets_1sec<- lag.xts(nearby_OFR_rets, k=-1)
- # nearby_OFR_rets_10sec<- lag.xts(nearby_OFR_rets, k=-10)
+  # nearby_OFR_rets_no0s<- subset(nearby_OFR_rets, OFR != 0)
+  # nearby_OFR_rets_1sec<- lag.xts(nearby_OFR_rets, k=-1)
+  # nearby_OFR_rets_10sec<- lag.xts(nearby_OFR_rets, k=-10)
   
   # Learning to Use Pipes
   nearby_OFR_rets_no0s <- 
@@ -501,6 +779,8 @@ for(i in 1:length(dates)){
   plus1_OFR_rets_no0s<- subset(plus1_OFR_rets, OFR !=0)
   plus1_OFR_rets_1sec<- lag.xts(plus1_OFR_rets, k=-1)
   plus1_OFR_rets_10sec<- lag.xts(plus1_OFR_rets, k=-10)
+  plus1_OFR_rets_no0s_1sec<-  subset(plus1_OFR_rets_1sec, OFR !=0)
+  plus1_OFR_rets_no0s_10sec<- subset(plus1_OFR_rets_10sec, OFR !=0)
   
   # Making contract pairs
   # BIDS, Levels
@@ -514,7 +794,7 @@ for(i in 1:length(dates)){
   near_plus1_BID_rets   <- merge(nearby_BID_rets, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
                                  retside = TRUE, retclass = "xts")                
   near_plus1_BID_rets.df<- as.data.frame(near_plus1_BID_rets)
-    
+  
   # No zeros
   near_plus1_BID_rets_no0s   <- merge(nearby_BID_rets_no0s, plus1_BID_rets_no0s, all = TRUE, fill = NA, join = "outer", 
                                       retside = TRUE, retclass = "xts")                
@@ -527,6 +807,19 @@ for(i in 1:length(dates)){
   near_plus1_BID_rets_10sec   <- merge(nearby_BID_rets_no0s_10sec, plus1_BID_rets, all = TRUE, fill = NA, join = "outer", 
                                        retside = TRUE, retclass = "xts")                
   near_plus1_BID_rets_10sec.df<- as.data.frame(near_plus1_BID_rets_10sec)
+  
+  # No Zeros - discovery in distant (lag the plus 1)
+  # Bids
+  
+  plus1_near_BID_rets_1sec   <- merge(nearby_BID_rets, plus1_BID_rets_no0s_1sec, all = TRUE, fill = NA, join = "outer", 
+                                      retside = TRUE, retclass = "xts")                
+  plus1_near_BID_rets_1sec.df<- as.data.frame(near_plus1_BID_rets_1sec)
+  
+  plus1_near_BID_rets_10sec   <- merge(nearby_BID_rets, plus1_BID_rets_no0s_10sec, all = TRUE, fill = NA, join = "outer", 
+                                       retside = TRUE, retclass = "xts")                
+  plus1_near_BID_rets_10sec.df<- as.data.frame(near_plus1_BID_rets_10sec)
+  
+  
   
   # OFR, Levels
   near_plus1_OFR        <- merge(nearby_OFR, plus1_OFR, all = TRUE, fill = NA, join = "outer", retside = TRUE, 
@@ -549,6 +842,52 @@ for(i in 1:length(dates)){
   near_plus1_OFR_rets_no0s   <- merge(nearby_OFR_rets_no0s, plus1_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
                                       retside = TRUE, retclass = "xts")                
   near_plus1_OFR_rets_no0s.df<- as.data.frame(near_plus1_OFR_rets_no0s)
+  
+  # No Zeros - discovery in distant (lag the plus 1)
+  # OFRs
+  
+  plus1_near_OFR_rets_1sec   <- merge(nearby_OFR_rets, plus1_OFR_rets_no0s_1sec, all = TRUE, fill = NA, join = "outer", 
+                                      retside = TRUE, retclass = "xts")                
+  plus1_near_OFR_rets_1sec.df<- as.data.frame(near_plus1_OFR_rets_1sec)
+  
+  plus1_near_OFR_rets_10sec   <- merge(nearby_OFR_rets, plus1_OFR_rets_no0s_10sec, all = TRUE, fill = NA, join = "outer", 
+                                       retside = TRUE, retclass = "xts")                
+  plus1_near_OFR_rets_10sec.df<- as.data.frame(near_plus1_OFR_rets_10sec)
+  
+  
+  # Bid-to-OFR
+  near_plus1_BIDOFR_rets   <- merge(nearby_BID_rets, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                    retside = TRUE, retclass = "xts")                
+  near_plus1_BIDOFR_rets.df<- as.data.frame(near_plus1_BIDOFR_rets)
+  near_plus1_BIDOFR_rets_1sec   <- merge(nearby_BID_rets_no0s_1sec, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus1_BIDOFR_rets_1sec.df<- as.data.frame(near_plus1_BIDOFR_rets_1sec)
+  near_plus1_BIDOFR_rets_10sec   <- merge(nearby_BID_rets_no0s_10sec, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                          retside = TRUE, retclass = "xts")                
+  near_plus1_BIDOFR_rets_10sec.df<- as.data.frame(near_plus1_BIDOFR_rets_10sec)
+  
+  # No zeros
+  near_plus1_BIDOFR_rets_no0s   <- merge(nearby_BID_rets_no0s, plus1_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus1_BIDOFR_rets_no0s.df<- as.data.frame(near_plus1_BIDOFR_rets_no0s)
+  
+  # OFR-to-Bid
+  near_plus1_OFRBID_rets   <- merge(nearby_BID_rets, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                    retside = TRUE, retclass = "xts")                
+  near_plus1_OFRBID_rets.df<- as.data.frame(near_plus1_OFRBID_rets)
+  near_plus1_OFRBID_rets_1sec   <- merge(nearby_BID_rets_no0s_1sec, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus1_OFRBID_rets_1sec.df<- as.data.frame(near_plus1_OFRBID_rets_1sec)
+  near_plus1_OFRBID_rets_10sec   <- merge(nearby_BID_rets_no0s_10sec, plus1_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                          retside = TRUE, retclass = "xts")                
+  near_plus1_OFRBID_rets_10sec.df<- as.data.frame(near_plus1_OFRBID_rets_10sec)
+  
+  # No zeros
+  near_plus1_OFRBID_rets_no0s   <- merge(nearby_BID_rets_no0s, plus1_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus1_OFRBID_rets_no0s.df<- as.data.frame(near_plus1_OFRBID_rets_no0s)
+  
+  
   
   # In time bins - ten minutes
   # Date in the CUMULCORREL1_BID timestamp is irrelevant. We are creating 10 minute bins, in which we place 
@@ -586,6 +925,29 @@ for(i in 1:length(dates)){
   correl1_rets_10sec.df$TimeBins <- factor(row.names(correl1_rets_10sec.df))
   correl1_rets_10sec.df <- correl1_rets_10sec.df[,c("V2", "TimeBins")]
   CUMULCORREL1_BID_rets_10sec <- merge(CUMULCORREL1_BID_rets_10sec, correl1_rets_10sec.df, by= "TimeBins", all= TRUE)
+  
+  ##
+  ep <- endpoints(align.time(plus1_near_BID_rets_1sec, 10*60), 'minutes', k=10)
+  correl1_rets_1sec<- period.apply(align.time(plus1_near_BID_rets_1sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets_1sec))), 2, substr, 12, 19)
+  correl1_rets_1sec.df <- as.data.frame(correl1_rets_1sec)
+  row.names(correl1_rets_1sec.df) <- temp 
+  colnames(correl1_rets_1sec.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets_1sec.df$TimeBins <- factor(row.names(correl1_rets_1sec.df))
+  correl1_rets_1sec.df <- correl1_rets_1sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL1N_BID_rets_1sec <- merge(CUMULCORREL1N_BID_rets_1sec, correl1_rets_1sec.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(plus1_near_BID_rets_10sec, 10*60), 'minutes', k=10)
+  correl1_rets_10sec<- period.apply(align.time(plus1_near_BID_rets_10sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets_10sec))), 2, substr, 12, 19)
+  correl1_rets_10sec.df <- as.data.frame(correl1_rets_10sec)
+  row.names(correl1_rets_10sec.df) <- temp 
+  colnames(correl1_rets_10sec.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets_10sec.df$TimeBins <- factor(row.names(correl1_rets_10sec.df))
+  correl1_rets_10sec.df <- correl1_rets_10sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL1N_BID_rets_10sec <- merge(CUMULCORREL1N_BID_rets_10sec, correl1_rets_10sec.df, by= "TimeBins", all= TRUE)
+  
+  ##
   
   # BIDS, 'Returns' - no zeros
   ep <- endpoints(align.time(near_plus1_BID_rets_no0s, 10*60), 'minutes', k=10)
@@ -629,6 +991,29 @@ for(i in 1:length(dates)){
   correl1_rets_10sec.df <- correl1_rets_10sec.df[,c("V2", "TimeBins")]
   CUMULCORREL1_OFR_rets_10sec <- merge(CUMULCORREL1_OFR_rets_10sec, correl1_rets_10sec.df, by= "TimeBins", all= TRUE)
   
+  ##
+  ep <- endpoints(align.time(plus1_near_OFR_rets_1sec, 10*60), 'minutes', k=10)
+  correl1_rets_1sec<- period.apply(align.time(plus1_near_OFR_rets_1sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets_1sec))), 2, substr, 12, 19)
+  correl1_rets_1sec.df <- as.data.frame(correl1_rets_1sec)
+  row.names(correl1_rets_1sec.df) <- temp 
+  colnames(correl1_rets_1sec.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets_1sec.df$TimeBins <- factor(row.names(correl1_rets_1sec.df))
+  correl1_rets_1sec.df <- correl1_rets_1sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL1N_OFR_rets_1sec <- merge(CUMULCORREL1N_OFR_rets_1sec, correl1_rets_1sec.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(plus1_near_OFR_rets_10sec, 10*60), 'minutes', k=10)
+  correl1_rets_10sec<- period.apply(align.time(plus1_near_OFR_rets_10sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets_10sec))), 2, substr, 12, 19)
+  correl1_rets_10sec.df <- as.data.frame(correl1_rets_10sec)
+  row.names(correl1_rets_10sec.df) <- temp 
+  colnames(correl1_rets_10sec.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets_10sec.df$TimeBins <- factor(row.names(correl1_rets_10sec.df))
+  correl1_rets_10sec.df <- correl1_rets_10sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL1N_OFR_rets_10sec <- merge(CUMULCORREL1N_OFR_rets_10sec, correl1_rets_10sec.df, by= "TimeBins", all= TRUE)
+  
+  ##
+  
   # OFRS, 'Returns' - no zeros
   ep <- endpoints(align.time(near_plus1_OFR_rets_no0s, 10*60), 'minutes', k=10)
   correl1_rets_no0s<- period.apply(align.time(near_plus1_OFR_rets_no0s, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
@@ -639,6 +1024,93 @@ for(i in 1:length(dates)){
   correl1_rets_no0s.df$TimeBins <- factor(row.names(correl1_rets_no0s.df))
   correl1_rets_no0s.df <- correl1_rets_no0s.df[,c("V2", "TimeBins")]
   CUMULCORREL1_OFR_rets_no0s <- merge(CUMULCORREL1_OFR_rets_no0s, correl1_rets_no0s.df, by= "TimeBins", all= TRUE)
+  
+  
+  
+  # BIDOFRS, 'Returns'
+  ep <- endpoints(align.time(near_plus1_BIDOFR_rets, 10*60), 'minutes', k=10)
+  correl1_rets<- period.apply(align.time(near_plus1_BIDOFR_rets, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets))), 2, substr, 12, 19)
+  correl1_rets.df <- as.data.frame(correl1_rets)
+  row.names(correl1_rets.df) <- temp 
+  colnames(correl1_rets.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets.df$TimeBins <- factor(row.names(correl1_rets.df))
+  correl1_rets.df <- correl1_rets.df[,c("V2", "TimeBins")]
+  CUMULCORREL1_BIDOFR_rets <- merge(CUMULCORREL1_BIDOFR_rets, correl1_rets.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus1_BIDOFR_rets_1sec, 10*60), 'minutes', k=10)
+  correl1_rets_1sec<- period.apply(align.time(near_plus1_BIDOFR_rets_1sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets_1sec))), 2, substr, 12, 19)
+  correl1_rets_1sec.df <- as.data.frame(correl1_rets_1sec)
+  row.names(correl1_rets_1sec.df) <- temp 
+  colnames(correl1_rets_1sec.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets_1sec.df$TimeBins <- factor(row.names(correl1_rets_1sec.df))
+  correl1_rets_1sec.df <- correl1_rets_1sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL1_BIDOFR_rets_1sec <- merge(CUMULCORREL1_BIDOFR_rets_1sec, correl1_rets_1sec.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus1_BIDOFR_rets_10sec, 10*60), 'minutes', k=10)
+  correl1_rets_10sec<- period.apply(align.time(near_plus1_BIDOFR_rets_10sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets_10sec))), 2, substr, 12, 19)
+  correl1_rets_10sec.df <- as.data.frame(correl1_rets_10sec)
+  row.names(correl1_rets_10sec.df) <- temp 
+  colnames(correl1_rets_10sec.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets_10sec.df$TimeBins <- factor(row.names(correl1_rets_10sec.df))
+  correl1_rets_10sec.df <- correl1_rets_10sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL1_BIDOFR_rets_10sec <- merge(CUMULCORREL1_BIDOFR_rets_10sec, correl1_rets_10sec.df, by= "TimeBins", all= TRUE)
+  
+  # BIDOFRS, 'Returns' - no zeros
+  ep <- endpoints(align.time(near_plus1_BIDOFR_rets_no0s, 10*60), 'minutes', k=10)
+  correl1_rets_no0s<- period.apply(align.time(near_plus1_BIDOFR_rets_no0s, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets_no0s))), 2, substr, 12, 19)
+  correl1_rets_no0s.df <- as.data.frame(correl1_rets_no0s)
+  row.names(correl1_rets_no0s.df) <- temp 
+  colnames(correl1_rets_no0s.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets_no0s.df$TimeBins <- factor(row.names(correl1_rets_no0s.df))
+  correl1_rets_no0s.df <- correl1_rets_no0s.df[,c("V2", "TimeBins")]
+  CUMULCORREL1_BIDOFR_rets_no0s <- merge(CUMULCORREL1_BIDOFR_rets_no0s, correl1_rets_no0s.df, by= "TimeBins", all= TRUE)    
+  # OFRBIDS, 'Returns'
+  ep <- endpoints(align.time(near_plus1_OFRBID_rets, 10*60), 'minutes', k=10)
+  correl1_rets<- period.apply(align.time(near_plus1_OFRBID_rets, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets))), 2, substr, 12, 19)
+  correl1_rets.df <- as.data.frame(correl1_rets)
+  row.names(correl1_rets.df) <- temp 
+  colnames(correl1_rets.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets.df$TimeBins <- factor(row.names(correl1_rets.df))
+  correl1_rets.df <- correl1_rets.df[,c("V2", "TimeBins")]
+  CUMULCORREL1_OFRBID_rets <- merge(CUMULCORREL1_OFRBID_rets, correl1_rets.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus1_OFRBID_rets_1sec, 10*60), 'minutes', k=10)
+  correl1_rets_1sec<- period.apply(align.time(near_plus1_OFRBID_rets_1sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets_1sec))), 2, substr, 12, 19)
+  correl1_rets_1sec.df <- as.data.frame(correl1_rets_1sec)
+  row.names(correl1_rets_1sec.df) <- temp 
+  colnames(correl1_rets_1sec.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets_1sec.df$TimeBins <- factor(row.names(correl1_rets_1sec.df))
+  correl1_rets_1sec.df <- correl1_rets_1sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL1_OFRBID_rets_1sec <- merge(CUMULCORREL1_OFRBID_rets_1sec, correl1_rets_1sec.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus1_OFRBID_rets_10sec, 10*60), 'minutes', k=10)
+  correl1_rets_10sec<- period.apply(align.time(near_plus1_OFRBID_rets_10sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets_10sec))), 2, substr, 12, 19)
+  correl1_rets_10sec.df <- as.data.frame(correl1_rets_10sec)
+  row.names(correl1_rets_10sec.df) <- temp 
+  colnames(correl1_rets_10sec.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets_10sec.df$TimeBins <- factor(row.names(correl1_rets_10sec.df))
+  correl1_rets_10sec.df <- correl1_rets_10sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL1_OFRBID_rets_10sec <- merge(CUMULCORREL1_OFRBID_rets_10sec, correl1_rets_10sec.df, by= "TimeBins", all= TRUE)
+  
+  # OFRBIDS, 'Returns' - no zeros
+  ep <- endpoints(align.time(near_plus1_OFRBID_rets_no0s, 10*60), 'minutes', k=10)
+  correl1_rets_no0s<- period.apply(align.time(near_plus1_OFRBID_rets_no0s, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl1_rets_no0s))), 2, substr, 12, 19)
+  correl1_rets_no0s.df <- as.data.frame(correl1_rets_no0s)
+  row.names(correl1_rets_no0s.df) <- temp 
+  colnames(correl1_rets_no0s.df) <- c("V1", "V2", "V3", "V4")
+  correl1_rets_no0s.df$TimeBins <- factor(row.names(correl1_rets_no0s.df))
+  correl1_rets_no0s.df <- correl1_rets_no0s.df[,c("V2", "TimeBins")]
+  CUMULCORREL1_OFRBID_rets_no0s <- merge(CUMULCORREL1_OFRBID_rets_no0s, correl1_rets_no0s.df, by= "TimeBins", all= TRUE)
+  
+  
   ######################################################################################## 
   
   # #Nearby and plus2
@@ -703,6 +1175,38 @@ for(i in 1:length(dates)){
   near_plus2_OFR_rets_no0s   <- merge(nearby_OFR_rets_no0s, plus2_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
                                       retside = TRUE, retclass = "xts")                
   near_plus2_OFR_rets_no0s.df<- as.data.frame(near_plus2_OFR_rets_no0s)
+  
+  # Bid-to-OFR
+  near_plus2_BIDOFR_rets   <- merge(nearby_BID_rets, plus2_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                    retside = TRUE, retclass = "xts")                
+  near_plus2_BIDOFR_rets.df<- as.data.frame(near_plus2_BIDOFR_rets)
+  near_plus2_BIDOFR_rets_1sec   <- merge(nearby_BID_rets_no0s_1sec, plus2_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus2_BIDOFR_rets_1sec.df<- as.data.frame(near_plus2_BIDOFR_rets_1sec)
+  near_plus2_BIDOFR_rets_10sec   <- merge(nearby_BID_rets_no0s_10sec, plus2_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                          retside = TRUE, retclass = "xts")                
+  near_plus2_BIDOFR_rets_10sec.df<- as.data.frame(near_plus2_BIDOFR_rets_10sec)
+  
+  # No zeros
+  near_plus2_BIDOFR_rets_no0s   <- merge(nearby_BID_rets_no0s, plus2_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus2_BIDOFR_rets_no0s.df<- as.data.frame(near_plus2_BIDOFR_rets_no0s)
+  
+  # OFR-to-Bid
+  near_plus2_OFRBID_rets   <- merge(nearby_BID_rets, plus2_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                    retside = TRUE, retclass = "xts")                
+  near_plus2_OFRBID_rets.df<- as.data.frame(near_plus2_OFRBID_rets)
+  near_plus2_OFRBID_rets_1sec   <- merge(nearby_BID_rets_no0s_1sec, plus2_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus2_OFRBID_rets_1sec.df<- as.data.frame(near_plus2_OFRBID_rets_1sec)
+  near_plus2_OFRBID_rets_10sec   <- merge(nearby_BID_rets_no0s_10sec, plus2_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                          retside = TRUE, retclass = "xts")                
+  near_plus2_OFRBID_rets_10sec.df<- as.data.frame(near_plus2_OFRBID_rets_10sec)
+  
+  # No zeros
+  near_plus2_OFRBID_rets_no0s   <- merge(nearby_BID_rets_no0s, plus2_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus2_OFRBID_rets_no0s.df<- as.data.frame(near_plus2_OFRBID_rets_no0s)
   
   # In time bins - ten minutes
   # Date in the CUMULCORREL1_BID timestamp is irrelevant. We are creating 10 minute bins, in which we place 
@@ -793,6 +1297,91 @@ for(i in 1:length(dates)){
   correl2_rets_no0s.df$TimeBins <- factor(row.names(correl2_rets_no0s.df))
   correl2_rets_no0s.df <- correl2_rets_no0s.df[,c("V2", "TimeBins")]
   CUMULCORREL2_OFR_rets_no0s <- merge(CUMULCORREL2_OFR_rets_no0s, correl2_rets_no0s.df, by= "TimeBins", all= TRUE)
+  
+  # BIDOFRS, 'Returns'
+  ep <- endpoints(align.time(near_plus2_BIDOFR_rets, 10*60), 'minutes', k=10)
+  correl2_rets<- period.apply(align.time(near_plus2_BIDOFR_rets, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl2_rets))), 2, substr, 12, 19)
+  correl2_rets.df <- as.data.frame(correl2_rets)
+  row.names(correl2_rets.df) <- temp 
+  colnames(correl2_rets.df) <- c("V1", "V2", "V3", "V4")
+  correl2_rets.df$TimeBins <- factor(row.names(correl2_rets.df))
+  correl2_rets.df <- correl2_rets.df[,c("V2", "TimeBins")]
+  CUMULCORREL2_BIDOFR_rets <- merge(CUMULCORREL2_BIDOFR_rets, correl2_rets.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus2_BIDOFR_rets_1sec, 10*60), 'minutes', k=10)
+  correl2_rets_1sec<- period.apply(align.time(near_plus2_BIDOFR_rets_1sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl2_rets_1sec))), 2, substr, 12, 19)
+  correl2_rets_1sec.df <- as.data.frame(correl2_rets_1sec)
+  row.names(correl2_rets_1sec.df) <- temp 
+  colnames(correl2_rets_1sec.df) <- c("V1", "V2", "V3", "V4")
+  correl2_rets_1sec.df$TimeBins <- factor(row.names(correl2_rets_1sec.df))
+  correl2_rets_1sec.df <- correl2_rets_1sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL2_BIDOFR_rets_1sec <- merge(CUMULCORREL2_BIDOFR_rets_1sec, correl2_rets_1sec.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus2_BIDOFR_rets_10sec, 10*60), 'minutes', k=10)
+  correl2_rets_10sec<- period.apply(align.time(near_plus2_BIDOFR_rets_10sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl2_rets_10sec))), 2, substr, 12, 19)
+  correl2_rets_10sec.df <- as.data.frame(correl2_rets_10sec)
+  row.names(correl2_rets_10sec.df) <- temp 
+  colnames(correl2_rets_10sec.df) <- c("V1", "V2", "V3", "V4")
+  correl2_rets_10sec.df$TimeBins <- factor(row.names(correl2_rets_10sec.df))
+  correl2_rets_10sec.df <- correl2_rets_10sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL2_BIDOFR_rets_10sec <- merge(CUMULCORREL2_BIDOFR_rets_10sec, correl2_rets_10sec.df, by= "TimeBins", all= TRUE)
+  
+  # BIDOFRS, 'Returns' - no zeros
+  ep <- endpoints(align.time(near_plus2_BIDOFR_rets_no0s, 10*60), 'minutes', k=10)
+  correl2_rets_no0s<- period.apply(align.time(near_plus2_BIDOFR_rets_no0s, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl2_rets_no0s))), 2, substr, 12, 19)
+  correl2_rets_no0s.df <- as.data.frame(correl2_rets_no0s)
+  row.names(correl2_rets_no0s.df) <- temp 
+  colnames(correl2_rets_no0s.df) <- c("V1", "V2", "V3", "V4")
+  correl2_rets_no0s.df$TimeBins <- factor(row.names(correl2_rets_no0s.df))
+  correl2_rets_no0s.df <- correl2_rets_no0s.df[,c("V2", "TimeBins")]
+  CUMULCORREL2_BIDOFR_rets_no0s <- merge(CUMULCORREL2_BIDOFR_rets_no0s, correl2_rets_no0s.df, by= "TimeBins", all= TRUE)    
+  # OFRBIDS, 'Returns'
+  ep <- endpoints(align.time(near_plus2_OFRBID_rets, 10*60), 'minutes', k=10)
+  correl2_rets<- period.apply(align.time(near_plus2_OFRBID_rets, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl2_rets))), 2, substr, 12, 19)
+  correl2_rets.df <- as.data.frame(correl2_rets)
+  row.names(correl2_rets.df) <- temp 
+  colnames(correl2_rets.df) <- c("V1", "V2", "V3", "V4")
+  correl2_rets.df$TimeBins <- factor(row.names(correl2_rets.df))
+  correl2_rets.df <- correl2_rets.df[,c("V2", "TimeBins")]
+  CUMULCORREL2_OFRBID_rets <- merge(CUMULCORREL2_OFRBID_rets, correl2_rets.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus2_OFRBID_rets_1sec, 10*60), 'minutes', k=10)
+  correl2_rets_1sec<- period.apply(align.time(near_plus2_OFRBID_rets_1sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl2_rets_1sec))), 2, substr, 12, 19)
+  correl2_rets_1sec.df <- as.data.frame(correl2_rets_1sec)
+  row.names(correl2_rets_1sec.df) <- temp 
+  colnames(correl2_rets_1sec.df) <- c("V1", "V2", "V3", "V4")
+  correl2_rets_1sec.df$TimeBins <- factor(row.names(correl2_rets_1sec.df))
+  correl2_rets_1sec.df <- correl2_rets_1sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL2_OFRBID_rets_1sec <- merge(CUMULCORREL2_OFRBID_rets_1sec, correl2_rets_1sec.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus2_OFRBID_rets_10sec, 10*60), 'minutes', k=10)
+  correl2_rets_10sec<- period.apply(align.time(near_plus2_OFRBID_rets_10sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl2_rets_10sec))), 2, substr, 12, 19)
+  correl2_rets_10sec.df <- as.data.frame(correl2_rets_10sec)
+  row.names(correl2_rets_10sec.df) <- temp 
+  colnames(correl2_rets_10sec.df) <- c("V1", "V2", "V3", "V4")
+  correl2_rets_10sec.df$TimeBins <- factor(row.names(correl2_rets_10sec.df))
+  correl2_rets_10sec.df <- correl2_rets_10sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL2_OFRBID_rets_10sec <- merge(CUMULCORREL2_OFRBID_rets_10sec, correl2_rets_10sec.df, by= "TimeBins", all= TRUE)
+  
+  # OFRBIDS, 'Returns' - no zeros
+  ep <- endpoints(align.time(near_plus2_OFRBID_rets_no0s, 10*60), 'minutes', k=10)
+  correl2_rets_no0s<- period.apply(align.time(near_plus2_OFRBID_rets_no0s, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl2_rets_no0s))), 2, substr, 12, 19)
+  correl2_rets_no0s.df <- as.data.frame(correl2_rets_no0s)
+  row.names(correl2_rets_no0s.df) <- temp 
+  colnames(correl2_rets_no0s.df) <- c("V1", "V2", "V3", "V4")
+  correl2_rets_no0s.df$TimeBins <- factor(row.names(correl2_rets_no0s.df))
+  correl2_rets_no0s.df <- correl2_rets_no0s.df[,c("V2", "TimeBins")]
+  CUMULCORREL2_OFRBID_rets_no0s <- merge(CUMULCORREL2_OFRBID_rets_no0s, correl2_rets_no0s.df, by= "TimeBins", all= TRUE)
+  
+  
   # ######################################################################################## 
   #  
   # 
@@ -859,6 +1448,38 @@ for(i in 1:length(dates)){
                                       retside = TRUE, retclass = "xts")                
   near_plus3_OFR_rets_no0s.df<- as.data.frame(near_plus3_OFR_rets_no0s)
   
+  
+  # Bid-to-OFR
+  near_plus3_BIDOFR_rets   <- merge(nearby_BID_rets, plus3_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                    retside = TRUE, retclass = "xts")                
+  near_plus3_BIDOFR_rets.df<- as.data.frame(near_plus3_BIDOFR_rets)
+  near_plus3_BIDOFR_rets_1sec   <- merge(nearby_BID_rets_no0s_1sec, plus3_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus3_BIDOFR_rets_1sec.df<- as.data.frame(near_plus3_BIDOFR_rets_1sec)
+  near_plus3_BIDOFR_rets_10sec   <- merge(nearby_BID_rets_no0s_10sec, plus3_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                          retside = TRUE, retclass = "xts")                
+  near_plus3_BIDOFR_rets_10sec.df<- as.data.frame(near_plus3_BIDOFR_rets_10sec)
+  
+  # No zeros
+  near_plus3_BIDOFR_rets_no0s   <- merge(nearby_BID_rets_no0s, plus3_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus3_BIDOFR_rets_no0s.df<- as.data.frame(near_plus3_BIDOFR_rets_no0s)
+  
+  # OFR-to-Bid
+  near_plus3_OFRBID_rets   <- merge(nearby_BID_rets, plus3_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                    retside = TRUE, retclass = "xts")                
+  near_plus3_OFRBID_rets.df<- as.data.frame(near_plus3_OFRBID_rets)
+  near_plus3_OFRBID_rets_1sec   <- merge(nearby_BID_rets_no0s_1sec, plus3_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus3_OFRBID_rets_1sec.df<- as.data.frame(near_plus3_OFRBID_rets_1sec)
+  near_plus3_OFRBID_rets_10sec   <- merge(nearby_BID_rets_no0s_10sec, plus3_OFR_rets, all = TRUE, fill = NA, join = "outer", 
+                                          retside = TRUE, retclass = "xts")                
+  near_plus3_OFRBID_rets_10sec.df<- as.data.frame(near_plus3_OFRBID_rets_10sec)
+  
+  # No zeros
+  near_plus3_OFRBID_rets_no0s   <- merge(nearby_BID_rets_no0s, plus3_OFR_rets_no0s, all = TRUE, fill = NA, join = "outer", 
+                                         retside = TRUE, retclass = "xts")                
+  near_plus3_OFRBID_rets_no0s.df<- as.data.frame(near_plus3_OFRBID_rets_no0s)
   
   
   # In time bins - ten minutes
@@ -951,6 +1572,89 @@ for(i in 1:length(dates)){
   correl3_rets_no0s.df <- correl3_rets_no0s.df[,c("V2", "TimeBins")]
   CUMULCORREL3_OFR_rets_no0s <- merge(CUMULCORREL3_OFR_rets_no0s, correl3_rets_no0s.df, by= "TimeBins", all= TRUE)
   
+  
+  # BIDOFRS, 'Returns'
+  ep <- endpoints(align.time(near_plus3_BIDOFR_rets, 10*60), 'minutes', k=10)
+  correl3_rets<- period.apply(align.time(near_plus3_BIDOFR_rets, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl3_rets))), 2, substr, 12, 19)
+  correl3_rets.df <- as.data.frame(correl3_rets)
+  row.names(correl3_rets.df) <- temp 
+  colnames(correl3_rets.df) <- c("V1", "V2", "V3", "V4")
+  correl3_rets.df$TimeBins <- factor(row.names(correl3_rets.df))
+  correl3_rets.df <- correl3_rets.df[,c("V2", "TimeBins")]
+  CUMULCORREL3_BIDOFR_rets <- merge(CUMULCORREL3_BIDOFR_rets, correl3_rets.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus3_BIDOFR_rets_1sec, 10*60), 'minutes', k=10)
+  correl3_rets_1sec<- period.apply(align.time(near_plus3_BIDOFR_rets_1sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl3_rets_1sec))), 2, substr, 12, 19)
+  correl3_rets_1sec.df <- as.data.frame(correl3_rets_1sec)
+  row.names(correl3_rets_1sec.df) <- temp 
+  colnames(correl3_rets_1sec.df) <- c("V1", "V2", "V3", "V4")
+  correl3_rets_1sec.df$TimeBins <- factor(row.names(correl3_rets_1sec.df))
+  correl3_rets_1sec.df <- correl3_rets_1sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL3_BIDOFR_rets_1sec <- merge(CUMULCORREL3_BIDOFR_rets_1sec, correl3_rets_1sec.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus3_BIDOFR_rets_10sec, 10*60), 'minutes', k=10)
+  correl3_rets_10sec<- period.apply(align.time(near_plus3_BIDOFR_rets_10sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl3_rets_10sec))), 2, substr, 12, 19)
+  correl3_rets_10sec.df <- as.data.frame(correl3_rets_10sec)
+  row.names(correl3_rets_10sec.df) <- temp 
+  colnames(correl3_rets_10sec.df) <- c("V1", "V2", "V3", "V4")
+  correl3_rets_10sec.df$TimeBins <- factor(row.names(correl3_rets_10sec.df))
+  correl3_rets_10sec.df <- correl3_rets_10sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL3_BIDOFR_rets_10sec <- merge(CUMULCORREL3_BIDOFR_rets_10sec, correl3_rets_10sec.df, by= "TimeBins", all= TRUE)
+  
+  # BIDOFRS, 'Returns' - no zeros
+  ep <- endpoints(align.time(near_plus3_BIDOFR_rets_no0s, 10*60), 'minutes', k=10)
+  correl3_rets_no0s<- period.apply(align.time(near_plus3_BIDOFR_rets_no0s, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl3_rets_no0s))), 2, substr, 12, 19)
+  correl3_rets_no0s.df <- as.data.frame(correl3_rets_no0s)
+  row.names(correl3_rets_no0s.df) <- temp 
+  colnames(correl3_rets_no0s.df) <- c("V1", "V2", "V3", "V4")
+  correl3_rets_no0s.df$TimeBins <- factor(row.names(correl3_rets_no0s.df))
+  correl3_rets_no0s.df <- correl3_rets_no0s.df[,c("V2", "TimeBins")]
+  CUMULCORREL3_BIDOFR_rets_no0s <- merge(CUMULCORREL3_BIDOFR_rets_no0s, correl3_rets_no0s.df, by= "TimeBins", all= TRUE)    
+  # OFRBIDS, 'Returns'
+  ep <- endpoints(align.time(near_plus3_OFRBID_rets, 10*60), 'minutes', k=10)
+  correl3_rets<- period.apply(align.time(near_plus3_OFRBID_rets, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl3_rets))), 2, substr, 12, 19)
+  correl3_rets.df <- as.data.frame(correl3_rets)
+  row.names(correl3_rets.df) <- temp 
+  colnames(correl3_rets.df) <- c("V1", "V2", "V3", "V4")
+  correl3_rets.df$TimeBins <- factor(row.names(correl3_rets.df))
+  correl3_rets.df <- correl3_rets.df[,c("V2", "TimeBins")]
+  CUMULCORREL3_OFRBID_rets <- merge(CUMULCORREL3_OFRBID_rets, correl3_rets.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus3_OFRBID_rets_1sec, 10*60), 'minutes', k=10)
+  correl3_rets_1sec<- period.apply(align.time(near_plus3_OFRBID_rets_1sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl3_rets_1sec))), 2, substr, 12, 19)
+  correl3_rets_1sec.df <- as.data.frame(correl3_rets_1sec)
+  row.names(correl3_rets_1sec.df) <- temp 
+  colnames(correl3_rets_1sec.df) <- c("V1", "V2", "V3", "V4")
+  correl3_rets_1sec.df$TimeBins <- factor(row.names(correl3_rets_1sec.df))
+  correl3_rets_1sec.df <- correl3_rets_1sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL3_OFRBID_rets_1sec <- merge(CUMULCORREL3_OFRBID_rets_1sec, correl3_rets_1sec.df, by= "TimeBins", all= TRUE)
+  
+  ep <- endpoints(align.time(near_plus3_OFRBID_rets_10sec, 10*60), 'minutes', k=10)
+  correl3_rets_10sec<- period.apply(align.time(near_plus3_OFRBID_rets_10sec, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl3_rets_10sec))), 2, substr, 12, 19)
+  correl3_rets_10sec.df <- as.data.frame(correl3_rets_10sec)
+  row.names(correl3_rets_10sec.df) <- temp 
+  colnames(correl3_rets_10sec.df) <- c("V1", "V2", "V3", "V4")
+  correl3_rets_10sec.df$TimeBins <- factor(row.names(correl3_rets_10sec.df))
+  correl3_rets_10sec.df <- correl3_rets_10sec.df[,c("V2", "TimeBins")]
+  CUMULCORREL3_OFRBID_rets_10sec <- merge(CUMULCORREL3_OFRBID_rets_10sec, correl3_rets_10sec.df, by= "TimeBins", all= TRUE)
+  
+  # OFRBIDS, 'Returns' - no zeros
+  ep <- endpoints(align.time(near_plus3_OFRBID_rets_no0s, 10*60), 'minutes', k=10)
+  correl3_rets_no0s<- period.apply(align.time(near_plus3_OFRBID_rets_no0s, 10*60), INDEX=ep, FUN=cor, use = "pairwise.complete.obs")
+  temp <- apply(as.matrix(rownames(as.data.frame(correl3_rets_no0s))), 2, substr, 12, 19)
+  correl3_rets_no0s.df <- as.data.frame(correl3_rets_no0s)
+  row.names(correl3_rets_no0s.df) <- temp 
+  colnames(correl3_rets_no0s.df) <- c("V1", "V2", "V3", "V4")
+  correl3_rets_no0s.df$TimeBins <- factor(row.names(correl3_rets_no0s.df))
+  correl3_rets_no0s.df <- correl3_rets_no0s.df[,c("V2", "TimeBins")]
+  CUMULCORREL3_OFRBID_rets_no0s <- merge(CUMULCORREL3_OFRBID_rets_no0s, correl3_rets_no0s.df, by= "TimeBins", all= TRUE)
   # ######################################################################################## 
   
   
@@ -978,21 +1682,22 @@ CUMULCORREL_BID_rets <- rbind(CUMULCORREL1_BID_rets, CUMULCORREL2_BID_rets, CUMU
 pd <- position_dodge(0.4)
 MAXES <- min(CUMULCORREL_BID_rets$MEANS - CUMULCORREL_BID_rets$sdS,1)
 MINS <- max(CUMULCORREL_BID_rets$MEANS - CUMULCORREL_BID_rets$sdS,0)
-Bid_plot <- ggplot(CUMULCORREL_BID_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+Bid_plot_Report <- ggplot(CUMULCORREL_BID_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in BIDs - keep zeros') +
-  theme_bw() +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('Nearby and 1 Deferred\n  Correlations, OFR to BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
-ggsave(file="Bid_plot_report.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+ggsave(file="Bid_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 
 
@@ -1017,21 +1722,22 @@ CUMULCORREL_OFR_rets <- rbind(CUMULCORREL1_OFR_rets, CUMULCORREL2_OFR_rets, CUMU
 pd <- position_dodge(0.4)
 MAXES <- min(CUMULCORREL_OFR_rets$MEANS - CUMULCORREL_OFR_rets$sdS,1)
 MINS <- max(CUMULCORREL_OFR_rets$MEANS - CUMULCORREL_OFR_rets$sdS,0)
-OFR_plot <- ggplot(CUMULCORREL_OFR_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+OFR_plot_Report <- ggplot(CUMULCORREL_OFR_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in OFRs - keep zeros') +
-  theme_bw() +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation")+
+  ylab('Nearby and 1 Deferred\n  Correlations, OFR to BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
-ggsave(file="OFR_plot_report.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+ggsave(file="OFR_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 #########################################################################
 
 #######################################
@@ -1040,84 +1746,80 @@ ggsave(file="OFR_plot_report.png", path='C:/Users/mallorym/Documents/GitHub/BBOB
 CUMULCORREL1_BID_rets_no0s$MEANS <- apply(CUMULCORREL1_BID_rets_no0s[,2:dim(CUMULCORREL1_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_BID_rets_no0s$sdS <- apply(CUMULCORREL1_BID_rets_no0s[,2:dim(CUMULCORREL1_BID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL1_BID_rets_no0s$contract <- factor("1Deferred")  
-CUMULCORREL1_BID_rets_no0s$lag <- factor("Contemporaneous")
 
 # Bids Contemporaneous Plus2
 CUMULCORREL2_BID_rets_no0s$MEANS <- apply(CUMULCORREL2_BID_rets_no0s[,2:dim(CUMULCORREL2_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL2_BID_rets_no0s$sdS <- apply(CUMULCORREL2_BID_rets_no0s[,2:dim(CUMULCORREL2_BID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL2_BID_rets_no0s$contract <- factor("2Deferred")
-CUMULCORREL2_BID_rets_no0s$lag <- factor("Contemporaneous")
 
 # Bids Contemporaneous Plus3
 CUMULCORREL3_BID_rets_no0s$MEANS <- apply(CUMULCORREL3_BID_rets_no0s[,2:dim(CUMULCORREL3_BID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL3_BID_rets_no0s$sdS <- apply(CUMULCORREL3_BID_rets_no0s[,2:dim(CUMULCORREL3_BID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL3_BID_rets_no0s$contract <- factor("3Deferred")
-CUMULCORREL3_BID_rets_no0s$lag <- factor("Contemporaneous")
 
 CUMULCORREL_BID_rets_no0s <- rbind(CUMULCORREL1_BID_rets_no0s, CUMULCORREL2_BID_rets_no0s, CUMULCORREL3_BID_rets_no0s)
 
 pd <- position_dodge(0.4)
 MAXES <- min(CUMULCORREL_BID_rets_no0s$MEANS - CUMULCORREL_BID_rets_no0s$sdS,1)
 MINS <- max(CUMULCORREL_BID_rets_no0s$MEANS - CUMULCORREL_BID_rets_no0s$sdS,0)
-Bid_plot_no0s <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+Bid_plot_no0s_Report <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                        ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in BIDs - Information-Based') +
-  theme_bw() +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('BID - Report') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
-ggsave(file="Bid_plot_no0s_report.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+ggsave(file="Bid_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 ###############################
 # OFRs Contemporaneous Plus1
 CUMULCORREL1_OFR_rets_no0s$MEANS <- apply(CUMULCORREL1_OFR_rets_no0s[,2:dim(CUMULCORREL1_OFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_OFR_rets_no0s$sdS <- apply(CUMULCORREL1_OFR_rets_no0s[,2:dim(CUMULCORREL1_OFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL1_OFR_rets_no0s$contract <- factor("1Deferred")  
-CUMULCORREL1_OFR_rets_no0s$lag <- factor("Contemporaneous")
 
 # OFRs Contemporaneous Plus2
 CUMULCORREL2_OFR_rets_no0s$MEANS <- apply(CUMULCORREL2_OFR_rets_no0s[,2:dim(CUMULCORREL2_OFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL2_OFR_rets_no0s$sdS <- apply(CUMULCORREL2_OFR_rets_no0s[,2:dim(CUMULCORREL2_OFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL2_OFR_rets_no0s$contract <- factor("2Deferred")
-CUMULCORREL2_OFR_rets_no0s$lag <- factor("Contemporaneous")
 
 # OFRs Contemporaneous Plus3
 CUMULCORREL3_OFR_rets_no0s$MEANS <- apply(CUMULCORREL3_OFR_rets_no0s[,2:dim(CUMULCORREL3_OFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL3_OFR_rets_no0s$sdS <- apply(CUMULCORREL3_OFR_rets_no0s[,2:dim(CUMULCORREL3_OFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL3_OFR_rets_no0s$contract <- factor("3Deferred")
-CUMULCORREL3_OFR_rets_no0s$lag <- factor("Contemporaneous")
 
 CUMULCORREL_OFR_rets_no0s <- rbind(CUMULCORREL1_OFR_rets_no0s, CUMULCORREL2_OFR_rets_no0s, CUMULCORREL3_OFR_rets_no0s)
 
 pd <- position_dodge(0.4)
 MAXES <- min(CUMULCORREL_OFR_rets_no0s$MEANS - CUMULCORREL_OFR_rets_no0s$sdS,1)
 MINS <- max(CUMULCORREL_OFR_rets_no0s$MEANS - CUMULCORREL_OFR_rets_no0s$sdS,0)
-OFR_plot_no0s <- ggplot(CUMULCORREL_OFR_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+OFR_plot_no0s_Report <- ggplot(CUMULCORREL_OFR_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                        ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporanious Correleation with Nearby in OFRs - Information-Based') +
-  theme_bw() +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('OFR - Report ') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
-ggsave(file="OFR_plot_no0s_report.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+ggsave(file="OFR_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 #########################################################################
 #######################################
-# Plotting summaries - Time Lags no zeros nearby
+# Plotting summaries - Time Lags keep zeros
 # Bids Plus1
 CUMULCORREL1_BID_rets_1sec$MEANS <- apply(CUMULCORREL1_BID_rets_1sec[,2:dim(CUMULCORREL1_BID_rets_1sec)[2]], 1, mean, na.rm = TRUE)
 CUMULCORREL1_BID_rets_1sec$sdS <- apply(CUMULCORREL1_BID_rets_1sec[,2:dim(CUMULCORREL1_BID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
@@ -1139,27 +1841,66 @@ CUMULCORREL3_BID_rets_1sec$MEANS <- apply(CUMULCORREL3_BID_rets_1sec[,2:dim(CUMU
 CUMULCORREL3_BID_rets_1sec$sdS <- apply(CUMULCORREL3_BID_rets_1sec[,2:dim(CUMULCORREL3_BID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL3_BID_rets_1sec$contract <- factor("3Deferred")
 
-CUMULCORREL1_BID_rets$lag <- factor("Contemporaneous")
+CUMULCORREL1_BID_rets_no0s$lag <- factor("Contemporaneous")
 CUMULCORREL_BID_rets_timelag <- rbind(CUMULCORREL1_BID_rets_no0s, CUMULCORREL1_BID_rets_1sec, CUMULCORREL1_BID_rets_10sec)
 
 pd <- position_dodge(0.4)
 MAXES <- min(CUMULCORREL_BID_rets_timelag$MEANS - CUMULCORREL_BID_rets_timelag$sdS,1)
 MINS <- max(CUMULCORREL_BID_rets_timelag$MEANS - CUMULCORREL_BID_rets_timelag$sdS,0)
-Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+Bid_plot_timelag_Report <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                              ymax = MEANS+sdS, colour=lag, group=lag) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, BID') +
-  theme_bw() +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('BID - Report') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
-ggsave(file="Bid_plot_timelag_report.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+ggsave(file="Bid_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+
+###############################
+#######################################
+# Plotting summaries - Time Lags keep zeros
+# Plus1 Bids
+CUMULCORREL1N_BID_rets_1sec$MEANS <- apply(CUMULCORREL1N_BID_rets_1sec[,2:dim(CUMULCORREL1N_BID_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1N_BID_rets_1sec$sdS <- apply(CUMULCORREL1N_BID_rets_1sec[,2:dim(CUMULCORREL1N_BID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1N_BID_rets_1sec$contract <- factor("1Deferred")
+CUMULCORREL1N_BID_rets_1sec$lag <- factor("One Second")
+
+CUMULCORREL1N_BID_rets_10sec$MEANS <- apply(CUMULCORREL1N_BID_rets_10sec[,2:dim(CUMULCORREL1N_BID_rets_10sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1N_BID_rets_10sec$sdS <- apply(CUMULCORREL1N_BID_rets_10sec[,2:dim(CUMULCORREL1N_BID_rets_10sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1N_BID_rets_10sec$contract <- factor("1Deferred")  
+CUMULCORREL1N_BID_rets_10sec$lag <- factor("Ten Seconds")  
+
+
+CUMULCORREL1_BID_rets_no0s$lag <- factor("Contemporaneous")
+CUMULCORREL1N_BID_rets_timelag <- rbind(CUMULCORREL1_BID_rets_no0s, CUMULCORREL1N_BID_rets_1sec, CUMULCORREL1N_BID_rets_10sec)
+
+pd <- position_dodge(0.4)
+MAXES <- min(CUMULCORREL1N_BID_rets_timelag$MEANS - CUMULCORREL1N_BID_rets_timelag$sdS,1)
+MINS <- max(CUMULCORREL1N_BID_rets_timelag$MEANS - CUMULCORREL1N_BID_rets_timelag$sdS,0)
+Bid_plot_timelag1N_Report <- ggplot(CUMULCORREL1N_BID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+                                                                 ymax = MEANS+sdS, colour=lag, group=lag) ) + 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
+  #scale_colour_grey() + 
+  ylab('Nearby and 1 Deferred\n BID Reverse \n Price Discovery') +
+  coord_cartesian(ylim = c(-.2, 1.2))+
+  scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
+ggsave(file="Bid_plot_timelag1N.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 ###############################
 # OFRs Contemporaneous Plus1
@@ -1183,27 +1924,289 @@ CUMULCORREL3_OFR_rets_1sec$MEANS <- apply(CUMULCORREL3_OFR_rets_1sec[,2:dim(CUMU
 CUMULCORREL3_OFR_rets_1sec$sdS <- apply(CUMULCORREL3_OFR_rets_1sec[,2:dim(CUMULCORREL3_OFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
 CUMULCORREL3_OFR_rets_1sec$contract <- factor("3Deferred")
 
-CUMULCORREL1_OFR_rets$lag <- factor("Contemporaneous")
+CUMULCORREL1_OFR_rets_no0s$lag <- factor("Contemporaneous")
 CUMULCORREL_OFR_rets_timelag <- rbind(CUMULCORREL1_OFR_rets_no0s, CUMULCORREL1_OFR_rets_1sec, CUMULCORREL1_OFR_rets_10sec)
 
 pd <- position_dodge(0.4)
 MAXES <- min(CUMULCORREL_OFR_rets_timelag$MEANS - CUMULCORREL_OFR_rets_timelag$sdS,1)
 MINS <- max(CUMULCORREL_OFR_rets_timelag$MEANS - CUMULCORREL_OFR_rets_timelag$sdS,0)
-OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+OFR_plot_timelag_Report <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                              ymax = MEANS+sdS, colour=lag, group=lag) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, OFR') +
-  theme_bw() +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('OFR - Report') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
-ggsave(file="OFR_plot_timelag_report.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+ggsave(file="OFR_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+###########################################
+###############################
+# Plus1 OFRs
+CUMULCORREL1N_OFR_rets_1sec$MEANS <- apply(CUMULCORREL1N_OFR_rets_1sec[,2:dim(CUMULCORREL1N_OFR_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1N_OFR_rets_1sec$sdS <- apply(CUMULCORREL1N_OFR_rets_1sec[,2:dim(CUMULCORREL1N_OFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1N_OFR_rets_1sec$contract <- factor("1Deferred")
+CUMULCORREL1N_OFR_rets_1sec$lag <- factor("One Second")
+
+CUMULCORREL1N_OFR_rets_10sec$MEANS <- apply(CUMULCORREL1N_OFR_rets_10sec[,2:dim(CUMULCORREL1N_OFR_rets_10sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1N_OFR_rets_10sec$sdS <- apply(CUMULCORREL1N_OFR_rets_10sec[,2:dim(CUMULCORREL1N_OFR_rets_10sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1N_OFR_rets_10sec$contract <- factor("1Deferred")  
+CUMULCORREL1N_OFR_rets_10sec$lag <- factor("Ten Seconds")  
+
+
+CUMULCORREL1_OFR_rets_no0s$lag <- factor("Contemporaneous")
+CUMULCORREL1N_OFR_rets_timelag <- rbind(CUMULCORREL1_OFR_rets_no0s, CUMULCORREL1N_OFR_rets_1sec, CUMULCORREL1N_OFR_rets_10sec)
+
+pd <- position_dodge(0.4)
+MAXES <- min(CUMULCORREL1N_OFR_rets_timelag$MEANS - CUMULCORREL1N_OFR_rets_timelag$sdS,1)
+MINS <- max(CUMULCORREL1N_OFR_rets_timelag$MEANS - CUMULCORREL1N_OFR_rets_timelag$sdS,0)
+OFR_plot_timelag1N_Report <- ggplot(CUMULCORREL1N_OFR_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+                                                                 ymax = MEANS+sdS, colour=lag, group=lag) ) + 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
+  #scale_colour_grey() + 
+  ylab('Nearby and 1 Deferred\n OFR Reverse \n Price Discovery') +
+  coord_cartesian(ylim = c(-.2, 1.2))+
+  scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
+ggsave(file="OFR_plot_timelag1N.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+
+###########################################
+# Plotting summaries - keep zeros
+# BIDOFRs Contemporaneous Plus1
+CUMULCORREL1_BIDOFR_rets$MEANS <- apply(CUMULCORREL1_BIDOFR_rets[,2:dim(CUMULCORREL1_BIDOFR_rets)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_BIDOFR_rets$sdS <- apply(CUMULCORREL1_BIDOFR_rets[,2:dim(CUMULCORREL1_BIDOFR_rets)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1_BIDOFR_rets$contract <- factor("1Deferred")  
+
+# BIDOFRs Contemporaneous Plus2
+CUMULCORREL2_BIDOFR_rets$MEANS <- apply(CUMULCORREL2_BIDOFR_rets[,2:dim(CUMULCORREL2_BIDOFR_rets)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL2_BIDOFR_rets$sdS <- apply(CUMULCORREL2_BIDOFR_rets[,2:dim(CUMULCORREL2_BIDOFR_rets)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL2_BIDOFR_rets$contract <- factor("2Deferred")
+
+# BIDOFRs Contemporaneous Plus3
+CUMULCORREL3_BIDOFR_rets$MEANS <- apply(CUMULCORREL3_BIDOFR_rets[,2:dim(CUMULCORREL3_BIDOFR_rets)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL3_BIDOFR_rets$sdS <- apply(CUMULCORREL3_BIDOFR_rets[,2:dim(CUMULCORREL3_BIDOFR_rets)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL3_BIDOFR_rets$contract <- factor("3Deferred")
+
+CUMULCORREL_BIDOFR_rets <- rbind(CUMULCORREL1_BIDOFR_rets, CUMULCORREL2_BIDOFR_rets, CUMULCORREL3_BIDOFR_rets)
+
+pd <- position_dodge(0.4)
+MAXES <- min(CUMULCORREL_BIDOFR_rets$MEANS - CUMULCORREL_BIDOFR_rets$sdS,1)
+MINS <- max(CUMULCORREL_BIDOFR_rets$MEANS - CUMULCORREL_BIDOFR_rets$sdS,0)
+BIDOFR_plot_Report <- ggplot(CUMULCORREL_BIDOFR_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+                                                   ymax = MEANS+sdS, colour=contract, group=contract) ) + 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
+  #scale_colour_grey() + 
+  ylab('Nearby and Deferreds\n  BID to OFR') +
+  coord_cartesian(ylim = c(-.2, 1.2))+
+  scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
+ggsave(file="BIDOFR_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+
+#########################################################################
+
+#######################################
+# Plotting summaries - No zeros
+# Bids Contemporaneous Plus1
+CUMULCORREL1_BIDOFR_rets_no0s$MEANS <- apply(CUMULCORREL1_BIDOFR_rets_no0s[,2:dim(CUMULCORREL1_BIDOFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_BIDOFR_rets_no0s$sdS <- apply(CUMULCORREL1_BIDOFR_rets_no0s[,2:dim(CUMULCORREL1_BIDOFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1_BIDOFR_rets_no0s$contract <- factor("1Deferred")  
+
+# BIDOFRs Contemporaneous Plus2
+CUMULCORREL2_BIDOFR_rets_no0s$MEANS <- apply(CUMULCORREL2_BIDOFR_rets_no0s[,2:dim(CUMULCORREL2_BIDOFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL2_BIDOFR_rets_no0s$sdS <- apply(CUMULCORREL2_BIDOFR_rets_no0s[,2:dim(CUMULCORREL2_BIDOFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL2_BIDOFR_rets_no0s$contract <- factor("2Deferred")
+
+# BIDOFRs Contemporaneous Plus3
+CUMULCORREL3_BIDOFR_rets_no0s$MEANS <- apply(CUMULCORREL3_BIDOFR_rets_no0s[,2:dim(CUMULCORREL3_BIDOFR_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL3_BIDOFR_rets_no0s$sdS <- apply(CUMULCORREL3_BIDOFR_rets_no0s[,2:dim(CUMULCORREL3_BIDOFR_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL3_BIDOFR_rets_no0s$contract <- factor("3Deferred")
+
+CUMULCORREL_BIDOFR_rets_no0s <- rbind(CUMULCORREL1_BIDOFR_rets_no0s, CUMULCORREL2_BIDOFR_rets_no0s, CUMULCORREL3_BIDOFR_rets_no0s)
+
+pd <- position_dodge(0.4)
+MAXES <- min(CUMULCORREL_BIDOFR_rets_no0s$MEANS - CUMULCORREL_BIDOFR_rets_no0s$sdS,1)
+MINS <- max(CUMULCORREL_BIDOFR_rets_no0s$MEANS - CUMULCORREL_BIDOFR_rets_no0s$sdS,0)
+BIDOFR_plot_no0s_Report <- ggplot(CUMULCORREL_BIDOFR_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+                                                             ymax = MEANS+sdS, colour=contract, group=contract) ) + 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
+  #scale_colour_grey() + 
+  ylab('Nearby and Deferreds\n  BID to OFR') +
+  coord_cartesian(ylim = c(-.2, 1.2))+
+  scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
+ggsave(file="BIDOFR_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+
+#######################################
+# Plotting summaries - No zeros
+# Bids Contemporaneous Plus1
+CUMULCORREL1_OFRBID_rets_no0s$MEANS <- apply(CUMULCORREL1_OFRBID_rets_no0s[,2:dim(CUMULCORREL1_OFRBID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_OFRBID_rets_no0s$sdS <- apply(CUMULCORREL1_OFRBID_rets_no0s[,2:dim(CUMULCORREL1_OFRBID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1_OFRBID_rets_no0s$contract <- factor("1Deferred")  
+
+# OFRBIDs Contemporaneous Plus2
+CUMULCORREL2_OFRBID_rets_no0s$MEANS <- apply(CUMULCORREL2_OFRBID_rets_no0s[,2:dim(CUMULCORREL2_OFRBID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL2_OFRBID_rets_no0s$sdS <- apply(CUMULCORREL2_OFRBID_rets_no0s[,2:dim(CUMULCORREL2_OFRBID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL2_OFRBID_rets_no0s$contract <- factor("2Deferred")
+
+# OFRBIDs Contemporaneous Plus3
+CUMULCORREL3_OFRBID_rets_no0s$MEANS <- apply(CUMULCORREL3_OFRBID_rets_no0s[,2:dim(CUMULCORREL3_OFRBID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL3_OFRBID_rets_no0s$sdS <- apply(CUMULCORREL3_OFRBID_rets_no0s[,2:dim(CUMULCORREL3_OFRBID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL3_OFRBID_rets_no0s$contract <- factor("3Deferred")
+
+CUMULCORREL_OFRBID_rets_no0s <- rbind(CUMULCORREL1_OFRBID_rets_no0s, CUMULCORREL2_OFRBID_rets_no0s, CUMULCORREL3_OFRBID_rets_no0s)
+
+pd <- position_dodge(0.4)
+MAXES <- min(CUMULCORREL_OFRBID_rets_no0s$MEANS - CUMULCORREL_OFRBID_rets_no0s$sdS,1)
+MINS <- max(CUMULCORREL_OFRBID_rets_no0s$MEANS - CUMULCORREL_OFRBID_rets_no0s$sdS,0)
+OFRBID_plot_no0s_Report <- ggplot(CUMULCORREL_OFRBID_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+                                                             ymax = MEANS+sdS, colour=contract, group=contract) ) + 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
+  #scale_colour_grey() + 
+  ylab('Nearby and Deferreds\n OFR to BID') +
+  coord_cartesian(ylim = c(-.2, 1.2))+
+  scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
+ggsave(file="OFRBID_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+#########################################################################
+#######################################
+# Plotting summaries - Time Lags keep zeros
+# Bids Plus1
+CUMULCORREL1_BIDOFR_rets_1sec$MEANS <- apply(CUMULCORREL1_BIDOFR_rets_1sec[,2:dim(CUMULCORREL1_BIDOFR_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_BIDOFR_rets_1sec$sdS <- apply(CUMULCORREL1_BIDOFR_rets_1sec[,2:dim(CUMULCORREL1_BIDOFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1_BIDOFR_rets_1sec$contract <- factor("1Deferred")
+CUMULCORREL1_BIDOFR_rets_1sec$lag <- factor("One Second")
+
+CUMULCORREL1_BIDOFR_rets_10sec$MEANS <- apply(CUMULCORREL1_BIDOFR_rets_10sec[,2:dim(CUMULCORREL1_BIDOFR_rets_10sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_BIDOFR_rets_10sec$sdS <- apply(CUMULCORREL1_BIDOFR_rets_10sec[,2:dim(CUMULCORREL1_BIDOFR_rets_10sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1_BIDOFR_rets_10sec$contract <- factor("1Deferred")  
+CUMULCORREL1_BIDOFR_rets_10sec$lag <- factor("Ten Seconds")  
+
+# BIDOFRs  Plus2
+CUMULCORREL2_BIDOFR_rets_1sec$MEANS <- apply(CUMULCORREL2_BIDOFR_rets_1sec[,2:dim(CUMULCORREL2_BIDOFR_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL2_BIDOFR_rets_1sec$sdS <- apply(CUMULCORREL2_BIDOFR_rets_1sec[,2:dim(CUMULCORREL2_BIDOFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL2_BIDOFR_rets_1sec$contract <- factor("2Deferred")
+
+# BIDOFRs  Plus3
+CUMULCORREL3_BIDOFR_rets_1sec$MEANS <- apply(CUMULCORREL3_BIDOFR_rets_1sec[,2:dim(CUMULCORREL3_BIDOFR_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL3_BIDOFR_rets_1sec$sdS <- apply(CUMULCORREL3_BIDOFR_rets_1sec[,2:dim(CUMULCORREL3_BIDOFR_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL3_BIDOFR_rets_1sec$contract <- factor("3Deferred")
+
+CUMULCORREL1_BIDOFR_rets_no0s$lag <- factor("Contemporaneous")
+CUMULCORREL_BIDOFR_rets_timelag <- rbind(CUMULCORREL1_BIDOFR_rets_no0s, CUMULCORREL1_BIDOFR_rets_1sec, CUMULCORREL1_BIDOFR_rets_10sec)
+
+pd <- position_dodge(0.4)
+MAXES <- min(CUMULCORREL_BIDOFR_rets_timelag$MEANS - CUMULCORREL_BIDOFR_rets_timelag$sdS,1)
+MINS <- max(CUMULCORREL_BIDOFR_rets_timelag$MEANS - CUMULCORREL_BIDOFR_rets_timelag$sdS,0)
+BIDOFR_plot_timelag_Report <- ggplot(CUMULCORREL_BIDOFR_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+                                                                   ymax = MEANS+sdS, colour=lag, group=lag) ) + 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, BID to OFR') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
+  #scale_colour_grey() + 
+  ylab('BID to OFR - Report') +
+  coord_cartesian(ylim = c(-.2, 1.2))+
+  scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
+ggsave(file="BIDOFR_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+
+#######################################
+# Plotting summaries - Time Lags keep zeros
+# OFRBids Plus1
+#CUMULCORREL1_OFRBID_rets_no0s$MEANS <- apply(CUMULCORREL1_OFRBID_rets_no0s[,2:dim(CUMULCORREL1_OFRBID_rets_no0s)[2]], 1, mean, na.rm = TRUE)
+#CUMULCORREL1_OFRBID_rets_no0s$sdS <- apply(CUMULCORREL1_OFRBID_rets_no0s[,2:dim(CUMULCORREL1_OFRBID_rets_no0s)[2]], 1, sd, na.rm = TRUE) 
+#CUMULCORREL1_OFRBID_rets_no0s$contract <- factor("1Deferred")
+
+CUMULCORREL1_OFRBID_rets_1sec$MEANS <- apply(CUMULCORREL1_OFRBID_rets_1sec[,2:dim(CUMULCORREL1_OFRBID_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_OFRBID_rets_1sec$sdS <- apply(CUMULCORREL1_OFRBID_rets_1sec[,2:dim(CUMULCORREL1_OFRBID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1_OFRBID_rets_1sec$contract <- factor("1Deferred")
+CUMULCORREL1_OFRBID_rets_1sec$lag <- factor("One Second")
+
+CUMULCORREL1_OFRBID_rets_10sec$MEANS <- apply(CUMULCORREL1_OFRBID_rets_10sec[,2:dim(CUMULCORREL1_OFRBID_rets_10sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL1_OFRBID_rets_10sec$sdS <- apply(CUMULCORREL1_OFRBID_rets_10sec[,2:dim(CUMULCORREL1_OFRBID_rets_10sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL1_OFRBID_rets_10sec$contract <- factor("1Deferred")  
+CUMULCORREL1_OFRBID_rets_10sec$lag <- factor("Ten Seconds")  
+
+# OFRBIDs  Plus2
+CUMULCORREL2_OFRBID_rets_1sec$MEANS <- apply(CUMULCORREL2_OFRBID_rets_1sec[,2:dim(CUMULCORREL2_OFRBID_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL2_OFRBID_rets_1sec$sdS <- apply(CUMULCORREL2_OFRBID_rets_1sec[,2:dim(CUMULCORREL2_OFRBID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL2_OFRBID_rets_1sec$contract <- factor("2Deferred")
+
+# OFRBIDs  Plus3
+CUMULCORREL3_OFRBID_rets_1sec$MEANS <- apply(CUMULCORREL3_OFRBID_rets_1sec[,2:dim(CUMULCORREL3_OFRBID_rets_1sec)[2]], 1, mean, na.rm = TRUE)
+CUMULCORREL3_OFRBID_rets_1sec$sdS <- apply(CUMULCORREL3_OFRBID_rets_1sec[,2:dim(CUMULCORREL3_OFRBID_rets_1sec)[2]], 1, sd, na.rm = TRUE) 
+CUMULCORREL3_OFRBID_rets_1sec$contract <- factor("3Deferred")
+
+CUMULCORREL1_OFRBID_rets_no0s$lag <- factor("Contemporaneous")
+CUMULCORREL1_OFRBID_rets_timelag <- rbind(CUMULCORREL1_OFRBID_rets_no0s, CUMULCORREL1_OFRBID_rets_1sec, CUMULCORREL1_OFRBID_rets_10sec)
+
+pd <- position_dodge(0.4)
+MAXES <- min(CUMULCORREL1_OFRBID_rets_timelag$MEANS - CUMULCORREL1_OFRBID_rets_timelag$sdS,1)
+MINS <- max(CUMULCORREL1_OFRBID_rets_timelag$MEANS - CUMULCORREL1_OFRBID_rets_timelag$sdS,0)
+OFRBID_plot_timelag_Report <- ggplot(CUMULCORREL1_OFRBID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
+                                                                    ymax = MEANS+sdS, colour=lag, group=lag) ) + 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+        panel.background = element_rect(fill = 'white'), 
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
+  #scale_colour_grey() + 
+  ylab('OFR to BID - Report') +
+  coord_cartesian(ylim = c(-.2, 1.2))+
+  scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
+ggsave(file="OFRBID_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+
+
+# These are the figures that made it into the manuscript
+# This list is loaded into the summary.R file to generate manuscript figures.
+figs_list_Report <- list(Bid_plot_no0s_Report, OFR_plot_no0s_Report, Bid_plot_timelag_Report, OFR_plot_timelag_Report,
+                       BIDOFR_plot_timelag_Report, OFRBID_plot_timelag_Report)
+save(figs_list_Report, file = 'C:/Users/mallorym/Documents/GitHub/BBOBAS/figs_list_Report.Rda')
+
+
 ###########################################
 ###########################################
 # Bid_plot

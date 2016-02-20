@@ -1683,19 +1683,20 @@ CUMULCORREL3_OFRBID_rets_no0s <- merge(CUMULCORREL3_OFRBID_rets_no0s, correl3_re
   MINS <- max(CUMULCORREL_BID_rets$MEANS - CUMULCORREL_BID_rets$sdS,0)
   Bid_plot <- ggplot(CUMULCORREL_BID_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                  ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-    geom_errorbar(size=1, position=pd) +
-    geom_point(size=4, position=pd) + 
-    geom_line(size=0.25, position=pd) +
-    ggtitle('Contemporaneous Correlation with Nearby in BIDs') +
-    theme_bw() +
+    geom_errorbar(size=.5, position=pd) +
+    geom_point(size=2, position=pd) + 
+    #geom_line(size=0.25, position=pd) +
+    #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+    theme_bw(base_size = 8) +
     theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
-        panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+          panel.background = element_rect(fill = 'white'), 
+          panel.grid.major = element_line(colour = "white"),
+          panel.grid.minor = element_line(colour = 'white')) +
     #scale_colour_grey() + 
-    ylab("Correlation") +
-  coord_cartesian(ylim = c(-.2, 1.2))+
-  scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
-ggsave(file="Bid_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
+    ylab('Nearby and 1 Deferred\n  Correlations, OFR to BID') +
+    coord_cartesian(ylim = c(-.2, 1.2))+
+    scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
+  ggsave(file="Bid_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
 
 
 
@@ -1722,16 +1723,17 @@ MAXES <- min(CUMULCORREL_OFR_rets$MEANS - CUMULCORREL_OFR_rets$sdS,1)
 MINS <- max(CUMULCORREL_OFR_rets$MEANS - CUMULCORREL_OFR_rets$sdS,0)
 OFR_plot <- ggplot(CUMULCORREL_OFR_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporaneous Correlation with Nearby in OFRs') +
-  theme_bw() +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation")+
+  ylab('Nearby and 1 Deferred\n  Correlations, OFR to BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="OFR_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -1761,16 +1763,17 @@ MAXES <- min(CUMULCORREL_BID_rets_no0s$MEANS - CUMULCORREL_BID_rets_no0s$sdS,1)
 MINS <- max(CUMULCORREL_BID_rets_no0s$MEANS - CUMULCORREL_BID_rets_no0s$sdS,0)
 Bid_plot_no0s <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporaneous Correlation with Nearby in BIDs - Information-Based') +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
   theme_bw(base_size = 8) +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="Bid_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -1798,16 +1801,17 @@ MAXES <- min(CUMULCORREL_OFR_rets_no0s$MEANS - CUMULCORREL_OFR_rets_no0s$sdS,1)
 MINS <- max(CUMULCORREL_OFR_rets_no0s$MEANS - CUMULCORREL_OFR_rets_no0s$sdS,0)
 OFR_plot_no0s <- ggplot(CUMULCORREL_OFR_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporaneous Correlation with Nearby in OFRs - Information-Based') +
-  theme_bw() +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('OFR') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="OFR_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -1844,16 +1848,17 @@ MAXES <- min(CUMULCORREL_BID_rets_timelag$MEANS - CUMULCORREL_BID_rets_timelag$s
 MINS <- max(CUMULCORREL_BID_rets_timelag$MEANS - CUMULCORREL_BID_rets_timelag$sdS,0)
 Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=lag, group=lag) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlation, BID') +
-  theme_bw() +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="Bid_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -1881,16 +1886,17 @@ MAXES <- min(CUMULCORREL1N_BID_rets_timelag$MEANS - CUMULCORREL1N_BID_rets_timel
 MINS <- max(CUMULCORREL1N_BID_rets_timelag$MEANS - CUMULCORREL1N_BID_rets_timelag$sdS,0)
 Bid_plot_timelag1N <- ggplot(CUMULCORREL1N_BID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                              ymax = MEANS+sdS, colour=lag, group=lag) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlation, BID') +
-  theme_bw() +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('Nearby and 1 Deferred\n  Correlations, OFR to BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="Bid_plot_timelag1N.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -1925,16 +1931,17 @@ MAXES <- min(CUMULCORREL_OFR_rets_timelag$MEANS - CUMULCORREL_OFR_rets_timelag$s
 MINS <- max(CUMULCORREL_OFR_rets_timelag$MEANS - CUMULCORREL_OFR_rets_timelag$sdS,0)
 OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                              ymax = MEANS+sdS, colour=lag, group=lag) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, OFR') +
-  theme_bw() +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('OFR') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="OFR_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -1960,16 +1967,17 @@ MAXES <- min(CUMULCORREL1N_OFR_rets_timelag$MEANS - CUMULCORREL1N_OFR_rets_timel
 MINS <- max(CUMULCORREL1N_OFR_rets_timelag$MEANS - CUMULCORREL1N_OFR_rets_timelag$sdS,0)
 OFR_plot_timelag1N <- ggplot(CUMULCORREL1N_OFR_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                                  ymax = MEANS+sdS, colour=lag, group=lag) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlation, OFR') +
-  theme_bw() +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('Nearby and 1 Deferred\n  Correlations, OFR to BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="OFR_plot_timelag1N.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -1998,16 +2006,17 @@ MAXES <- min(CUMULCORREL_BIDOFR_rets$MEANS - CUMULCORREL_BIDOFR_rets$sdS,1)
 MINS <- max(CUMULCORREL_BIDOFR_rets$MEANS - CUMULCORREL_BIDOFR_rets$sdS,0)
 BIDOFR_plot <- ggplot(CUMULCORREL_BIDOFR_rets, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporaneous Correlation with Nearby in BIDs to OFRs') +
-  theme_bw() +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('Nearby and 1 Deferred\n  Correlations, OFR to BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="BIDOFR_plot.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -2038,16 +2047,17 @@ MAXES <- min(CUMULCORREL_BIDOFR_rets_no0s$MEANS - CUMULCORREL_BIDOFR_rets_no0s$s
 MINS <- max(CUMULCORREL_BIDOFR_rets_no0s$MEANS - CUMULCORREL_BIDOFR_rets_no0s$sdS,0)
 BIDOFR_plot_no0s <- ggplot(CUMULCORREL_BIDOFR_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                        ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporaneous Correlation with Nearby in BID to OFRs - Information-Based') +
-  theme_bw() +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('Nearby and 1 Deferred\n  Correlations, OFR to BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="BIDOFR_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -2076,16 +2086,17 @@ MAXES <- min(CUMULCORREL_OFRBID_rets_no0s$MEANS - CUMULCORREL_OFRBID_rets_no0s$s
 MINS <- max(CUMULCORREL_OFRBID_rets_no0s$MEANS - CUMULCORREL_OFRBID_rets_no0s$sdS,0)
 OFRBID_plot_no0s <- ggplot(CUMULCORREL_OFRBID_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                              ymax = MEANS+sdS, colour=contract, group=contract) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Contemporaneous Correlation with Nearby in OFR to BIDs - Information-Based') +
-  theme_bw() +
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('Nearby and 1 Deferred\n  Correlations, OFR to BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="OFRBID_plot_no0s.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -2120,17 +2131,18 @@ pd <- position_dodge(0.4)
 MAXES <- min(CUMULCORREL_BIDOFR_rets_timelag$MEANS - CUMULCORREL_BIDOFR_rets_timelag$sdS,1)
 MINS <- max(CUMULCORREL_BIDOFR_rets_timelag$MEANS - CUMULCORREL_BIDOFR_rets_timelag$sdS,0)
 BIDOFR_plot_timelag <- ggplot(CUMULCORREL_BIDOFR_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
-                                                             ymax = MEANS+sdS, colour=lag, group=lag) ) + 
-  geom_errorbar(size=1, position=pd) +
-  geom_point(size=4, position=pd) + 
-  geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, BID to OFR') +
-  theme_bw() +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+                                                                   ymax = MEANS+sdS, colour=lag, group=lag) ) + 
+  geom_errorbar(size=.5, position=pd) +
+  geom_point(size=2, position=pd) + 
+  #geom_line(size=0.25, position=pd) +
+  #ggtitle('Nearby and 1 Deferred Correlations, BID to OFR') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('BID to OFR') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="BIDOFR_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -2169,17 +2181,19 @@ pd <- position_dodge(0.4)
 MAXES <- min(CUMULCORREL1_OFRBID_rets_timelag$MEANS - CUMULCORREL1_OFRBID_rets_timelag$sdS,1)
 MINS <- max(CUMULCORREL1_OFRBID_rets_timelag$MEANS - CUMULCORREL1_OFRBID_rets_timelag$sdS,0)
 OFRBID_plot_timelag <- ggplot(CUMULCORREL1_OFRBID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
-                                                                   ymax = MEANS+sdS, colour=lag, group=lag) ) + 
+                                                                    ymax = MEANS+sdS, colour=lag, group=lag) ) + 
   geom_errorbar(size=.5, position=pd) +
-  geom_point(size=1, position=pd) + 
+  geom_point(size=2, position=pd) + 
+  
   #geom_line(size=0.25, position=pd) +
-  ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
-  theme_bw(aspect.ratio=1) +
-  theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
+  #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
+  theme_bw(base_size = 8) +
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
-        panel.grid.major = element_line(colour = "grey")) +
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = 'white')) +
   #scale_colour_grey() + 
-  ylab("Correlation") +
+  ylab('OFR to BID') +
   coord_cartesian(ylim = c(-.2, 1.2))+
   scale_y_continuous(minor_breaks = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1), breaks = c(0, .2, .4, .6, .8, 1., 1.2))
 ggsave(file="OFRBID_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/BBOBAS', scale=1, height=4, width=8, units="in")
@@ -2188,9 +2202,15 @@ ggsave(file="OFRBID_plot_timelag.png", path='C:/Users/mallorym/Documents/GitHub/
 #png("~/GitHub/BBOBAS/test.png")
 #grid.arrange(Bid_plot, OFR_plot, Bid_plot_no0s, OFRBID_plot_timelag , ncol=1)
 #dev.off()
-png("~/GitHub/BBOBAS/test.png")
-multiplot(Bid_plot, OFR_plot, Bid_plot_no0s, OFRBID_plot_timelag , ncol=1)
-dev.off()
+#png("~/GitHub/BBOBAS/test.png")
+#multiplot(Bid_plot, OFR_plot, Bid_plot_no0s, OFRBID_plot_timelag , ncol=1)
+#dev.off()
+
+# These are the figures that made it into the manuscript
+# This list is loaded into the summary.R file to generate manuscript figures.
+figs_list_full <- list(Bid_plot_no0s, OFR_plot_no0s, Bid_plot_timelag, OFR_plot_timelag, BIDOFR_plot_timelag, OFRBID_plot_timelag)
+save(figs_list_full, file = 'C:/Users/mallorym/Documents/GitHub/BBOBAS/figs_list_full.Rda')
+
 ###############################
 # Bid_plot
 # OFR_plot
