@@ -112,6 +112,8 @@ accum <- RollContracts(accum, r = RollDate)
 
 DT   <- data.table::rbindlist(accum)                                 # Binds elements of the list into one data table 
 DT[, TradeDate := datemanip(DT[, 1, with = FALSE])]                  # Convert date to proper date format
+DT[, TradeDate := datemanip(DT)]
+#Trouble with datemanip
 
 namedefs <- function(x) {                                            # Helper function to name the deferreds 
                y <- data.table(Deferreds = c("Nearby", "1st Deferred", "2nd Deferred"))
