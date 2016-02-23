@@ -289,7 +289,7 @@ grid.arrange(dailyaveprice, numasksplot, numbidsplot, numtransplot, ncol=1, heig
 
 ```
 
-Figure displays data for the corn futures market from 1/14/2008 to 12/31/2011 for the nearby contract. The September contract is excluded due to the possibility of 'old crop' and 'new crop' both being delivered on this contract. To form the continuous nearby series contracts are rolled to the next contract prior to entering the delivery month. 
+Figure displays data for the corn futures market from 1/14/2008 to 12/31/2011 for the nearby contract. The September contract is excluded due to the possibility of 'old crop' and 'new crop' both being delivered on this contract. To form the continuous nearby series contracts are rolled to the next contract on the 20th of the month prior to the delivery month. 
 
 *Figure numbers have not been updated to reflect the addition of the figure above. Nor has a discussion of the figure above been added to the manuscript yet.*
 

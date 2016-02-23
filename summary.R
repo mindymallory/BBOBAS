@@ -111,17 +111,12 @@ accum <- RollContracts(accum, r = RollDate)
 # Tidy up the data.table in preparation for the ggplot2
 
 DT   <- data.table::rbindlist(accum)                                 # Binds elements of the list into one data table 
-DT[, TradeDate := datemanip(DT[, 1, with = FALSE])]                  # Convert date to proper date format
-DT[, TradeDate := datemanip(DT)]
-#Trouble with datemanip
+DT[, TradeDate := datemanip(TradeDate)]                  # Convert date to proper date format
 
-namedefs <- function(x) {                                            # Helper function to name the deferreds 
-               y <- data.table(Deferreds = c("Nearby", "1st Deferred", "2nd Deferred"))
-               return(y)
-}
 
                                                                      
-DT   <- dcast.data.table(DT, TradeDate + DeliveryDate ~ ASKBID,      # Cast DT and give useful names for ggplot2 groups
+#DT   <- dcast.data.table(DT, TradeDate + DeliveryDate ~ ASKBID,      # Cast DT and give useful names for ggplot2 groups
+DT   <- dcast.data.table(DT, TradeDate + Deferreds ~ ASKBID,      # Cast DT and give useful names for ggplot2 groups
                          value.var = c("N", "Price")) %>%
         setnames(c("N_A", "N_B", "N_NA", "Price_A", "Price_B",       # Replace with more useful names
                    "Price_NA"), c("NumberofAsks", "NumberofBids",
@@ -134,7 +129,8 @@ DT[, c("NumberofAsks", "NumberofBids") := .(round(NumberofAsks/2 - NumberofTrans
                             round(NumberofBids/2 - NumberofTransactions/2))]         # ask(bid) that was not revised on the same trseqnum prior to 2012
 
 DT   <- data.table::melt(DT, id.vars = c("TradeDate",                # Final melt before ggplot2 
-                      "DeliveryDate", "Deferreds"))
+                                         "Deferreds"))
+                                         #                     "DeliveryDate", "Deferreds"))
 
 save(DT, file = 'SummaryDT.Rda')
 
