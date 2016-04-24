@@ -603,9 +603,11 @@ CUMULCORREL3_OFRBID_rets_no0s$TimeBins <- factor(row.names(CUMULCORREL3_OFRBID_r
 
 #########################################################
 # Fix the missing '0' in the files names for 08 and 09
-dates[1:488] <- paste0('0',dates[1:497])
+dates[1:488] <- paste0('0',dates[1:488])
+#dates[1:497] <- paste0('0',dates[1:497])
 
-for(i in 1:length(dates)){
+#for(i in 1:length(dates)){
+for(i in 489:length(dates)){
     #This is already named 'DeliveryDates' upon loading. It must remember the name of the xts object it was saved from
     load(paste0('Contracts', as.character(dates[i]) ,".rda")) 
 
@@ -671,7 +673,13 @@ rm(temp)
     
     rm(list = ls()[grep("^q_", ls())]) # Removes all varaibles that start with "q_"
     rm(list = ls()[grep("^t_", ls())]) # Removes all varaibles that start with "q_"
-    }  else{ 
+    } else if ( as.numeric(substr(dates[i], 3, 4))+1 == as.numeric(substr(DeliveryDates[1], 3, 4)) && as.numeric(substr(dates[i], 5, 6)) < 20){
+      qnearby <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
+      qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
+      qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[4])))
+      qplus3  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[5]))) 
+      
+    } else{ 
     qnearby <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[1])))
     qplus1  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[2])))
     qplus2  <- get(paste0('q', '_', as.character(dates[i]), "_", as.character(DeliveryDates[3])))
@@ -1764,7 +1772,7 @@ MINS <- max(CUMULCORREL_BID_rets_no0s$MEANS - CUMULCORREL_BID_rets_no0s$sdS,0)
 Bid_plot_no0s <- ggplot(CUMULCORREL_BID_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=contract, group=contract) ) + 
   geom_errorbar(size=.5, position=pd) +
-  geom_point(size=2, position=pd) + 
+  geom_point(size=2, position=pd, aes(shape = contract)) + 
   #geom_line(size=0.25, position=pd) +
   #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
   theme_bw(base_size = 8) +
@@ -1802,7 +1810,7 @@ MINS <- max(CUMULCORREL_OFR_rets_no0s$MEANS - CUMULCORREL_OFR_rets_no0s$sdS,0)
 OFR_plot_no0s <- ggplot(CUMULCORREL_OFR_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=contract, group=contract) ) + 
   geom_errorbar(size=.5, position=pd) +
-  geom_point(size=2, position=pd) + 
+  geom_point(size=2, position=pd, aes(shape = contract)) + 
   #geom_line(size=0.25, position=pd) +
   #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
   theme_bw(base_size = 8) +
@@ -1849,7 +1857,7 @@ MINS <- max(CUMULCORREL_BID_rets_timelag$MEANS - CUMULCORREL_BID_rets_timelag$sd
 Bid_plot_timelag <- ggplot(CUMULCORREL_BID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                              ymax = MEANS+sdS, colour=lag, group=lag) ) + 
   geom_errorbar(size=.5, position=pd) +
-  geom_point(size=2, position=pd) + 
+  geom_point(size=2, position=pd, aes(shape = lag)) + 
   #geom_line(size=0.25, position=pd) +
   #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
   theme_bw(base_size = 8) +
@@ -1887,7 +1895,7 @@ MINS <- max(CUMULCORREL1N_BID_rets_timelag$MEANS - CUMULCORREL1N_BID_rets_timela
 Bid_plot_timelag1N <- ggplot(CUMULCORREL1N_BID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                              ymax = MEANS+sdS, colour=lag, group=lag) ) + 
   geom_errorbar(size=.5, position=pd) +
-  geom_point(size=2, position=pd) + 
+  geom_point(size=2, position=pd, aes(shape = contract)) + 
   #geom_line(size=0.25, position=pd) +
   #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
   theme_bw(base_size = 8) +
@@ -1932,7 +1940,7 @@ MINS <- max(CUMULCORREL_OFR_rets_timelag$MEANS - CUMULCORREL_OFR_rets_timelag$sd
 OFR_plot_timelag <- ggplot(CUMULCORREL_OFR_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                              ymax = MEANS+sdS, colour=lag, group=lag) ) + 
   geom_errorbar(size=.5, position=pd) +
-  geom_point(size=2, position=pd) + 
+  geom_point(size=2, position=pd, aes(shape = lag)) + 
   #geom_line(size=0.25, position=pd) +
   #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
   theme_bw(base_size = 8) +
@@ -2048,7 +2056,7 @@ MINS <- max(CUMULCORREL_BIDOFR_rets_no0s$MEANS - CUMULCORREL_BIDOFR_rets_no0s$sd
 BIDOFR_plot_no0s <- ggplot(CUMULCORREL_BIDOFR_rets_no0s, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                        ymax = MEANS+sdS, colour=contract, group=contract) ) + 
   geom_errorbar(size=.5, position=pd) +
-  geom_point(size=2, position=pd) + 
+  geom_point(size=2, position=pd, aes(shape = contract)) + 
   #geom_line(size=0.25, position=pd) +
   #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +
   theme_bw(base_size = 8) +
@@ -2133,7 +2141,7 @@ MINS <- max(CUMULCORREL_BIDOFR_rets_timelag$MEANS - CUMULCORREL_BIDOFR_rets_time
 BIDOFR_plot_timelag <- ggplot(CUMULCORREL_BIDOFR_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                                    ymax = MEANS+sdS, colour=lag, group=lag) ) + 
   geom_errorbar(size=.5, position=pd) +
-  geom_point(size=2, position=pd) + 
+  geom_point(size=2, position=pd, aes(shape = lag)) + 
   #geom_line(size=0.25, position=pd) +
   #ggtitle('Nearby and 1 Deferred Correlations, BID to OFR') +
   theme_bw(base_size = 8) +
@@ -2183,7 +2191,7 @@ MINS <- max(CUMULCORREL1_OFRBID_rets_timelag$MEANS - CUMULCORREL1_OFRBID_rets_ti
 OFRBID_plot_timelag <- ggplot(CUMULCORREL1_OFRBID_rets_timelag, aes(TimeBins, MEANS, ymin = MEANS-sdS, 
                                                                     ymax = MEANS+sdS, colour=lag, group=lag) ) + 
   geom_errorbar(size=.5, position=pd) +
-  geom_point(size=2, position=pd) + 
+  geom_point(size=2, position=pd, aes(shape = lag)) + 
   
   #geom_line(size=0.25, position=pd) +
   #ggtitle('Nearby and 1 Deferred Correlations, OFR to BID') +

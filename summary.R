@@ -9,6 +9,7 @@ library(readr)
 library(BBOTools)
 library(magrittr)
 library(gridExtra)
+library(grid)
 library(tidyr)
 library(ggplot2)
 
@@ -29,7 +30,7 @@ yearstart1 <- 2010
 yearend1 <- 2011
 #yearend1 <-  2010
 dates1 <- timeSequence(from = paste(yearstart1, "-01-04", sep = ""), 
-                      to = paste(yearend1, "-12-30", sep = ""))
+                      to = paste(yearend1, "-11-04", sep = ""))
                       #to = paste(yearend1, "-01-20", sep = ""))
 
 
@@ -174,6 +175,20 @@ dailyaveprice <- ggplot(DT[variable %in% c("PriceTransaction")], aes(TradeDate, 
   theme(axis.text.x=element_text(angle=45), axis.title.x=element_blank(), 
         panel.background = element_rect(fill = 'white'), 
         panel.grid.major = element_line(colour = "grey")) 
+
+# Convert to gtable to align the verticel axis with grid.arrange
+
+dailyaveprice             <- ggplot_gtable(ggplot_build(dailyaveprice))
+numasksplot               <- ggplot_gtable(ggplot_build(numasksplot))
+numbidsplot               <- ggplot_gtable(ggplot_build(numbidsplot))
+numtransplot              <- ggplot_gtable(ggplot_build(numtransplot))
+
+maxWidth                  <- unit.pmax(dailyaveprice$widths[2:3], numasksplot$widths[2:3], numasksplot$widths[2:3], numasksplot$widths[2:3])
+
+dailyaveprice$widths[2:3] <- maxWidth
+numasksplot$widths[2:3]   <- maxWidth
+numasksplot$widths[2:3]   <- maxWidth
+numasksplot$widths[2:3]   <- maxWidth
 
 grid.arrange(dailyaveprice, numasksplot, numbidsplot, numtransplot, ncol=1)
 
