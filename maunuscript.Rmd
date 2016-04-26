@@ -5,6 +5,7 @@ author: "Mindy Mallory, Philip Garcia, and Teresa Serra"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output:
   pdf_document:
+    template: simple.latex
   word_document:
     fig_caption: yes
     reference_docx: template.docx
