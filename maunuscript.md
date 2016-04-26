@@ -1,74 +1,15 @@
----
-title: 'Nearby and Deferred Quotes: What They Tell Us about Linkages and Adjustments  to
-  Information '
-author: "Mindy Mallory, Philip Garcia, and Teresa Serra"
-date: '`r format(Sys.time(), "%B %d, %Y")`'
-output:
-  word_document:
-    fig_caption: yes
-    reference_docx: template.docx
-  pdf_document:
-    fig_caption: yes
-    number_sections: yes
-bibliography: bbobas.bib
-documentclass: elsarticle
-geometry: margin=1.25in
-header-includes: \usepackage{setspace} \doublespacing
-cls: american-journal-of-agricultural-economics.csl.txt
----
-
-
-```{r, echo=FALSE}
-#setwd("C:/Users/mallorym/Documents/GitHub/BBOBAS")
-#setwd("C:/Users/mallorym/Documents/BBOBAS")
-load('p_values.Rda')
-```
-
-<!--
-csl: american-journal-of-agricultural-economics.csl.txt
-elsarticle.cls
-cls: american-journal-of-agricultural-economics.csl.txt
-documentclass: elsarticle
-
-documentclass: elsarticle
-geometry: margin=1.25in
-header-includes: \usepackage{setspace} \doublespacing
-cls: american-journal-of-agricultural-economics.csl.txt
-
-  pdf_document:
-    fig_caption: yes
-    number_sections: yes
-  html_document:
-    fig_caption: yes
-documentclass: elsarticle
-geometry: margin=1.25in
-header-includes: \usepackage{setspace} \doublespacing
-cls: american-journal-of-agricultural-economics.csl.txt
--->
+# Nearby and Deferred Quotes: What They Tell Us about Linkages and Adjustments to Information 
+Mindy Mallory, Philip Garcia, and Teresa Serra  
+`r format(Sys.time(), "%B %d, %Y")`  
 
 
 
-Recently, the 'Financialization' of commodity futures markets, biofuel
-  production, climate change, and rising demand potentially have imposed profound
-  shifts in the way commodity futures markets operate. This article examines the
-  commodity markets quote-by-quote to develop metrics on liquidity and transmission
-  of information. The metrics are based on insights we combined from sequential trading
-  models on single securities, index futures on a basket of securities, and special
-  features of commodity futures markets. Correlation between quote revisions in nearby
-  and deferred contracts measure information-based activity, and correlations between
-  revisions of the time lagged nearby and deferred maturity measure the speed at which
-  information is transmitted among the different futures maturities. Information
-  based trading results in near perfect correlation between revisions to bids and
-  offers in nearby and deferred contracts. Within one second information has been
-  futures, bid-ask-spread, corn"
-  fully transmitted from nearby to deferred contracts.  
-  **Keywords**: market, microstructure,
+
 
 
 \newpage
 
 \setlength\parindent{20pt}
-
 
 
 # Introduction
@@ -120,11 +61,11 @@ Figure 1 displays average price per day, number of revisions to the ask, number 
 
 [^sep]: September experiences low trading volumes because deliveries on this contract sometimes (but not usually) can come from early new crop harvest, making its price relative to the traditional new crop contract, December, hard to predict. 
 
-The second and third panel display the number of revisions to the best ask and best bid, respectively. The number of quote revisions is fairly stable within a band of about 25,000 to 50,000 revisions from 2008 to mid 2010. The exception being a brief period in late 2008 when the market had bottomed after a dramatic fall from a high that summer of nearly $8.00 per bushel. Starting in the latter period of 2010, a notable increase in the number of quote revisions, and the volatility of the number of quote revisions can be observed. While they do not stay within a well defined band, most days the number of quote revisions fall within an range of 30,000 to 75,000. Because this does not appear to coincide with a commensurate increase in the number of transactions (depicted in the bottom panel of figure 1), one must assume this is due to an increase in quoting strategies particularly suited to electronic markets. A noticeable decrease in the number of transactions, and especially the number of quote revisions is visible during the final weeks of 2009 and 2010, corresponding with the Christmas and New Year's holiday.   
+The second and third panel display the number of revisions to the best ask and best bid, respectively. The number of quote revisions is fairly stable within a band of about 25,000 to 50,000 revisions from 2008 to mid 2010. The exception being a brief period in late 2008 when the market had bottomed after a dramatic fall from a high that summer of nearly $8.00 per bushel. Starting in the latter period of 2010, a notable increase in the number of quote revisions, and the volatility of the number of quote revisions can be observed. While they do not stay within a well defined band, most days the number of quote revisions fall within an range of 30,000 to 75,000. Because this does not appear to coincide with a commensurate increase in the number of transactions (depicted in the bottom panel of figure 1), one must assume this is due to an increase in quoting strategies particularly suited to electronic markets. A noticable decrease in the number of transactions, and especially the number of quote revisions is visible during the final weeks of 2009 and 2010, corresponding with the Christmas and New Year's holiday.   
 
 While prices were volatile, the share of contracts traded on the CME's electronic trading platform, Globex, had already stabilized to nearly 90% by 2008 [@peterson2015]. So any effects we study should not be related trading infrastructure changes that may have occurred during the migration of volume to the electronic exchange. The data are time-stamped to the second, but trades and updates to the top of the book routinely occur more rapidly than once per second. This results in several updates to the top of the book displaying the same time stamp. This requires us to either aggregate to the second, or to simulate sub-second time stamps [@hasbrouck2015;@WangPhd14]. Since we calculate correlations between updates to the top-of-the book for several contract maturities, simulation would need to preserve (at least) the order in which updates arrived to each respective contract. Since preserving the order is impossible, we aggregate to the second.[^aggregate]
 
-[^aggregate]: We take the last entry on each time-stamp for the aggregation.
+[^aggregate]: We take the last entry on each timestamp for the aggregation.
 
 Further, we exclude days on which there was a limit price move in any of the contracts, since when prices are locked at the limit, calculating correlations is impossible (Dates deleted due to limit price moves and the corresponding information events, if known, are as follows: 1/12/2010, revision to a Crop Production report; 3/31/2011, Prospective Plantings report; 6/30/2011, Planted Acres report; 10/8/2010, World Agricultural Supply and Demand Estimates (WASDE); and 12/9/2010, WASDE). Also, we exclude 4/5/2010, because there was an unusually high number of revisions to the best bid and best offer. Since we were not able to process all of the data for this day in a reasonable amount of computing time, we drop this day from our sample. Additionally, 7/5/2011 was an unusually light trading day after the Fourth of July holiday and resulted in no data for the third to mature contract, so we dropped this day as well.
 
@@ -134,7 +75,7 @@ Our analysis considers the correlation of logged changes to quotes in the nearby
 
 We have two primary objectives: 1) calculate the strength of correlations between the order books of the nearby and deferred contracts, and 2) measure (or bound) the time it takes for information to be transmitted from nearby to deferred contracts. To measure the first, we calculate contemporaneous (zero time lag) correlations between the log changes of quotes in the nearby and the deferred contracts. Then, to measure the second we calculate the correlation between time lagged log changes of quotes of the nearby with log changes of quotes of the deferred contracts. We lag the nearby by one second and ten seconds. The time lagged correlations provide a measure of how long it takes for information to be transmitted from nearby to the deferred contracts. The logic is that if we observe contemporaneous correlation between the nearby and deferred contracts, we can search for the time lag at which we observe the correlation disappearing. We conclude that information has been fully transmitted when the time lagged nearby and deferred contract order book revisions become uncorrelated. Conversely, we may observe that there is no contemporaneous correlation, but there is lagged correlation.
 
-Since the corn futures contract experiences non-uniform trading volume throughout the day, there may be time of day effects in the strength and rate at which information is transmitted through the futures market. To capture how the speed of information transmission changes throughout the trading day, we divide the day into ten minute intervals starting at 9:30am Central Standard Time, the beginning of the daytime trading session for CBOT corn futures. We calculate the correlations described in detail below for each ten minute interval. Ten minutes was shown to be long enough for market adjustment to take place in Lehecka [-@lehecka2014gone]. This allows us to detect if there are any discernible patterns to the transmission of information over the trading day. Since one correlation is calculated per day per ten minute interval, for every ten minute interval we recover a distribution of correlations.   
+Since the corn futures contract experiences non-uniform trading volume throughout the day, there may be time of day effects in the strength and rate at which information is transmitted through the futures market. To capture how the speed of information transmission changes throughout the trading day, we divide the day into ten minute intervals and calculate the correlations described above for each interval. Ten minutes was shown to be long enough for market adjustment to take place in Lehecka [-@lehecka2014gone]. This allows us to detect if there are any discernible patterns to the transmission of information over the trading day.   
 
 ## Information-Based Trading Activity and Contemporaneous Correlations in the Top of the Book
 
@@ -153,7 +94,7 @@ If this intuition is correct, it is informative to consider only time-stamps for
 corr^{Bid}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(bid_{ti}^N - \overline{bid_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(bid_{ti}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \: \textrm{such that} \: bid_{ti}^N \: \textrm{and} \: bid_{ti}^D \neq 0
 \end{equation} 
 
-Equation \ref{corBB} indicates that we calculate the correlation between the log change of the nearby best bids, $bid_{ti}^N$, and the log change of the deferred best bids, $bid_{ti}^D$, for every day, *t*, and in every 10-minute interval in the daytime trading session, *I*, using the observations, *i*, when both the nearby and the deferred best bid are not equal to zero,  $bid_{ti}^N \: \textrm{and} \: bid_{ti}^D \neq 0$. The correlations from equation (1) are calculated for the nearby and one deferred, nearby and two deferred, and nearby and three deferred contracts. 
+Equation \ref{corBB} indicates that we calculate the correlation between the log change of the nearby best bids, $bid_{ti}^N$, and the log change of the deferred best bids, $bid_{ti}^D$, for every day, *t*, and in every 10-minute interval in the daytime trading session, *I*, using the observations, *i*, when both the nearby and the deferred best bid are not equal to zero,  $bid_{ti}^N \: \textrm{and} \: bid_{ti}^D \neq 0$. The correlations from equation (1) are calulcated for the nearby and one deferred, nearby and two deferred, and nearby and three deferred contracts. 
 
 Similarly equation \ref{corOO} indicates that we calculate the correlation between the log change of the nearby best offer, $offer_{ti}^N$, and the log change of the deferred best offer, $offer_{ti}^D$ for every day, *t*, and in every 10-minute interval in the daytime trading session, *I*, using the observations, *i*, when both the nearby and the deferred best offer are not equal to zero,  ${offer_{ti}^N \: \textrm{and} \: offer_{ti}^D} \neq 0$. 
 
@@ -164,7 +105,7 @@ Similarly equation \ref{corOO} indicates that we calculate the correlation betwe
 \end{split}
 \end{equation}
 
-The correlations from equations \ref{corBB} and \ref{corOO} are calculated for the nearby and one deferred, nearby and two deferred, and nearby and three deferred contracts.
+The correlations from equations \ref{corBB} and \ref{corOO} are calulcated for the nearby and one deferred, nearby and two deferred, and nearby and three deferred contracts.
 
 ## Speed of Information Transmission and Time-Lagged Correlations in the Top of the Book
 
@@ -206,17 +147,17 @@ On USDA report announcement days there is often a significant amount of informat
 
 # Results
 
-Table 2 contains a synopsis of the results that will be presented as figures 2, 3, and 4. Figure 2 presents the strength of the correlation between the nearby and deferred contracts by calculating the contemporaneous correlation between log changes of nearby bids (offers) and log changes of deferred bids (offers). Figure 3 presents the strength of the correlation of log changes of nearby bids (offers) and log changes of first deferred bids (offers) at time lags of 0, 1, and 10 seconds. Figure 4 presents the strength of the correlation of log changes of nearby bids (offers) and log changes of first deferred offers (bids) at time lags of 0, 1, and 10 seconds. Each figure is organized in a similar way. The top pane shows correlations with the nearby bid, next shows correlations with the nearby offer, next shows correlations with the nearby bid on USDA report days, and finally the last pane shows correlations with the nearby offer on report days. The dots represent the mean of the distribution of calculated correlations and the bars represent one standard deviation of the distribution of calculated correlations.  
+Table 2 contains a synopsis of the results that will be presented as figures 2, 3, and 4. Figure 2 presents the strength of the contemporaneous correlation between the nearby and defferred contracts by calculating the corrleation between log changes of nearby bids (offers) and log changes of defferred bids (offers). Figure 3 presents the strength of the correlation of log changes of nearby bids (offers) and log changes of first deferred bids (offers) at time lags of 0, 1, and 10 seconds. Figure 3 presents the strength of the correlation of log changes of nearby bids (offers) and log changes of first deferred offers (bids) at time lags of 0, 1, and 10 seconds. Each figure is ornagized in a similar way. The top pane shows correlations with the nearby bid, next shows correlations with the nearby offer, next shows correlations with the nearby bid on USDA report days, and finally the last pane shows correlations with the nearby offer on report days. Correlations are calculated over ten minute intervals starting at 9:30am Central Standard Time, the beginning of the daytime trading session for CBOT corn futures. One correlation is calculated per day per ten minute bin, so for every ten minute bin we recover a distribution of correlations. The dots represent the mean of the distribution and the bars represent one standard deviation.  
 
 
 ## Information-Based Trading Activity and Contemporaneous Correlations in the Top of the Book
 In figure 2 contemporaneous correlation between the nearby and one, two, and three deferred maturity contracts are displayed. Calculations are made based on time-stamps where both the nearby and deferred maturity experience non-zero revisions to the best bid (top panel) or offer (second panel). The contemporaneous correlations between each nearby and deferred contract pairs are very close to one for both best bids (top panel) and best offers (second panel). The exception being that there is a slight dip in correlations at the first and last ten minutes of the trading day.
 
-This implies that in the event both contracts experience revisions to their respective limit order books, they are revised in lockstep. While some of this correlation is artificially induced due to the tick structure of price changes in this market (prices move in a minimum of 0.25 cent increments.), the correlations are too strong to attribute it all to that. Additionally, since our data is only time-stamped to the second, we may miss nuance that would be captured with data time stamped to the millisecond. Regardless, the result is surprisingly strong and indicates that information is largely transmitted up the forward curve in less than one second. It is interesting that the distribution of correlations between the nearby and 1, 2, and 3 deferred contract bids are at such similar levels, hovering very close to one. Transmission of information to the third deferred contract seems to be as strong as transmission to the first deferred contract. 
+This implies that in the event both contracts experience revisions to their respective limit order books, they are revised in lockstep. While some of this correlation is artificially induced due to the tick structure of price changes in this market (prices move in 0.25 cent increments.), not all of it can be attributed to that. Additionally, since our data is only time-stamped to the second, we may be missing nuance that would be captured with data time stamped to the millisecond. Regardless, the result is surprisingly strong and may support interpreting this activity as information based. It is interesting that the distribution of correlations between the nearby and 1, 2, and 3 deferred contract bids are at such similar levels, hovering very close to one. There does not appear to be diminished repsonsiveness when we consider contracts that are farthest from expriation. 
 
 The bottom two panels of figure 2 are exactly analogous to the top two except that they focus on USDA report days. We see a remarkably similar depiction compared in that the correlations hover near one throughout the trading day. If there had been a difference in the pattern of correlations on USDA report days, one would expect the first ten minutes of trading to display the largest effect. There is visibly more variation in the means of these distributions, presumably as much a result of the much smaller sample of report days versus non-report days.  
 
-We suspect two primary reasons that the full sample and USDA report day results are so similar: 1) Since we removed days where the report release corresponded to limit price moves, we systematically removed report days where the most important information was conferred on the market. It is possible that the remaining days corresponded to USDA reports that were more easily translated to market impacts by traders, and thus created results in figure 2 that look similar to a normal trading day, while we systematically excluded report days containing larger information shocks and presumably are harder for traders to interpret the market impact of the report. 2) Since USDA reports were released prior to the market open during this time period, the information may have already been fully incorporated by market participants by the time the market opened, resulting in no discernible difference in the pattern of correlations in the first (and subsequent) time bins. 
+We suspect two primary reasons that the full sample and USDA report day results are so similar: 1) Since we removed days where the report release corresponded to limit price moves, we systematically removed report days where the most important information was conferred on the market. It is possible that the remaining days corresponded to USDA reports that contained relatively less relevant market information, or they contained information market participants widely expected beforehand. 2) Since USDA reports were released prior to the market open during this time period, the information may have already been fully incorporated by market participants by the time the market opened, resulting in no discernible difference in the pattern of correlations in the first (and subsequent) time bins. 
 
   
 ## Speed of Information Transmission and Time-Lagged Correlations in the Top of the Book
@@ -225,7 +166,7 @@ Figure 3 contains the correlations between log changes of the nearby and log cha
 
 There are three possible explanations for this. First, it is possible that there is in fact a clear and decreasing correlation between lags of the nearby and the deferreds, but it can only be observed on mili- or micro-second time stamps. Then, when aggregating to the nearest second, we observe contemporaneous correlation close to one, but zero correlation even at the shortest possible time lag (one second). 
 
-Second, we explicitly assumed that price discovery happens in the nearby contract when we lagged the nearby contract instead of the deferred contract. If price discovery happens in the deferred contract, and takes time to fully to be incorporated into the nearby contract, then we would observe non-zero correlation between nearby quote revisions and lagged *deferred* quote revisions. When we did this, we observed a very similar result as is presented in figure 3 - zero correlation at 1 and 10 second time lags of the deferred contract; this means there is not evidence to support that price discovery happens in the deferred contracts.[^not] Information seems to be fully transmitted within one second to the first deferred contract.    
+Second, we explicitly assumed that price discovery happens in the nearby contract when we lagged the nearby contract instead of the deferred contract. If price discovery happens in the deferred contract, and takes time to fully to be incorporated into the nearby contract, then we would observe non-zero correlation between nearby quote revisions and lagged *deferred* quote revisions. When we did this, we observed a very similar result as is presented in figure 3 - zero correlation at 1 and 10 second time lags of the deferred contract.[^not] This means that while intuition would indicate price discovery happens in the nearby and information is transmitted to the deferred contracts, we find no compelling evidence that this is the case.  
 
 [^not]: This figure is not presented in the interest of brevity. 
 
@@ -240,13 +181,13 @@ Figure 4 displays the means and error bars of the correlations between log chang
 # Conclusions
 
 
-Recent developments in commodity markets make it important to assess price adjustment patterns with high frequency data. We focused this paper on the corn market because it has experienced some of the most pronounced changes in recent years. We gleaned insights from the sequential trading market microstructure literature to generate metrics of informed versus liquidity trading in commodity futures markets. Sequential trading models allow liquidity providers to learn about the existence of information arrivals and their directional implications for security prices.  From these models we infer that market makers detect no new market information if we observe no changes to the best bid or best offer in the limit order book. This is because in sequential trading models, the market maker learns about the probability of an information event from trader order flows and revises his breakeven bids and offers accordingly.
+Recent developments in commodity markets make it important to assess price adjustment patterns. We focused this paper on the corn market because it has experienced some of the most pronounced changes in recent years. We gleaned insights from the sequential trading market microstructure literature to generate metrics of informed versus liquidity trading in commodity futures markets. Sequential trading models allow liquidity providers to learn about the existence of information arrivals and their directional implications for security prices.  From these models we infer that market makers detect no new market information if we observe no changes to the best bid or best offer in the limit order book. This is because in sequential trading models, the market maker learns about the probability of an information event from trader order flows and revises his breakeven bids and offers accordingly.
 
-We use simple correlations between non-zero log changes to the best bid (offer) in the limit order book as our metric of information-based activity in the market. Our results for CBOT corn indicate that the mean contemporaneous correlation between non-zero changes to the nearby and all deferred contracts was very close to 1 throughout the trading day. When information arrives to the market, liquidity providers in contracts of all maturities revise their bids and offers in lockstep (or in less than one second) to reflect the new information.
+We use simple correlations between revisions to the best bid (offer) in the limit order book as our metric of information-based activity in the market. Our results for CBOT corn indicate that the mean contemporaneous correlation between the nearby and all deferred contracts considered was between 0.5 and 0.6 throughout the trading day. When we measured the correlation using information based activity only, we found the mean correlation between the nearby and all deferred contracts are nearly 1, indicating that when information arrives to the market, liquidity providers in contracts of all maturities revise their quotes in lockstep.
 
-To measure the speed of information transfer from nearby to deferred maturities, we lagged the nearby by one and ten second respectively and computed correlations in revisions to the best bid (offer) with deferred contracts. We find that even at a one second lag, the shortest time lag possible with this data set, the correlation between revisions to the best bid and best offer dropped to zero. 
+To measure the speed of information transfer from nearby to deferred maturities, we lagged the nearby by one and ten second respectively and computed correlations in revisions to the best bid (offer) with deferred contracts. We find that even at a one second lag, the shortest time lag possible with this data set, the correlation between revisions to the best bid and best offer dropped to zero. This indicates that by one second, any information that arrived to the market had been fully transmitted across all contract maturities.
 
-These results indicate that we can learn much from trades and quotes data about how many informed traders there are in a marketplace, but it is clear that much additional work in this area is needed. We borrowed from the sequential trading in securities literature, but future research is needed to develop sequential trading models specific to commodity futures markets. Such a model would provide richer insights into trading and behavior of markets.
+These results indicate that we can probably learn much from trades and quotes data about how many informed traders there are in a marketplace, but it is clear that much additional work in this area is needed. We borrowed from the sequential trading in securities literature, but future research is needed to develop sequential trading models specific to commodity futures markets. Such a model would provide richer insights into trading and behavior of markets.
 
 \clearpage
 \singlespace

@@ -1,11 +1,12 @@
 ---
+bibliography: bbobas.bib
+csl: american-journal-of-agricultural-economics.csl.txt
+geometry: margin=1.25in
 output:
   pdf_document:
     fig_caption: yes
     number_sections: yes
-geometry: margin=1.25in
-csl: american-journal-of-agricultural-economics.csl.txt
-bibliography: bbobas.bib
+  word_document: default
 ---
 
 
