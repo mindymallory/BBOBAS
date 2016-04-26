@@ -4,17 +4,13 @@ title: 'Nearby and Deferred Quotes: What They Tell Us about Linkages and Adjustm
 author: "Mindy Mallory, Philip Garcia, and Teresa Serra"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output:
+  pdf_document:
   word_document:
     fig_caption: yes
     reference_docx: template.docx
-  pdf_document:
-    fig_caption: yes
-    number_sections: yes
-bibliography: bbobas.bib
 documentclass: elsarticle
-geometry: margin=1.25in
-header-includes: \usepackage{setspace} \doublespacing
-cls: american-journal-of-agricultural-economics.csl.txt
+classoption: review
+bibliography: bbobas.bib
 ---
 
 
@@ -248,14 +244,7 @@ To measure the speed of information transfer from nearby to deferred maturities,
 
 These results indicate that we can learn much from trades and quotes data about how many informed traders there are in a marketplace, but it is clear that much additional work in this area is needed. We borrowed from the sequential trading in securities literature, but future research is needed to develop sequential trading models specific to commodity futures markets. Such a model would provide richer insights into trading and behavior of markets.
 
-\clearpage
-\singlespace
 
-\setlength\parindent{0pt}
-
-
-
-\clearpage
 
 
 # References
