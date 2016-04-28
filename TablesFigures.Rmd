@@ -1,12 +1,16 @@
 ---
-bibliography: bbobas.bib
-csl: american-journal-of-agricultural-economics.csl.txt
-geometry: margin=1.25in
 output:
   pdf_document:
+    template: simple.latex
     fig_caption: yes
-    number_sections: yes
-  word_document: default
+  word_document:
+    fig_caption: yes
+    reference_docx: template.docx
+documentclass: elsarticle
+classoption: review
+header-includes: \usepackage{pdflscape} \usepackage{threeparttable}
+bibliography: bbobas.bib
+fontsize: 10pt
 ---
 
 
@@ -17,6 +21,7 @@ output:
 load('p_values.Rda')
 ```
 
+# Tables and Figures
 
 
 
@@ -54,14 +59,18 @@ print.xtable(t, caption.placement = 'top', comment=FALSE )
 Notes: H0: Equal means, H1: Unequal means. 'Near & 1' stands for the correlations between returns of the nearby quotes and returns of the first deferred quotes, 'Near & 2' stands for the correlations between returns of the nearby quotes and returns of the second deferred quotes, and 'Near & 3' stands for the correlations between returns of the nearby quotes and returns of the third deferred quotes. The columns labeled with the convention Near & 1 - Near & 2 contain p-values of a Welch two-sample t-test on differences in the means displayed in figure 2. 
 -->
 
+\begin{landscape}
 
 \begin{table*}[h]\centering
+\begin{threeparttable}
 \caption{Correlations Calculated to Produce Figures 1, 2, and 3 }
 \begin{tabular}{@{}cc|cc|cc@{}}
  \specialrule{1pt}{1pt}{1pt}
+ \multicolumn{2}{c|}{Information-based trading} & \multicolumn{2}{c|}{Speed of information transmission} & \multicolumn{2}{c}{Spread trades and information transmission} \\
  \multicolumn{2}{c|}{Figure 2}                    & \multicolumn{2}{c|}{Figure 3}         & \multicolumn{2}{c}{Figure 4}      \\
  \multicolumn{2}{c|}{No Time Lag}           &\multicolumn{2}{c|}{Time Lag}               &\multicolumn{2}{c}{Time Lag}             \\
-\multicolumn{2}{c|}{Correlation of Nearby and}           &\multicolumn{2}{c|}{Correlation of Nearby and 1 deffered}               &\multicolumn{2}{c}{Correlation of Nearby and 1 deffered}             \\
+\multicolumn{2}{c|}{Correlation of Nearby and}           &\multicolumn{2}{c|}{Correlation of Nearby}               &\multicolumn{2}{c}{Correlation of Nearby}             \\
+\multicolumn{2}{c|}{}           &\multicolumn{2}{c|}{and 1 deffered}               &\multicolumn{2}{c}{and 1 deffered}             \\
 
 \hline
  Bid to Bid          & 1 deffered& Bid to Bid   & no time lag      & Bid to Offer & no time lag            \\
@@ -78,12 +87,16 @@ Notes: H0: Equal means, H1: Unequal means. 'Near & 1' stands for the correlation
                      &3 deffered &              &10 seconds        &              &10 seconds        \\
  \specialrule{1pt}{1pt}{1pt}
 \end{tabular}
+\begin{tablenotes}
+      \small
+      \item This table contains a summary of the correlation results that are presented in figures 1, 2, and 3. Correlations are calculated in ten minute intervals and for every day of our sample. The bottom two panels (Report) display the correlations for USDA report release days only.  
+    \end{tablenotes}
+\end{threeparttable}
 \end{table*}
 
-     
-Notes: This table contains a summary of the correlation results that are presented in figures 1, 2, and 3. Correlations are calculated in for ten minute intervals and for every day of our sample. 
+\end{landscape}
 
-\clearpage
+
 
 
 ```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Price Levels, Number of Ask Quotes, Number of Bid Quotes, and Number of Transactions"}
@@ -175,7 +188,7 @@ Figure displays data for the corn futures market from 1/14/2008 to 11/04/2011 fo
 
 \clearpage
 
-```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Contemporaneous Correlation between Revisions to Quotes in Nearby and Deferred Contracts"}
+```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Information-Based Trading Activity and Contemporaneous Correlations in the Top of the Book"}
 library(ggplot2)
 library(gridExtra)
 library(data.table)
@@ -187,11 +200,11 @@ grid.arrange(figs_list_full[[1]], figs_list_full[[2]], figs_list_Report[[1]], fi
 
 ```
 
-Mean correlations and one standard deviation error bars over all days in the top two plots. Mean correlations and one standard deviation error bars in the bottom two plots. 
+Mean correlations and one standard deviation error bars over all days are shown in the top two plots; report days only are included in the bottom two plots. 
 
 \clearpage
 
-```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Time-Lagged Correlation between Revisions to Quotes in Nearby and 1 Deferred Contracts"}
+```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Speed of Information Transmission and Time-Lagged Correlations in the Top of the Book"}
 library(ggplot2)
 library(gridExtra)
 library(data.table)
@@ -203,13 +216,14 @@ grid.arrange(figs_list_full[[3]], figs_list_full[[4]], figs_list_Report[[3]], fi
 
 ```
 
-Mean correlations and one standard deviation error bars over all days in the top two plots. Mean correlations and one standard deviation error bars in the bottom two plots. 
+Mean correlations and one standard deviation error bars over all days are shown in the top two plots; report days only are included in the bottom two plots. 
+
 
 
 \clearpage
 
 
-```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Time-Lagged Correlation between Revisions to Quotes (Bid-to-Ask & Ask-to-Bid) in Nearby and 1 Deferred Contracts"}
+```{r, echo=FALSE, warning=FALSE, fig.height= 6.5, fig.width=6.5, fig.cap = "Spread Trades, Information Transmission, and Time-Lagged Bid-to-Offer (Offer-to-Bid) Correlations"}
 library(ggplot2)
 library(gridExtra)
 library(data.table)
@@ -221,7 +235,7 @@ grid.arrange(figs_list_full[[5]], figs_list_full[[6]], figs_list_Report[[5]], fi
 
 ```
 
-Mean correlations and one standard deviation error bars over all days in the top two plots. Mean correlations and one standard deviation error bars in the bottom two plots. Bid-to-Offer means revisions to the lagged nearby bid were correlated with the first deferred revisions to the offer, and Offer-to-Bid means revisions to the lagged nearby offer were correlated with the first deferred revisions to the bid. 
+Mean correlations and one standard deviation error bars over all days are shown in the top two plots; report days only are included in the bottom two plots. Bid-to-Offer shows correlation between revisions to the lagged nearby bid and the first deferred revisions to the offer, and Offer-to-Bid shows correlation between revisions to the lagged nearby offer and the first deferred revisions to the bid. 
 
 
 
