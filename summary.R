@@ -1,3 +1,19 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+@mindymallory
+Unwatch 2
+Star 0
+Fork 0 mindymallory/BBOBAS
+Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
+Branch: master Find file Copy pathBBOBAS/summary.R
+d39f836  18 days ago
+@mindymallory mindymallory nhgvhng
+1 contributor
+RawBlameHistory     196 lines (158 sloc)  9.54 KB
 # Summary tables 
 #This script creates the summary tables for the BBOBAS paper. I'm doing it in a separate script because I recently learned about data.table
 #which will make thie process a lot less painful. I think it will be easier than slogging along with the Analysis.R code. 
@@ -22,7 +38,7 @@ yearend <- 2009
 #yearend <-  2008
 dates <- timeSequence(from = paste(yearstart, "-01-14", sep = ""), 
                       to = paste(yearend, "-12-30", sep = ""))
-                      #to = paste(yearend, "-02-05", sep = ""))
+#to = paste(yearend, "-02-05", sep = ""))
 
 # Easier to define two dates indices than to deal with the issue of the missing leading zero in the 2008 and 2009 
 # representation of dates. 
@@ -30,8 +46,8 @@ yearstart1 <- 2010
 yearend1 <- 2011
 #yearend1 <-  2010
 dates1 <- timeSequence(from = paste(yearstart1, "-01-04", sep = ""), 
-                      to = paste(yearend1, "-11-04", sep = ""))
-                      #to = paste(yearend1, "-01-20", sep = ""))
+                       to = paste(yearend1, "-11-04", sep = ""))
+#to = paste(yearend1, "-01-20", sep = ""))
 
 
 # Code below requires dates to be integers, here we change the format
@@ -76,17 +92,17 @@ dates <- subset(dates, dates != c('90111'))
 ptm <- proc.time()
 accum <- as.list(NULL)
 for(i in 1:length(dates)) {
-
- DATASET <- as.data.table(bboread(paste0('C:/Users/mallorym/BBOCORNDATA/', 
-                                         '2008Jan-2011Dec_txt',"/",
-                                         "XCBT_C_FUT_","0", dates[i], ".txt")))
- 
- DATASET[, Price := decimalprices(TrPrice)]                          # Convert Price to decimal
- accum[[i]] <- DATASET[, .(Price = mean(Price), .N),                 # Ave daily price, number of ask/bids
+  
+  DATASET <- as.data.table(bboread(paste0('C:/Users/mallorym/BBOCORNDATA/', 
+                                          '2008Jan-2011Dec_txt',"/",
+                                          "XCBT_C_FUT_","0", dates[i], ".txt")))
+  
+  DATASET[, Price := decimalprices(TrPrice)]                          # Convert Price to decimal
+  accum[[i]] <- DATASET[, .(Price = mean(Price), .N),                 # Ave daily price, number of ask/bids
                         by = .(TradeDate, DeliveryDate, ASKBID)]
   # accum[[i]] <- DATASET                                             # If you want to keep all the trades and quotes and not
-                                                                     # just get average and counts per day
- }
+  # just get average and counts per day
+}
 len <- length(accum)
 for(i in 1:length(dates1)) {
   DATASET <- as.data.table(bboread(paste0('C:/Users/mallorym/BBOCORNDATA/',
@@ -94,9 +110,9 @@ for(i in 1:length(dates1)) {
                                           "XCBT_C_FUT_", dates1[i], ".txt")))
   DATASET[, Price := decimalprices(TrPrice)]                         # Convert Price to decimal
   accum[[len + i]] <- DATASET[, .(Price = mean(Price), .N),          # Ave daily price, number of ask/bids
-                      by = .(TradeDate, DeliveryDate, ASKBID)]
+                              by = .(TradeDate, DeliveryDate, ASKBID)]
   # accum[[i]] <- DATASET                                             # If you want to keep all the trades and quotes and not
-                                                                      # just get average and counts per day
+  # just get average and counts per day
 }
 proc.time() - ptm
 ################################################################
@@ -115,23 +131,23 @@ DT   <- data.table::rbindlist(accum)                                 # Binds ele
 DT[, TradeDate := datemanip(TradeDate)]                  # Convert date to proper date format
 
 
-                                                                     
+
 #DT   <- dcast.data.table(DT, TradeDate + DeliveryDate ~ ASKBID,      # Cast DT and give useful names for ggplot2 groups
 DT   <- dcast.data.table(DT, TradeDate + Deferreds ~ ASKBID,      # Cast DT and give useful names for ggplot2 groups
                          value.var = c("N", "Price")) %>%
-        setnames(c("N_A", "N_B", "N_NA", "Price_A", "Price_B",       # Replace with more useful names
-                   "Price_NA"), c("NumberofAsks", "NumberofBids",
-                   "NumberofTransactions", "PriceAsk", "PriceBid",
-                   "PriceTransaction") ) 
+  setnames(c("N_A", "N_B", "N_NA", "Price_A", "Price_B",       # Replace with more useful names
+             "Price_NA"), c("NumberofAsks", "NumberofBids",
+                            "NumberofTransactions", "PriceAsk", "PriceBid",
+                            "PriceTransaction") ) 
 
 
 
 DT[, c("NumberofAsks", "NumberofBids") := .(round(NumberofAsks/2 - NumberofTransactions/2),          # This is an estimate because BBO data duplicates the 
-                            round(NumberofBids/2 - NumberofTransactions/2))]         # ask(bid) that was not revised on the same trseqnum prior to 2012
+                                            round(NumberofBids/2 - NumberofTransactions/2))]         # ask(bid) that was not revised on the same trseqnum prior to 2012
 
 DT   <- data.table::melt(DT, id.vars = c("TradeDate",                # Final melt before ggplot2 
                                          "Deferreds"))
-                                         #                     "DeliveryDate", "Deferreds"))
+#                     "DeliveryDate", "Deferreds"))
 
 save(DT, file = 'SummaryDT.Rda')
 
@@ -193,3 +209,5 @@ numasksplot$widths[2:3]   <- maxWidth
 grid.arrange(dailyaveprice, numasksplot, numbidsplot, numtransplot, ncol=1)
 
 
+Status API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help

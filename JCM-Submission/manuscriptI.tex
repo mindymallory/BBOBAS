@@ -114,29 +114,30 @@ to Information}
 There has been recent concern about whether and how the
 `Financialization of Commodity Markets' has impacted market efficiency
 and efficacy in the traditional roles of risk mitigation, coordinating
-production, and coordinating consumption through time (Irwin and Sanders
-2011; Cheng and Xiong 2013; Irwin and Sanders 2012; Henderson, Pearson,
-and Wang 2015). Further, the recent increase in the production of
-biofuel from food commodities and volatile crude oil prices has changed
-the relationship between food and energy commodities (Serra and
-Zilberman 2013; M. L. Mallory, Irwin, and Hayes 2012; Gardebroek and
-Hernandez 2013; Vacha et al. 2013; Avalos 2014; Trujillo-Barrera et al.
-2012). Additionally, climate change, rising demand for agricultural
-commodities, and volatile inventories and exchange rates have imposed
-structural changes in commodity markets (Balcombe, Prakash, and others
-2011; Gilbert and Morgan 2010; A. Prakash, Gilbert, and others 2011).
+production, and coordinating consumption through time (S. H. Irwin and
+Sanders 2011; Cheng and Xiong 2013; S. H. Irwin and Sanders 2012;
+Henderson, Pearson, and Wang 2015). Further, the recent increase in the
+production of biofuel from food commodities and volatile crude oil
+prices has changed the relationship between food and energy commodities
+(Serra and Zilberman 2013; M. L. Mallory, Irwin, and Hayes 2012;
+Gardebroek and Hernandez 2013; Vacha et al. 2013; Avalos 2014;
+Trujillo-Barrera et al. 2012). Additionally, climate change, rising
+demand for agricultural commodities, and volatile inventories and
+exchange rates have imposed structural changes in commodity markets
+(Balcombe, Prakash, and others 2011; Gilbert and Morgan 2010; A.
+Prakash, Gilbert, and others 2011).
 
 These issues represent potentially profound shifts in the way commodity
 markets operate, and the articles cited above have considered their
-implications. However, how these changes affect commodity markets
-tick-by-tick and quote-by-quote needs to be considered. Since global
-price discovery occurs on global futures exchanges for the major food
-commodities, a deep consideration of these changes on trading activity,
-patterns, and consequences is warranted. We use ``high frequency data''
-(time stamped to the second), in order to capture faster price change
-adjustments taking place after significant technical developments in
-trading platforms in the second half of the 2000s, characterized by high
-speed trading.
+implications. However, how these changes affect commodity markets on a
+tick-by-tick and quote-by-quote basis needs to be considered. Since
+global price discovery occurs on global futures exchanges for the major
+food commodities, a detailed consideration of these changes on trading
+activity, patterns, and consequences is warranted. We use ``high
+frequency data'' (time stamped to the second), in order to capture
+faster price change adjustments taking place after significant technical
+developments in trading platforms in the second half of the 2000s,
+characterized by high speed trading.
 
 Price analysis can be classified into structural and non-structural
 studies. While structural models rely on economic theory, non-structural
@@ -176,9 +177,20 @@ information is transmitted among the different futures maturities. This
 metric is sensible in commodity futures markets but not in a market for
 a single security, because futures markets have multiple maturity
 contracts that should respond to information in a very similar and
-predictable way. We find information is fully transmitted along the
-forward curve so that nearby and distant contracts have fully adjusted
-to new information within one second.
+predictable way.
+
+Garcia and Leuthold (1992) examined how USDA announcements are
+transmitted in nearby and deferred contracts. Using daily price
+observations and USDA announcement dates, they observe that deferred
+futures responses are similar to nearby harvest futures, but the
+information effect is somewhat smaller. Information appears to affect
+prices over a horizon of at least five days. Informatively, they call
+for closer examination of intra-day data to develop a more comprehensive
+understanding of price behavior. In contrast to the results found by
+Garcia and Leuthold, we find information is fully transmitted within one
+second, reflecting a market that is highly efficient in transmitting
+information up the forward curve from nearby to distant contract
+maturities.
 
 The remainder of the article is organized as follows. First, we provide
 a background of the sequential trading and index futures microstructure
@@ -195,8 +207,8 @@ markets is long and rich.\footnote{The interested reader can refer to
   of this literature.} Bagehot (1971) is regarded as the first to
 demonstrate that a bid-ask spread (BAS) arises when asymmetric
 information is present even if inventory and transactions costs are
-assumed to be zero. Copeland and Galai (1983) buid upon Bagehot's work
-by assuming that a specific proportion of traders are informed. Knowing
+assumed to be zero. Copeland and Galai (1983) build on Bagehot's work by
+assuming that a specific proportion of traders are informed. Knowing
 this, the market maker adjusts his quoted bids and offers to maximize
 expected profit. Copeland and Galai's model, however, does not account
 for the fact that the trades themselves can reveal information about
@@ -265,7 +277,7 @@ lag in information transmittal allows for arbitrageurs, who possess
 faster telecommunication technologies, to learn from transactions in
 both markets and make profitable trades in the cash and futures markets.
 These arbitrageurs are analogous to spread traders who trade in both
-nearby and deferred contracts hoping to profit on relative price
+nearby and deferred futures contracts hoping to profit on relative price
 movements.
 
 There are some important distinctions between the arbitrageurs as
@@ -358,9 +370,9 @@ fifth column, OFR, is the best offered price. The sixth column, BIDSIZ,
 is the number of contracts quoted at the best bid price; the last
 column, BID, is the best bid price. For each date in our sample, we
 consider the first to mature (nearby), one, two, and three contracts
-deferred. We defined the nearby contract to be the next contract to
+deferred. We define the nearby contract to be the next contract to
 expire unless the date was after the 20th of the month prior to
-expiration. Then we rolled the nearby to the next to expire contract. We
+expiration. Then we roll the nearby to the next to expire contract. We
 rolled the series on the 20th to avoid decreasing volume as the contract
 neared the delivery period. We also excluded the September futures
 contract from our analysis because of low trading volume.\footnote{September
@@ -376,32 +388,37 @@ time period examined was characterized by volatility, uncertainty, and
 rapid increases in prices in the beginning and end of the sample. Note
 that prices increased to a peak of nearly \$8.00 per bushel in 2008, a
 time a time that saw a broad class of commodity markets exhibiting
-similar rapid price increases. Then a relatively stable period from 2009
-and 2010 saw prices within a relatively tight range of \$3.00 to \$4.50
-per bushel. In the final year of the sample, uncertainty and rapid price
-increases reigned again as worries about a smaller than anticipated crop
-yield and small ending stocks drove prices to nearly \$8.00 per bushel.
-The number of transactions per day, depicted in the bottom panel,
-appears to stay within a fairly stable band throughout the sample period
--- with perhaps an uptrend during the price spike of 2008 and a slight
-upward trend toward the end of the sample.
+similar rapid price increases. The prices in the last half of 2008 were
+in sharp decline as commodity markets were influenced by the financial
+meltdown that led to the Great Recession (Caballero, Farhi, and
+Gourinchas 2008).
+
+Then a relatively stable period from 2009 and 2010 saw prices within a
+relatively tight range of \$3.00 to \$4.50 per bushel. In the final year
+of the sample, uncertainty and rapid price increases reigned again as
+worries about a smaller than anticipated crop yield and small ending
+stocks drove prices to nearly \$8.00 per bushel. The number of
+transactions per day, depicted in the bottom panel, appears to stay
+within a fairly stable band throughout the sample period -- with perhaps
+an uptrend during the price spike of 2008 and a slight upward trend
+toward the end of the sample.
 
 The second and third panel display the number of revisions to the best
 ask and best bid, respectively. The number of quote revisions is fairly
 stable within a band of about 25,000 to 50,000 revisions from 2008 to
 mid 2010. The exception being a brief period in late 2008 when the
-market had bottomed after a dramatic fall from a high that summer of
-nearly \$8.00 per bushel. Starting in the latter period of 2010, a
-notable increase in the number of quote revisions, and the volatility of
-the number of quote revisions can be observed. While they do not stay
-within a well defined band, most days the number of quote revisions fall
-within an range of 30,000 to 75,000. Because this does not appear to
-coincide with a commensurate increase in the number of transactions
-(depicted in the bottom panel of figure 1), one must assume this is due
-to an increase in quoting strategies particularly suited to electronic
+market bottomed after a dramatic fall from a high that summer of nearly
+\$8.00 per bushel. Starting in the latter period of 2010, a notable
+increase in the number of quote revisions, and the volatility of the
+number of quote revisions can be observed. While they do not stay within
+a well-defined band, most days the number of quote revisions fall within
+a range of 30,000 to 75,000. Because this does not appear to coincide
+with a commensurate increase in the number of transactions (depicted in
+the bottom panel of figure 1), one must assume this is due to an
+increase in quoting strategies particularly suited to electronic
 markets. A noticeable decrease in the number of transactions, and
 especially the number of quote revisions is visible during the final
-weeks of 2008, 2009, and 2010, corresponding with the Christmas and New
+weeks of 2008, 2009, and 2010, corresponding to the Christmas and New
 Year's holiday.
 
 While price levels were volatile, the share of contracts traded on the
@@ -415,11 +432,11 @@ several updates to the top of the book displaying the same time stamp.
 This requires us to either aggregate to the second, or to simulate
 sub-second time stamps (Hasbrouck 2015; X. Wang 2014). Since we
 calculate correlations between updates to the top-of-the book for
-several contract maturities, simulation would need to preserve (at
-least) the order in which updates arrived to each respective contract.
-Since preserving the order of arrival across different contracts is
-impossible, we aggregate to the second.\footnote{We take the last entry
-  on each time-stamp for the aggregation.}
+several contract maturities, simulation would need to preserve the order
+and timing of within second updates for each respective contract. Since
+this is virtually impossible and would be subject to error, we aggregate
+to the second.\footnote{We take the last entry on each time-stamp for
+  the aggregation.}
 
 Further, we exclude days on which there was a limit price move in any of
 the contracts, since when prices are locked at the limit, correlations
@@ -446,12 +463,11 @@ forward curve in the same direction. In other words, information that
 raises the best bid (offer) in the nearby contract, should raise the
 best bid (offer) in the deferred contracts as well. Linkages between the
 nearby and deferred contracts can be measured with simple correlations
-in the absence of a formal model. One of the key methodological issues
-when it comes to assessing high frequency data is the non-normality of
-price data that complicates proper modeling and requires the use of
-appropriate methodologies for analysis (A{ï}t-Sahalia, Mykland, and
-Zhang 2005; Andersen et al. 2001; Easley, Prado, and O'Hara 2012;
-Hasbrouck 2013; Lee and Mykland 2008; Lehecka, Wang, and Garcia 2014).
+in the absence of a formal model. While correlation analysis may be
+influenced by non-normality in high frequency price data, it provides a
+straightforward and robust procedure to assess the linkages across
+changes in contracts for the time intervals (described below) that we
+use to analyze our research questions.
 
 We have two primary objectives: 1) calculate the strength of
 correlations between the order books of the nearby and deferred
@@ -466,11 +482,11 @@ The time lagged correlations provide a measure of how long it takes for
 information to be transmitted from nearby to the deferred contracts. The
 logic is that if we observe contemporaneous correlation between the
 nearby and deferred contracts, we can search for the time lag at which
-we observe the correlation disappearing. We conclude that information
-has been fully transmitted when the time lagged nearby and deferred
-contract order book revisions become uncorrelated. Conversely, we may
-observe that there is no contemporaneous correlation, but there is
-lagged correlation.
+we observe the correlation disappear. We conclude that information has
+been fully transmitted when the time lagged nearby and deferred contract
+order book revisions become uncorrelated. Conversely, we may observe
+that there is no contemporaneous correlation, but there is lagged
+correlation.
 
 Since the corn futures contract experiences non-uniform trading volume
 throughout the day, there may be time of day effects in the strength and
@@ -495,10 +511,10 @@ on the same second (and consequently receive the same time-stamp in the
 data). The converse is also true, however. It is also common for a
 number of seconds to transpire before the top of the order book is
 revised - particularly in the middle of the daytime trading session.
-This results in our variables containing many zeros. How these zeros are
-distributed between the contracts is related to the concepts of
-liquidity-based versus information-based activity discussed in the
-conceptual framework.
+This results in our variables (i.e., changes in quotes) containing many
+zeros. How these zeros are distributed between the contracts is related
+to the concepts of liquidity-based versus information-based activity
+discussed in the conceptual framework.
 
 To fix ideas, consider the possible outcomes when examining
 contemporaneous log changes in the top of the book between the nearby
@@ -543,18 +559,16 @@ the log change of the nearby best bids, \(bid_{ti}^N\), and the log
 change of the deferred best bids, \(bid_{ti}^D\), for every day,
 \emph{t}, and in every 10-minute interval in the daytime trading
 session, \emph{I}, using the observations, \emph{i}, when both the
-nearby and the deferred best bid log chnges are not equal to zero
-(\(bid_{ti}^N \: \textrm{and} \: bid_{ti}^D \neq 0\)). The correlations
-from equation (1) are calculated for the nearby and one deferred, nearby
-and two deferred, and nearby and three deferred contracts.
+nearby and the deferred best bid log changes differ from zero
+(\(bid_{ti}^N \: \textrm{and} \: bid_{ti}^D \neq 0\)). A similar
+analysis is performed for the offers, using equation \ref{corOO}.
 
-Similarly equation \ref{corOO} indicates that we calculate the
-correlation between the log change of the nearby best offer,
-\(offer_{ti}^N\), and the log change of the deferred best offer,
-\(offer_{ti}^D\) for every day, \emph{t}, and in every 10-minute
-interval in the daytime trading session, \emph{I}, using the
-observations, \emph{i}, when both the nearby and the deferred best offer
-are not equal to zero
+Equation \ref{corOO} calculates the correlation between the log change
+of the nearby best offer, \(offer_{ti}^N\), and the log change of the
+deferred best offer, \(offer_{ti}^D\) for every day, \emph{t}, and in
+every 10-minute interval in the daytime trading session, \emph{I}, using
+the observations, \emph{i}, when both the nearby and the deferred best
+offer differ from zero
 (\({offer_{ti}^N \: \textrm{and} \: offer_{ti}^D} \neq 0\)).
 
 \begin{equation} \label{corOO}
@@ -587,13 +601,12 @@ the two markets.
 corr^{LagBid}_{tI} = \frac{\sum\limits_{i=2}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=2}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=2}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \: \textrm{such that} \: {bid_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0
 \end{equation}
 
-Equation \ref{corLBB} indicates that we calculate the correlation
-between the lagged log change of the nearby best bid,
-\(bid_{t(i-1)}^N\), and the log change of the deferred best bid,
-\(bid_{ti}^D\) for every day, \emph{t}, and in every 10-minute interval
-in the daytime trading session, \emph{I}, using the observations,
-\emph{i}, when both the lagged nearby and the deferred best bid are not
-different from zero
+Equation \ref{corLBB} calculates the correlation between the lagged log
+change of the nearby best bid, \(bid_{t(i-1)}^N\), and the log change of
+the deferred best bid, \(bid_{ti}^D\) for every day, \emph{t}, and in
+every 10-minute interval in the daytime trading session, \emph{I}, using
+the observations, \emph{i}, when both the lagged nearby and the deferred
+best bid differ from zero
 (\({bid_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0\)).
 
 \begin{equation} \label{corLOO}
@@ -603,13 +616,12 @@ different from zero
 \end{split}
 \end{equation}
 
-Similarly, equation \ref{corLOO} indicates that we calculate the
-correlation between the lagged log change of the nearby best offer,
-\(offer_{t(i-1)}^N\), and the log change of the deferred best offer,
-\(offer_{ti}^D\) for every day, \emph{t}, and in every 10-minute
-interval in the daytime trading session, \emph{I}, using the
-observations, \emph{i}, when both the lagged nearby and the deferred
-best offer are not equal to zero
+Similarly, equation \ref{corLOO} calculates the correlation between the
+lagged log change of the nearby best offer, \(offer_{t(i-1)}^N\), and
+the log change of the deferred best offer, \(offer_{ti}^D\) for every
+day, \emph{t}, and in every 10-minute interval in the daytime trading
+session, \emph{I}, using the observations, \emph{i}, when both the
+lagged nearby and the deferred best offer differ from zero
 (\({offer_{t(i-1)}^N \: \textrm{and} \: offer_{ti}^D} \neq 0\)).
 
 \subsection{Spread Trades, Information Transmission, and Time-Lagged
@@ -622,15 +634,15 @@ spread trade is entered as a buy (sell) in the nearby and a sell (buy)
 in the deferred contract. Until now, we have presented correlations
 between bid-to-bid and offer-to-offer in the nearby and deferred
 contracts. In equation 5, we measure the effect of spread traders in
-transmitting information up the forward curve, by calculating how
+transmitting information up the forward curve, by calculating
 correlations between lagged log changes in the nearby bid and log
-changes in the deferred offer measure.
+changes in the deferred offer.
 
 \begin{equation} \label{corrLBO}
 corr^{LagBO}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right) \left(offer_{ti}^D - \overline{offer_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(offer_{ti}^D - \overline{offer_t^D}\right)^2}} \: \textrm{such that} \: {bid_{t(i-1)}^N \: \textrm{and} \: offer_{ti}^D} \neq 0
 \end{equation}
 
-More specifically, equation 5 measurees the correlation between the
+More specifically, equation 5 measures the correlation between the
 lagged log change of the nearby best bid, \(bid_{t(i-1)}^N\), and the
 log change of the deferred best offer, \(offer_{ti}^D\), for every day,
 \emph{t}, and in every 10-minute interval in the daytime trading
@@ -652,7 +664,7 @@ and the deferred bid.
 On USDA report announcement days there is often a significant amount of
 information that market participants receive at the same time, causing
 large price fluctuations and larger than usual trading volumes.
-Therefore, in our analysis we also separate out days on which major USDA
+Therefore, in our analysis we separate out days on which major USDA
 reports are released and calculate the same correlations described
 above. The allows us to examine whether there is a detectable difference
 in information-based trading and the speed of information transmission
@@ -664,7 +676,7 @@ Planting, Planted Acres, and Grain Stocks.
 
 \section{Results}\label{results}
 
-Table 2 contains a synopsis of the results that will be presented as
+Table 2 contains the structure of the results that are presented as
 figures 2, 3, and 4. Figure 2 sheds light on information-based trading
 and presents the strength of the link between the nearby and deferred
 contracts by calculating the contemporaneous correlation between log
@@ -677,7 +689,7 @@ transmission through the correlation of log changes of nearby bids
 (offers) and log changes of first deferred offers (bids) at time lags of
 0, 1, and 10 seconds. Each figure is organized in a similar way. The top
 two panes show correlations with the nearby bid and offer, respectively,
-while the bottom panes show the same information on USDA report days.
+while the bottom panels show the same information on USDA report days.
 The dots represent the mean of the distribution of calculated
 correlations and the bars represent one standard deviation of the
 distribution of calculated correlations.
@@ -717,24 +729,21 @@ depiction compared in that the correlations hover near one throughout
 the trading day. If there had been a difference in the pattern of
 correlations on USDA report days, one would expect the first ten minutes
 of trading to display the largest effect. There is visibly more
-variation in the means of these distributions, presumably as much a
-result of the much smaller sample of report days versus non-report days.
+variation in the means of these distributions, which could also be a
+reflection of the smaller sample of report days versus non-report days.
 
 We suspect two primary reasons that the full sample and USDA report day
 results are so similar: 1) Since we removed days where the report
 release corresponded to limit price moves, we systematically removed
 report days where the most important information was conferred on the
-market. It is possible that the remaining days corresponded to USDA
-reports that were more easily translated to market impacts by traders,
-and thus created results in figure 2 that look similar to a normal
-trading day, while we systematically excluded report days containing
-larger information shocks and presumably are harder for traders to
-interpret the market impact of the report. 2) Since USDA reports were
-released prior to the market open during this time period, the
-information may have already been fully incorporated by market
-participants by the time the market opened, resulting in no discernible
-difference in the pattern of correlations in the first (and subsequent)
-time bins.
+market. As a result, the remaining days corresponding to USDA reports
+were more easily translated to market impacts by traders, and thus
+created results in figure 2 that look similar to a normal trading day.
+2) Since USDA reports were released prior to the market open during this
+time period, the information may have already been fully incorporated by
+market participants by the time the market opened, resulting in no
+discernible difference in the pattern of correlations in the first (and
+subsequent) time bins.
 
 \subsection{Speed of Information Transmission and Time-Lagged
 Correlations in the Top of the
@@ -743,14 +752,12 @@ Book}\label{speed-of-information-transmission-and-time-lagged-correlations-in-th
 Figure 3 contains the correlations between log changes of the nearby and
 log changes of one deferred contracts at 0, 1, and 10 second time lags,
 when both experience non-zero changes. The graph shows the
-contemporaneous correlation from figure 2 as a reference, and
-correlations generated by lagging the nearby by one second and ten
-seconds respectively. Here we expected to see a clear pattern of
-decreased correlation as we increased the length of the time lag in the
-nearby - reflecting that information is transmitted from nearby to
-deferred contracts over a number of seconds. However, we see that the
-correlation drops to zero with a lag of one second, which in this data
-set is the shortest time lag possible.
+contemporaneous correlation from figure 2 as a reference. Here we
+expected to see a clear pattern of decreased correlation as we increased
+the length of the time lag in the nearby - reflecting that information
+is transmitted from nearby to deferred contracts over a number of
+seconds. However, we see that the correlation drops to zero with a lag
+of one second, which in this data set is the shortest time lag possible.
 
 There are three possible explanations for this. First, it is possible
 that there is in fact a clear and decreasing correlation between lags of
@@ -766,7 +773,7 @@ time to fully to be incorporated into the nearby contract, then we would
 observe non-zero correlation between nearby quote revisions and lagged
 \emph{deferred} quote revisions. When we did this, we observed a very
 similar result as is presented in figure 3 - zero correlation at 1 and
-10 second time lags of the deferred contract; this means there is not
+10 second time lags of the deferred contract; this means there is no
 evidence to support that price discovery happens in the deferred
 contracts.\footnote{This figure is not presented in the interest of
   brevity.} Information seems to be fully transmitted within one second
@@ -784,13 +791,20 @@ Correlations}\label{spread-trades-information-transmission-and-time-lagged-bid-t
 Figure 4 displays the means and error bars of the correlations between
 log changes of the lagged nearby bid (offer) revisions and log changes
 of the first deferred offer (bid) revisions. Here, as in figure 3 we see
-contemporaneous correlations hovering near one. We observe that while
-the correlations when the nearby is lagged by both one second and ten
+contemporaneous correlations near one. We observe that while the
+correlations when the nearby is lagged by both one second and ten
 seconds are near zero, the mean of the one second lagged correlations
-are clearly higher than the ten second lags and larger than zero. It is
-not compelling evidence, however, that we have observed incomplete
-information transmission at the one second horizon. Though positive, it
-is still quite close to zero.
+are clearly higher than the ten second lags and larger than zero.
+Despite this minor difference, it is not compelling evidence that we
+have observed incomplete information transmission at the one second
+horizon. Though positive, it is still quite close to zero.
+
+This result may be surprising because trades in the calendar spread
+(buying the nearby and selling the deferred, or vice versa) should
+induce a negative nearby bid-to-deferred offer correlation. Since our
+results appear very similar to the results in figures 2 and 3, we
+conclude that the information effect in price levels swamps any negative
+correlation that would have been induced by the spread trade.
 
 \section{Conclusions}\label{conclusions}
 
@@ -825,38 +839,41 @@ contracts. We find that even at a one second lag, the shortest time lag
 possible with this data set, the correlation between revisions to the
 best bid and best offer dropped to zero.
 
-These results indicate that we can learn much from trades and quotes
-data about how many informed traders there are in a marketplace, but it
-is clear that much additional work in this area is needed. We borrowed
-from the sequential trading in securities literature, but future
-research is needed to develop sequential trading models specific to
-commodity futures markets. Such a model would provide richer insights
-into trading and behavior of markets.
+These results provide compelling evidence that traders are able to
+incorporate information into the electronic corn futures market very
+quickly. Arbitrage opportunities that arise from out-dated prices in the
+deferred contracts quickly evaporate with electronic and algorithmic
+traders (Lehecka, Wang, and Garcia 2014). Informatively, we find little
+difference between USDA announcement and regular days except for a wider
+variance, which might be attributed to the larger shocks in information.
+
+It also appears that the arrival of new information overwhelms spreading
+activity. Calendar spread trades should lead to a negative correlation
+between the nearby and deferred. However, we find that the nearby and
+deferred contracts have a correlation near 1 concurrent with an
+information event and a correlation near zero in the absence of such an
+event. In part, this may be influenced by spread traders who take market
+positions because of price differentials in contracts rather than the
+arrival of new information.
+
+Finally, we have shown that price discovery across electronically traded
+commodities can occur quickly even when the known liquidity differences
+in specific contracts exist (X. Wang, Garcia, and Irwin 2014); if
+differences occur, they likely occurs at the millisecond level.
 
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
 
-A{ï}t-Sahalia, Yacine, Per A Mykland, and Lan Zhang. 2005. ``How Often
-to Sample a Continuous-Time Process in the Presence of Market
-Microstructure Noise.'' \emph{Review of Financial Studies} 18 (2). Soc
-Financial Studies: 351--416.
-
 Akerlof, George A. 1970. ``The Market for` Lemons': Quality Uncertainty
 and the Market Mechanism.'' \emph{The Quarterly Journal of Economics} 84
-(3). JSTOR: 488--500.
-
-Andersen, Torben G, Tim Bollerslev, Francis X Diebold, and Paul Labys.
-2001. ``The Distribution of Realized Exchange Rate Volatility.''
-\emph{Journal of the American Statistical Association} 96 (453). Taylor
-\& Francis: 42--55.
+(3): 488--500.
 
 Avalos, Fernando. 2014. ``Do Oil Prices Drive Food Prices? The Tale of a
 Structural Break.'' \emph{Journal of International Money and Finance} 42
 (0): 253--71.
-doi:\href{http://dx.doi.org/http://dx.doi.org/10.1016/j.jimonfin.2013.08.014}{http://dx.doi.org/10.1016/j.jimonfin.2013.08.014}.
 
 Bagehot, Walter. 1971. ``The Only Game in Town.'' \emph{Financial
-Analysts Journal} 27 (2). CFA Institute: 12--14.
+Analysts Journal} 27 (2): 12--14.
 
 Balcombe, Kevin, A Prakash, and others. 2011. ``The Nature and
 Determinants of Volatility in Agricultural Prices: An Empirical Study.''
@@ -866,45 +883,45 @@ Agriculture Organization of the United Nations (FAO), 89--110.
 Boehmer, E., J. Grammig, and E. Theissen. 2007. ``Estimating the
 Probability of Informed Trading-Does Trade Misclassification Matter?''
 \emph{Journal of Financial Markets} 10 (1): 26--47.
-doi:\href{http://dx.doi.org/10.1016/j.finmar.2006.07.002}{10.1016/j.finmar.2006.07.002}.
 
 Brennan, Michael J. 1958. ``The Supply of Storage.'' \emph{The American
-Economic Review} 48 (1). JSTOR: 50--72.
+Economic Review} 48 (1): 50--72.
+
+Caballero, Ricardo J, Emmanuel Farhi, and Pierre-Olivier Gourinchas.
+2008. ``Financial Crash, Commodity Prices, and Global Imbalances.''
+\emph{Brookings Papers on Economic Activity}, 1--55.
 
 Cheng, Ing-Haw, and Wei Xiong. 2013. \emph{The Financialization of
 Commodity Markets}. Working Paper 19642. Working Paper Series. National
 Bureau of Economic Research.
-doi:\href{http://dx.doi.org/10.3386/w19642}{10.3386/w19642}.
 
 Copeland, Thomas E, and Dan Galai. 1983. ``Information Effects on the
-Bid-Ask Spread.'' \emph{The Journal of Finance} 38 (5). Wiley Online
-Library: 1457--69.
+Bid-Ask Spread.'' \emph{The Journal of Finance} 38 (5): 1457--69.
 
 Easley, David, and Maureen O'Hara. 1987. ``Price, Trade Size, and
 Information in Securities Markets.'' \emph{Journal of Financial
-Economics} 19 (1). Elsevier: 69--90.
+Economics} 19 (1): 69--90.
 
 ---------. 1992. ``Time and the Process of Security Price Adjustment.''
-\emph{The Journal of Finance} 47 (2). Wiley Online Library: 577--605.
+\emph{The Journal of Finance} 47 (2): 577--605.
 
 Easley, David, Soeren Hvidkjaer, and Maureen O'Hara. 2002. ``Is
 Information Risk a Determinant of Asset Returns?'' \emph{The Journal of
-Finance} 57 (5). Blackwell Publishing, Inc.: 2185--2221.
+Finance} 57 (5): 2185--2221.
 
 Easley, David, Nicholas M Kiefer, and Maureen O'Hara. 1997. ``One Day in
 the Life of a Very Common Stock.'' \emph{Review of Financial Studies} 10
-(3). Soc Financial Studies: 805--35.
+(3): 805--35.
 
-Easley, David, Marcos M L{ó}pez de Prado, and Maureen O'Hara. 2012.
-``The Volume Clock: Insights into the High-Frequency Paradigm (Digest
-Summary).'' \emph{Journal of Portfolio Management} 39 (1). CFA
-Institute: 19--29.
+Garcia, Philip, and Raymond M Leuthold. 1992. ``The Effect of Market
+Information on Corn and Soybean Markets.'' In \emph{Proceedings of the
+1992 NCR-134 Applied Commodity Price Analysis, Forecasting and Market
+Risk Management Conference, Chicago, IL, April}, 59--74.
 
 Gardebroek, Cornelis, and Manuel A. Hernandez. 2013. ``Do Energy Prices
 Stimulate Food Price Volatility? Examining Volatility Transmission
 Between \{US\} Oil, Ethanol and Corn Markets.'' \emph{Energy Economics}
 40 (0): 119--29.
-doi:\href{http://dx.doi.org/http://dx.doi.org/10.1016/j.eneco.2013.06.013}{http://dx.doi.org/10.1016/j.eneco.2013.06.013}.
 
 Gilbert, Christopher L, and C Wyn Morgan. 2010. ``Food Price
 Volatility.'' \emph{Philosophical Transactions of the Royal Society of
@@ -912,52 +929,37 @@ London B: Biological Sciences} 365 (1554). The Royal Society: 3023--34.
 
 Glosten, Lawrence R, and Paul R Milgrom. 1985. ``Bid, Ask and
 Transaction Prices in a Specialist Market with Heterogeneously Informed
-Traders.'' \emph{Journal of Financial Economics} 14 (1). Elsevier:
-71--100.
+Traders.'' \emph{Journal of Financial Economics} 14 (1): 71--100.
 
 Hasbrouck, Joel. 2006. \emph{Empirical Market Microstructure: The
 Institutions, Economics, and Econometrics of Securities Trading}. Oxford
 University Press.
 
----------. 2013. ``High Frequency Quoting: Short-Term Volatility in Bids
-and Offers.'' \emph{Available at SSRN 2237499}.
-
 ---------. 2015. \emph{High Frequency Quoting: Short-Term Volatility in
-Bids and Offers}. Working Paper (available at Available at SSRN:
-http://ssrn.com/abstract=2237499 or
-http://dx.doi.org/10.2139/ssrn.2237499). New York University.
-\href{ http://ssrn.com/abstract=2237499 }{http://ssrn.com/abstract=2237499}.
+Bids and Offers}. Working Paper. New York University.
 
 Henderson, Brian J., Neil D. Pearson, and Li Wang. 2015. ``New Evidence
 on the Financialization of Commodity Markets.'' \emph{Review of
 Financial Studies} 28 (5): 1285--1311.
-doi:\href{http://dx.doi.org/10.1093/rfs/hhu091}{10.1093/rfs/hhu091}.
 
 Irwin, Scott H., and Dwight R. Sanders. 2011. ``Index Funds,
 Financialization, and Commodity Futures Markets.'' \emph{Applied
 Economic Perspectives and Policy} 33 (1): 1--31.
-doi:\href{http://dx.doi.org/10.1093/aepp/ppq032}{10.1093/aepp/ppq032}.
 
 ---------. 2012. ``Testing the Masters Hypothesis in Commodity Futures
 Markets.'' \emph{Energy Economics} 34 (1): 256--69.
-doi:\href{http://dx.doi.org/http://dx.doi.org/10.1016/j.eneco.2011.10.008}{http://dx.doi.org/10.1016/j.eneco.2011.10.008}.
 
 Kumar, Praveen, and Duane J Seppi. 1994. ``Information and Index
-Arbitrage.'' \emph{Journal of Business} 67 (4). JSTOR: 481--509.
-
-Lee, Suzanne S, and Per A Mykland. 2008. ``Jumps in Financial Markets: A
-New Nonparametric Test and Jump Dynamics.'' \emph{Review of Financial
-Studies} 21 (6). Soc Financial Studies: 2535--63.
+Arbitrage.'' \emph{Journal of Business} 67 (4): 481--509.
 
 Lehecka, Georg V, Xiaoyang Wang, and Philip Garcia. 2014. ``Gone in Ten
 Minutes: Intraday Evidence of Announcement Effects in the Electronic
 Corn Futures Market.'' \emph{Applied Economic Perspectives and Policy}
-36 (3). Oxford University Press: 504--26.
+36 (3): 504--26.
 
 Mallory, Mindy L., Scott H. Irwin, and Dermot J. Hayes. 2012. ``How
 Market Efficiency and the Theory of Storage Link Corn and Ethanol
 Markets.'' \emph{Energy Economics} 34 (6): 2157--66.
-doi:\href{http://dx.doi.org/http://dx.doi.org/10.1016/j.eneco.2012.03.011}{http://dx.doi.org/10.1016/j.eneco.2012.03.011}.
 
 O'Hara, Maureen. 1995. \emph{Market Microstructure Theory}. Vol. 108.
 Blackwell Cambridge, MA.
@@ -971,9 +973,8 @@ Vulnerability in the Global Food System: Beyond Market Fundamentals.''
 Agriculture Organization of the United Nations (FAO), 45--66.
 
 Serra, Teresa, and David Zilberman. 2013. ``Biofuel-Related Price
-Transmission Literature: A Review.'' \emph{Energy Economics} 37 (0):
+Transmission Literature: A Review.'' \emph{Energy Economics} 37:
 141--51.
-doi:\href{http://dx.doi.org/http://dx.doi.org/10.1016/j.eneco.2013.02.014}{http://dx.doi.org/10.1016/j.eneco.2013.02.014}.
 
 Trujillo-Barrera, Andres, Mindy Mallory, Philip Garcia, and others.
 2012. ``Volatility Spillovers in US Crude Oil, Ethanol, and Corn Futures
@@ -983,26 +984,26 @@ Markets.'' \emph{Journal of Agricultural and Resource Economics} 37 (2):
 Vacha, Lukas, Karel Janda, Ladislav Kristoufek, and David Zilberman.
 2013. ``Time--frequency Dynamics of Biofuel--fuel--food System.''
 \emph{Energy Economics} 40 (0): 233--41.
-doi:\href{http://dx.doi.org/http://dx.doi.org/10.1016/j.eneco.2013.06.015}{http://dx.doi.org/10.1016/j.eneco.2013.06.015}.
 
 Vega, C. 2006. ``Stock Price Reaction to Public and Private
 Information.'' \emph{Journal of Financial Economics} 82 (1): 103--33.
-doi:\href{http://dx.doi.org/10.1016/j.jfineco.2005.07.011}{10.1016/j.jfineco.2005.07.011}.
 
 Wang, Xiaoyang. 2014. ``Price volatility and liquidity cost in grain
 futures markets.'' PhD thesis, University of Illinois.
 
+Wang, Xiaoyang, Philip Garcia, and Scott H Irwin. 2014. ``The Behavior
+of Bid-Ask Spreads in the Electronically-Traded Corn Futures Market.''
+\emph{American Journal of Agricultural Economics} 96 (2): 557--77.
+
 Working, Holbrook. 1948. ``Theory of the Inverse Carrying Charge in
-Futures Markets.'' \emph{Journal of Farm Economics} 30 (1). Oxford
-University Press: 1--28.
+Futures Markets.'' \emph{Journal of Farm Economics} 30 (1): 1--28.
 
 ---------. 1949. ``The Theory of Price of Storage.'' \emph{The American
-Economic Review}. JSTOR, 1254--62.
+Economic Review}, 1254--62.
 
 Yan, Yuxing, and Shaojun Zhang. 2012. ``An Improved Estimation Method
 and Empirical Properties of the Probability of Informed Trading.''
 \emph{Journal of Banking \& Finance} 36 (2): 454--67.
-doi:\href{http://dx.doi.org/http://dx.doi.org/10.1016/j.jbankfin.2011.08.003}{http://dx.doi.org/10.1016/j.jbankfin.2011.08.003}.
 
 \end{document}
 
