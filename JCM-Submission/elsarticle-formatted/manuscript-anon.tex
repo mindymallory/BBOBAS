@@ -1,95 +1,67 @@
-\documentclass[]{elsarticle} %review=doublespace preprint=single 5p=2 column
-%%% Begin My package additions %%%%%%%%%%%%%%%%%%%
-\usepackage[hyphens]{url}
-\usepackage{lineno} % add
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+%% 
+%% Copyright 2007, 2008, 2009 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
 
-\bibliographystyle{elsarticle-harv}
-\biboptions{sort&compress} % For natbib
-\usepackage{graphicx}
-\usepackage{booktabs} % book-quality tables
-%% Redefines the elsarticle footer
-%\makeatletter
-%\def\ps@pprintTitle{%
-% \let\@oddhead\@empty
-% \let\@evenhead\@empty
-% \def\@oddfoot{\it \hfill\today}%
-% \let\@evenfoot\@oddfoot}
-%\makeatother
+%% Template article for Elsevier's document class `elsarticle'
+%% with numbered style bibliographic references
+%% SP 2008/03/01
 
-% A modified page layout
-\textwidth 6.75in
-\oddsidemargin -0.15in
-\evensidemargin -0.15in
-\textheight 9in
-\topmargin -0.5in
-%%%%%%%%%%%%%%%% end my additions to header
+\documentclass[review,12pt]{elsarticle}
 
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
-% use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-  \usepackage{fontspec}
-  \ifxetex
-    \usepackage{xltxtra,xunicode}
-  \fi
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-  \newcommand{\euro}{€}
-\fi
-% use microtype if available
-\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
-\hypersetup{breaklinks=true,
-            bookmarks=true,
-            pdfauthor={},
-            pdftitle={What Nearby and Deferred Quotes Tell Us about Linkages and Adjustments to Information},
-            colorlinks=true,
-            urlcolor=blue,
-            linkcolor=magenta,
-            pdfborder={0 0 0}}
-\urlstyle{same}  % don't use monospace font for urls
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\setcounter{secnumdepth}{0}
-\usepackage{pdflscape} \usepackage{threeparttable}
-% Pandoc toggle for numbering sections (defaults to be off)
-\setcounter{secnumdepth}{0}
-% Pandoc header
-\usepackage{pdflscape} \usepackage{threeparttable}
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
 
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%% \documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
 
-\usepackage[nomarkers]{endfloat}
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{pdflscape} 
+\usepackage{threeparttable}
+\usepackage{longtable}
+\usepackage{booktabs}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% 
+\usepackage{lineno}
+
+\journal{JCOMM}
 
 \begin{document}
+
 \begin{frontmatter}
 
   \title{What Nearby and Deferred Quotes Tell Us about Linkages and Adjustments
 to Information}
-    \author[University of Illinois]{Mindy L. Mallory\corref{c1}}
-   \ead{mallorym@illinois.edu} 
-   \cortext[c1]{Corresponding Author}
-    \author[University of Illinois]{Philip Garcia}
-   \ead{p-garcia@illinois.edu} 
-  
-    \author[University of Illinois]{Teresa Serra}
-   \ead{tserra@illinois.edu} 
-  
-      \address[University of Illinois]{Agricultural and Consumer Economics, 1301 W Gregory Dr, Urbana, IL,
-61801}
+
   
   \begin{abstract}
   The recent `Financialization' of commodity futures markets, increases in
@@ -110,6 +82,8 @@ to Information}
   \end{abstract}
    \begin{keyword} market, microstructure, information, electronic trading \sep \end{keyword}
  \end{frontmatter}
+
+\begin{linenumbers}
 
 \section{Introduction}\label{introduction}
 
@@ -875,6 +849,9 @@ commodities can occur quickly even when the known liquidity differences
 in specific contracts exist (X. Wang, Garcia, and Irwin 2014); if
 differences occur, they likely occurs at the millisecond level.
 
+
+\clearpage
+
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
 
@@ -1019,6 +996,143 @@ Yan, Yuxing, and Shaojun Zhang. 2012. ``An Improved Estimation Method
 and Empirical Properties of the Probability of Informed Trading.''
 \emph{Journal of Banking \& Finance} 36 (2): 454--67.
 
+\end{linenumbers}
+
+\clearpage
+
+\begin{longtable}[c]{@{}rcccccc@{}}
+\caption{First ten entries in our data set.}\tabularnewline
+\toprule
+& ID & SYMBOL & OFRSIZ & OFR & BIDSIZ & BID\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+& ID & SYMBOL & OFRSIZ & OFR & BIDSIZ & BID\tabularnewline
+\midrule
+\endhead
+2010-01-04 09:30:00 & 98790 & 1003 & 1475 & 423.75 & 1188 &
+423.75\tabularnewline
+2010-01-04 09:30:00 & 98800 & 1003 & 1483 & 423.75 & 1188 &
+423.75\tabularnewline
+2010-01-04 09:30:00 & 98810 & 1003 & 1483 & 423.75 & 1197 &
+423.75\tabularnewline
+2010-01-04 09:30:00 & 98820 & 1003 & 1486 & 423.75 & 1197 &
+423.75\tabularnewline
+2010-01-04 09:30:00 & 98830 & 1003 & 1486 & 423.75 & 1231 &
+423.75\tabularnewline
+2010-01-04 09:30:00 & 98840 & 1003 & 1494 & 423.75 & 1231 &
+423.75\tabularnewline
+2010-01-04 09:30:00 & 98850 & 1003 & 1496 & 423.75 & 1231 &
+423.75\tabularnewline
+2010-01-04 09:30:00 & 98860 & 1003 & 1510 & 423.75 & 1231 &
+423.75\tabularnewline
+2010-01-04 09:30:00 & 98870 & 1003 & 1510 & 423.75 & 1233 &
+423.75\tabularnewline
+2010-01-04 09:30:00 & 98880 & 1003 & 1520 & 423.75 & 1234 &
+423.75\tabularnewline
+\bottomrule
+\end{longtable}
+
+Notes: ID = CME's trade sequence number, Symbol = Contract expiration
+year (2010) and month (March), OFRSIZ = Number of contracts at the best
+offered price, OFR = Best price offered (cents per bushel), BIDSIZ =
+Number of contracts at the best bid price, BID = Best price bid (cents
+per bushel).
+
+\clearpage
+
+\begin{landscape}
+
+\begin{table*}[h]\centering
+\begin{threeparttable}
+\caption{Correlations Calculated to Produce Figures 1, 2, and 3 }
+\begin{tabular}{@{}cc|cc|cc@{}}
+ \specialrule{1pt}{1pt}{1pt}
+ \multicolumn{2}{c|}{Information-based trading} & \multicolumn{2}{c|}{Speed of information transmission} & \multicolumn{2}{c}{Spread trades and information transmission} \\
+ \multicolumn{2}{c|}{Figure 2}                    & \multicolumn{2}{c|}{Figure 3}         & \multicolumn{2}{c}{Figure 4}      \\
+ \multicolumn{2}{c|}{No Time Lag}           &\multicolumn{2}{c|}{Time Lag}               &\multicolumn{2}{c}{Time Lag}             \\
+\multicolumn{2}{c|}{Correlation of Nearby and}           &\multicolumn{2}{c|}{Correlation of Nearby}               &\multicolumn{2}{c}{Correlation of Nearby}             \\
+\multicolumn{2}{c|}{}           &\multicolumn{2}{c|}{and 1 deffered}               &\multicolumn{2}{c}{and 1 deffered}             \\
+
+\hline
+ Bid to Bid          & 1 deffered& Bid to Bid   & no time lag      & Bid to Offer & no time lag            \\
+                     &2 deffered &              &1 second          &              &1 second          \\
+                     &3 deffered &              &10 seconds        &              &10 seconds        \\
+ Offer to Offer      & 1 deffered& Offer to Offer&  no time lag    &Offer to Bid  &  no time lag                \\
+                     &2 deffered &              &1 second          &              &1 second          \\
+                     &3 deffered &              &10 seconds        &              &10 seconds        \\
+ Bid to Bid          &1 deffered & Bid to Bid   &  no time lag     & Bid to Offer & no time lag                 \\
+ (Report)            &2 deffered &  (Report)    &1 second          & (Report)     &1 second          \\
+                     &3 deffered &              &10 seconds        &              &10 seconds        \\
+ Offer to Offer      & 1 deffered&Offer to Offer& no time lag      &Offer to Bid  & no time lag                  \\
+ (Report)            &2 deffered &  (Report)     &1 second          & (Report)     &1 second          \\
+                     &3 deffered &              &10 seconds        &              &10 seconds        \\
+ \specialrule{1pt}{1pt}{1pt}
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item This table contains a summary of the correlation results that are presented in figures 1, 2, and 3. Correlations are calculated in ten minute intervals and for every day of our sample. The bottom two panels (Report) display the correlations for USDA report release days only.  
+    \end{tablenotes}
+\end{threeparttable}
+\end{table*}
+
+\end{landscape}
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.85]{TablesFigures_files/figure-latex/unnamed-chunk-3-1.pdf}
+{\footnotesize \emph{Notes:} Figure displays data for the corn futures market from 1/14/2008 to
+11/04/2011 for the nearby contract. The September contract is excluded
+due to the possibility of `old crop' and `new crop' both being delivered
+on this contract. To form the continuous nearby series contracts are
+rolled to the next contract on the 20th of the month prior to the
+delivery month. \par}
+\caption{Price Levels, Number of Ask Quotes, Number of Bid Quotes, and
+Number of Transactions}
+
+\end{figure}
+
+
+\clearpage
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.95]{TablesFigures_files/figure-latex/unnamed-chunk-4-1.pdf}
+{\footnotesize  \emph{Notes:} Mean correlations and one standard deviation error bars over all days
+are shown in the top two plots; report days only are included in the
+bottom two plots. \par}
+\caption{Information-Based Trading Activity and Contemporaneous
+Correlations in the Top of the Book}
+\end{figure}
+
+
+\clearpage
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.95]{TablesFigures_files/figure-latex/unnamed-chunk-5-1.pdf}
+{\footnotesize  \emph{Notes:} Mean correlations and one standard deviation error bars over all days
+are shown in the top two plots; report days only are included in the
+bottom two plots. \par}
+\caption{Speed of Information Transmission and Time-Lagged Correlations
+in the Top of the Book}
+\end{figure}
+
+
+\clearpage
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.95]{TablesFigures_files/figure-latex/unnamed-chunk-6-1.pdf}
+{\footnotesize  \emph{Notes:} Mean correlations and one standard deviation error bars over all days
+are shown in the top two plots; report days only are included in the
+bottom two plots. Bid-to-Offer shows correlation between revisions to
+the lagged nearby bid and the first deferred revisions to the offer, and
+Offer-to-Bid shows correlation between revisions to the lagged nearby
+offer and the first deferred revisions to the bid. \par}
+\caption{Spread Trades, Information Transmission, and Time-Lagged
+Bid-to-Offer (Offer-to-Bid) Correlations}
+\end{figure}
+
+
+
+
+
+
 \end{document}
-
-

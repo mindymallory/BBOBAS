@@ -3,6 +3,7 @@ output:
   pdf_document:
     template: simple.latex
     fig_caption: yes
+    keep_tex: true
   word_document:
     fig_caption: yes
     reference_docx: template.docx
@@ -104,7 +105,7 @@ library(ggplot2)
 library(gridExtra)
 library(data.table)
 library(grid)
-load('~/GitHub/BBOBAS/SummaryDT.Rda')
+load('~/GitHub/BBOBAS/JCM-Submission/SummaryDT.Rda')
 #DT[Deferreds %in% "Nearby"]
 
 numasksplot <- ggplot(DT[Deferreds == "Nearby" & variable == "NumberofAsks"], aes(TradeDate, value, colour=Deferreds, group=Deferreds)) +

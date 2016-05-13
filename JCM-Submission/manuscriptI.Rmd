@@ -20,9 +20,9 @@ abstract: |
 keywords: market, microstructure, information, electronic trading
 bibliography: bbobas.bib
 output:
-  word_document:
-    fig_caption: yes
-    reference_docx: template.docx
+  output: rticles::elsevier_article
+header-includes: \usepackage{pdflscape} \usepackage{threeparttable}
+keep_tex: true
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -116,7 +116,10 @@ The intuition is that if both the nearby and deferred contracts experience a rev
 If this intuition is correct, it is informative to consider only time-stamps for which both contracts experienced a revision - that is isolating what we are referring to as information-based activity to case (1) above. 
 
 \begin{equation} \label{corBB} 
-corr^{Bid}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(bid_{ti}^N - \overline{bid_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(bid_{ti}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \: \textrm{such that} \: bid_{ti}^N \: \textrm{and} \: bid_{ti}^D \neq 0
+\begin{split}
+& corr^{Bid}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(bid_{ti}^N - \overline{bid_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(bid_{ti}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \\ 
+& \textrm{such that} \: bid_{ti}^N \: \textrm{and} \: bid_{ti}^D \neq 0
+\end{split}
 \end{equation} 
 
 Equation \ref{corBB} indicates that we calculate the correlation between the log change of the nearby best bids, $bid_{ti}^N$, and the log change of the deferred best bids, $bid_{ti}^D$, for every day, *t*, and in every 10-minute interval in the daytime trading session, *I*, using the observations, *i*, when both the nearby and the deferred best bid log changes differ from zero ($bid_{ti}^N \: \textrm{and} \: bid_{ti}^D \neq 0$). A similar analysis is performed for the offers, using equation \ref{corOO}. 
@@ -137,7 +140,10 @@ The correlations from equations \ref{corBB} and \ref{corOO} are calculated for t
 To provide insights on the speed at which information is transmitted from the nearby to the deferred contracts, we lag the nearby series of log changes in the bid (offer) and calculate the correlation with the deferred bids (offers). This allows us to determine the length of time it takes for information to be fully transmitted to the deferred contracts. The assumption is that the length of time it takes for the revisions to the top of the nearby limit order book to become uncorrelated with revisions to the top of the deferred limit order books is the length of time it takes for information to be transmitted between the two markets.
 
 \begin{equation} \label{corLBB}
-corr^{LagBid}_{tI} = \frac{\sum\limits_{i=2}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=2}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=2}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \: \textrm{such that} \: {bid_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0
+\begin{split}
+& corr^{LagBid}_{tI} = \frac{\sum\limits_{i=2}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=2}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=2}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \\
+& \textrm{such that} \: {bid_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0 
+\end{split}
 \end{equation}
 
 Equation \ref{corLBB} calculates the correlation between the lagged log change of the nearby best bid, $bid_{t(i-1)}^N$, and the log change of the deferred best bid, $bid_{ti}^D$ for every day, *t*, and in every 10-minute interval in the daytime trading session, *I*, using the observations, *i*, when both the lagged nearby and the deferred best bid differ from zero (${bid_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0$). 
@@ -156,13 +162,19 @@ Similarly, equation \ref{corLOO} calculates the correlation between the lagged l
 Surely the spread trade is an important component that keeps nearby and deferred contracts linked in economically meaningful ways. However, a spread trade is entered as a buy (sell) in the nearby and a sell (buy) in the deferred contract. Until now, we have presented correlations between bid-to-bid and offer-to-offer in the nearby and deferred contracts. In equation 5, we measure the effect of spread traders in transmitting information up the forward curve, by calculating correlations between lagged log changes in the nearby bid and log changes in the deferred offer.
 
 \begin{equation} \label{corrLBO}
-corr^{LagBO}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right) \left(offer_{ti}^D - \overline{offer_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(offer_{ti}^D - \overline{offer_t^D}\right)^2}} \: \textrm{such that} \: {bid_{t(i-1)}^N \: \textrm{and} \: offer_{ti}^D} \neq 0
+\begin{split}
+& corr^{LagBO}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right) \left(offer_{ti}^D - \overline{offer_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(offer_{ti}^D - \overline{offer_t^D}\right)^2}} \\
+& \textrm{such that} \: {bid_{t(i-1)}^N \: \textrm{and} \: offer_{ti}^D} \neq 0
+\end{split}
 \end{equation}
 
 More specifically, equation 5 measures the correlation between the lagged log change of the nearby best bid, $bid_{t(i-1)}^N$, and the log change of the deferred best offer, $offer_{ti}^D$, for every day, *t*, and in every 10-minute interval in the daytime trading session, *I*, using the observations, *i*, when both the lagged nearby and the deferred best offer are not equal to zero, when both the lagged nearby offer and the deferred best offer are different from zero (${bid_{t(i-1)}^N \: \textrm{and} \: offer_{ti}^D} \neq 0$).
 
 \begin{equation} \label{corrLOB}
-corr^{LagOB}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(offer_{t(i-1)}^N - \overline{offer_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(offer_{t(i-1)}^N - \overline{offer_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \: \textrm{such that} \: {offer_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0
+\begin{split}
+& corr^{LagOB}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(offer_{t(i-1)}^N - \overline{offer_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(offer_{t(i-1)}^N - \overline{offer_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \\
+& \textrm{such that} \: {offer_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0
+\end{split}
 \end{equation}
 
 Similarly for equation \ref{corrLOB} we calculate the same correlations as in equation \ref{corrLBO} except that we use the lagged nearby offer and the deferred bid. 
@@ -219,7 +231,6 @@ These results provide compelling evidence that traders are able to incorporate i
 It also appears that the arrival of new information overwhelms spreading activity. Calendar spread trades should lead to a negative correlation between the nearby and deferred. However, we find that the nearby and deferred contracts have a correlation near 1 concurrent with an information event and a correlation near zero in the absence of such an event. In part, this may be influenced by spread traders who take market positions because of price differentials in contracts rather than the arrival of new information. 
 
 Finally, we have shown that price discovery across electronically traded commodities can occur quickly even when the known liquidity differences in specific contracts exist [@wang2014behavior]; if differences occur, they likely occurs at the millisecond level. 
-
 
 
 

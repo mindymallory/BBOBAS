@@ -1,19 +1,4 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
-@mindymallory
-Unwatch 2
-Star 0
-Fork 0 mindymallory/BBOBAS
-Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
-Branch: master Find file Copy pathBBOBAS/summary.R
-d39f836  18 days ago
-@mindymallory mindymallory nhgvhng
-1 contributor
-RawBlameHistory     196 lines (158 sloc)  9.54 KB
+
 # Summary tables 
 #This script creates the summary tables for the BBOBAS paper. I'm doing it in a separate script because I recently learned about data.table
 #which will make thie process a lot less painful. I think it will be easier than slogging along with the Analysis.R code. 
@@ -208,6 +193,3 @@ numasksplot$widths[2:3]   <- maxWidth
 
 grid.arrange(dailyaveprice, numasksplot, numbidsplot, numtransplot, ncol=1)
 
-
-Status API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help

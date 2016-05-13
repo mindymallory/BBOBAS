@@ -1,80 +1,57 @@
-\documentclass[]{elsarticle} %review=doublespace preprint=single 5p=2 column
-%%% Begin My package additions %%%%%%%%%%%%%%%%%%%
-\usepackage[hyphens]{url}
-\usepackage{lineno} % add
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+%% 
+%% Copyright 2007, 2008, 2009 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
 
-\bibliographystyle{elsarticle-harv}
-\biboptions{sort&compress} % For natbib
-\usepackage{graphicx}
-\usepackage{booktabs} % book-quality tables
-%% Redefines the elsarticle footer
-%\makeatletter
-%\def\ps@pprintTitle{%
-% \let\@oddhead\@empty
-% \let\@evenhead\@empty
-% \def\@oddfoot{\it \hfill\today}%
-% \let\@evenfoot\@oddfoot}
-%\makeatother
+%% Template article for Elsevier's document class `elsarticle'
+%% with numbered style bibliographic references
+%% SP 2008/03/01
 
-% A modified page layout
-\textwidth 6.75in
-\oddsidemargin -0.15in
-\evensidemargin -0.15in
-\textheight 9in
-\topmargin -0.5in
-%%%%%%%%%%%%%%%% end my additions to header
+\documentclass[review,12pt]{elsarticle}
 
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
-% use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-  \usepackage{fontspec}
-  \ifxetex
-    \usepackage{xltxtra,xunicode}
-  \fi
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-  \newcommand{\euro}{€}
-\fi
-% use microtype if available
-\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
-\hypersetup{breaklinks=true,
-            bookmarks=true,
-            pdfauthor={},
-            pdftitle={What Nearby and Deferred Quotes Tell Us about Linkages and Adjustments to Information},
-            colorlinks=true,
-            urlcolor=blue,
-            linkcolor=magenta,
-            pdfborder={0 0 0}}
-\urlstyle{same}  % don't use monospace font for urls
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\setcounter{secnumdepth}{0}
-\usepackage{pdflscape} \usepackage{threeparttable}
-% Pandoc toggle for numbering sections (defaults to be off)
-\setcounter{secnumdepth}{0}
-% Pandoc header
-\usepackage{pdflscape} \usepackage{threeparttable}
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
 
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%% \documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
 
-\usepackage[nomarkers]{endfloat}
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+\usepackage{amsmath}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+\journal{Nuclear Physics B}
 
 \begin{document}
+
 \begin{frontmatter}
 
   \title{What Nearby and Deferred Quotes Tell Us about Linkages and Adjustments
@@ -553,10 +530,7 @@ isolating what we are referring to as information-based activity to case
 (1) above.
 
 \begin{equation} \label{corBB} 
-\begin{split}
-& corr^{Bid}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(bid_{ti}^N - \overline{bid_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(bid_{ti}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \\ 
-& \textrm{such that} \: bid_{ti}^N \: \textrm{and} \: bid_{ti}^D \neq 0
-\end{split}
+corr^{Bid}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(bid_{ti}^N - \overline{bid_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(bid_{ti}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \: \textrm{such that} \: bid_{ti}^N \: \textrm{and} \: bid_{ti}^D \neq 0
 \end{equation}
 
 Equation \ref{corBB} indicates that we calculate the correlation between
@@ -603,10 +577,7 @@ is the length of time it takes for information to be transmitted between
 the two markets.
 
 \begin{equation} \label{corLBB}
-\begin{split}
-& corr^{LagBid}_{tI} = \frac{\sum\limits_{i=2}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=2}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=2}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \\
-& \textrm{such that} \: {bid_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0 
-\end{split}
+corr^{LagBid}_{tI} = \frac{\sum\limits_{i=2}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=2}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=2}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \: \textrm{such that} \: {bid_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0
 \end{equation}
 
 Equation \ref{corLBB} calculates the correlation between the lagged log
@@ -647,10 +618,7 @@ correlations between lagged log changes in the nearby bid and log
 changes in the deferred offer.
 
 \begin{equation} \label{corrLBO}
-\begin{split}
-& corr^{LagBO}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right) \left(offer_{ti}^D - \overline{offer_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(offer_{ti}^D - \overline{offer_t^D}\right)^2}} \\
-& \textrm{such that} \: {bid_{t(i-1)}^N \: \textrm{and} \: offer_{ti}^D} \neq 0
-\end{split}
+corr^{LagBO}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right) \left(offer_{ti}^D - \overline{offer_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(bid_{t(i-1)}^N - \overline{bid_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(offer_{ti}^D - \overline{offer_t^D}\right)^2}} \: \textrm{such that} \: {bid_{t(i-1)}^N \: \textrm{and} \: offer_{ti}^D} \neq 0
 \end{equation}
 
 More specifically, equation 5 measures the correlation between the
@@ -663,10 +631,7 @@ both the lagged nearby offer and the deferred best offer are different
 from zero (\({bid_{t(i-1)}^N \: \textrm{and} \: offer_{ti}^D} \neq 0\)).
 
 \begin{equation} \label{corrLOB}
-\begin{split}
-& corr^{LagOB}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(offer_{t(i-1)}^N - \overline{offer_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(offer_{t(i-1)}^N - \overline{offer_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \\
-& \textrm{such that} \: {offer_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0
-\end{split}
+corr^{LagOB}_{tI} = \frac{\sum\limits_{i=1}^{n} \left(offer_{t(i-1)}^N - \overline{offer_t^N}\right) \left(bid_{ti}^D - \overline{bid_t^D}\right)}{\sqrt{\sum\limits_{i=1}^{n} \left(offer_{t(i-1)}^N - \overline{offer_t^N}\right)^2 \sum\limits_{i=1}^{n}\left(bid_{ti}^D - \overline{bid_t^D}\right)^2}} \: \textrm{such that} \: {offer_{t(i-1)}^N \: \textrm{and} \: bid_{ti}^D} \neq 0
 \end{equation}
 
 Similarly for equation \ref{corrLOB} we calculate the same correlations
@@ -1020,5 +985,3 @@ and Empirical Properties of the Probability of Informed Trading.''
 \emph{Journal of Banking \& Finance} 36 (2): 454--67.
 
 \end{document}
-
-
